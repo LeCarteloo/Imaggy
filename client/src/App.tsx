@@ -1,7 +1,13 @@
 import { Navbar } from './components';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {
+  ThemeProvider,
+  createTheme,
+  responsiveFontSizes,
+} from '@mui/material/styles';
+import { styled } from '@mui/system';
+import { Home } from './pages';
 
-const themeMUI = createTheme({
+let themeMUI = createTheme({
   palette: {
     primary: {
       main: '#991299',
@@ -9,11 +15,21 @@ const themeMUI = createTheme({
   },
 });
 
+themeMUI = responsiveFontSizes(themeMUI);
+
+const StyledMain = styled('main')({
+  width: '100%',
+  height: '100%',
+});
+
 function App() {
   return (
     <ThemeProvider theme={themeMUI}>
       <div className="app">
         <Navbar />
+        <StyledMain>
+          <Home />
+        </StyledMain>
       </div>
     </ThemeProvider>
   );
