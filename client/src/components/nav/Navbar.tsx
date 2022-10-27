@@ -1,4 +1,4 @@
-import { LogoDev, Menu as MenuIcon } from '@mui/icons-material';
+import { Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar,
   Toolbar,
@@ -12,6 +12,7 @@ import {
   Avatar,
 } from '@mui/material';
 import { useState } from 'react';
+import SideMenu from './SideMenu';
 
 const Navbar = () => {
   const pages = ['Explore', 'Advertise', 'Imaggy+'];
@@ -23,19 +24,20 @@ const Navbar = () => {
     'Account Settings',
     'Sign out',
   ];
-  const isLogged = true;
+  const isLogged = false;
   const userFullName = 'Filip Papiernik';
   const userAvatar = '/images/avatar.jpg';
-  const [menu, setMenu] = useState<null | HTMLElement>(null);
+  const [userMenu, setUserMenu] = useState<null | HTMLElement>(null);
+  const [sideMenu, setSideMenu] = useState(false);
 
-  const handleOpenMenu = (
+  const handleOpenUserMenu = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    setMenu(e.currentTarget);
+    setUserMenu(e.currentTarget);
   };
 
-  const handleCloseMenu = () => {
-    setMenu(null);
+  const handleCloseUserMenu = () => {
+    setUserMenu(null);
   };
 
   return (
@@ -46,6 +48,7 @@ const Navbar = () => {
           size="large"
           color="primary"
           aria-label="open menu"
+          onClick={() => setSideMenu(!sideMenu)}
         >
           <MenuIcon />
         </IconButton>
@@ -70,7 +73,7 @@ const Navbar = () => {
               <Tooltip title="Open user settings">
                 <IconButton
                   aria-label="open user settings"
-                  onClick={handleOpenMenu}
+                  onClick={handleOpenUserMenu}
                 >
                   <Avatar alt={userFullName} src={userAvatar}>
                     {userFullName[0]}
@@ -78,13 +81,13 @@ const Navbar = () => {
                 </IconButton>
               </Tooltip>
               <Menu
-                anchorEl={menu}
+                anchorEl={userMenu}
                 keepMounted
-                open={Boolean(menu)}
-                onClose={handleCloseMenu}
+                open={Boolean(userMenu)}
+                onClose={handleCloseUserMenu}
               >
                 {menuItems.map((menuItem) => (
-                  <MenuItem key={menuItem} onClick={handleCloseMenu}>
+                  <MenuItem key={menuItem} onClick={handleCloseUserMenu}>
                     {menuItem}
                   </MenuItem>
                 ))}
@@ -98,6 +101,7 @@ const Navbar = () => {
           )}
         </Box>
       </Toolbar>
+      <SideMenu open={sideMenu} handleOpen={() => setSideMenu(!sideMenu)} />
     </AppBar>
   );
 };
