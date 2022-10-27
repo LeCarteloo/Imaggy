@@ -24,7 +24,7 @@ const Navbar = () => {
     'Account Settings',
     'Sign out',
   ];
-  const isLogged = false;
+  const isLogged = true;
   const userFullName = 'Filip Papiernik';
   const userAvatar = '/images/avatar.jpg';
   const [userMenu, setUserMenu] = useState<null | HTMLElement>(null);

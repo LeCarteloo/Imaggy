@@ -1,4 +1,4 @@
-import { Navbar } from './components';
+import { ImageSection, Navbar } from './components';
 import {
   ThemeProvider,
   createTheme,
@@ -29,6 +29,7 @@ function App() {
         <Navbar />
         <StyledMain>
           <Home />
+          <ImageSection />
         </StyledMain>
       </div>
     </ThemeProvider>
