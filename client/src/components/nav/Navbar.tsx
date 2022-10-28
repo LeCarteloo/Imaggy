@@ -13,10 +13,11 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useUserContext } from '../../context/userContext';
+import GoProText from '../buttons/GoProText';
 import SideMenu from './SideMenu';
 
 const Navbar = () => {
-  const pages = ['Explore', 'Advertise', 'Imaggy+'];
+  const pages = ['Explore', 'Advertise'];
   const menuItems = [
     'Profile',
     'My posts',
@@ -61,6 +62,9 @@ const Navbar = () => {
               <Typography variant="h6">{page}</Typography>
             </MenuItem>
           ))}
+          <MenuItem>
+            <GoProText />
+          </MenuItem>
         </Box>
         <Box
           sx={{
