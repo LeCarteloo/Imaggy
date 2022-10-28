@@ -28,7 +28,7 @@ function App() {
   const user = {
     _id: 1,
     email: 'placeholder@email.com',
-    avatar: 'https://place-hold.it/400x500',
+    avatar: 'https://place-hold.it/100x100',
     name: 'Place',
     surname: 'Holder',
     bio: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod nihil 
@@ -44,6 +44,22 @@ function App() {
     location: 'New York',
     followers: [],
     following: [],
+    likedPosts: [
+      {
+        _id: 1,
+        title: 'First post',
+        image: 'https://place-hold.it/100x200',
+        location: 'Warsaw',
+        tags: ['Placeholder', 'Placeholder1'],
+        description: 'Short description',
+        views: 5,
+        downloads: 1,
+        device: '',
+        users: [],
+        likes: [],
+        comments: [],
+      },
+    ],
   };
 
   return (

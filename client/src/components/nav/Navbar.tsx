@@ -12,6 +12,7 @@ import {
   Avatar,
 } from '@mui/material';
 import { useState } from 'react';
+import { useUserContext } from '../../context/userContext';
 import SideMenu from './SideMenu';
 
 const Navbar = () => {
@@ -24,9 +25,8 @@ const Navbar = () => {
     'Account Settings',
     'Sign out',
   ];
-  const isLogged = true;
-  const userFullName = 'Filip Papiernik';
-  const userAvatar = '/images/avatar.jpg';
+
+  const { name, surname, avatar } = useUserContext();
   const [userMenu, setUserMenu] = useState<null | HTMLElement>(null);
   const [sideMenu, setSideMenu] = useState(false);
 
@@ -52,7 +52,9 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6">Imaggy</Typography>
+        <Typography variant="h6" sx={{ mr: 2 }}>
+          Imaggy
+        </Typography>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {pages.map((page) => (
             <MenuItem key={page}>
@@ -68,15 +70,15 @@ const Navbar = () => {
             justifyContent: 'flex-end',
           }}
         >
-          {isLogged ? (
+          {name ? (
             <>
               <Tooltip title="Open user settings">
                 <IconButton
                   aria-label="open user settings"
                   onClick={handleOpenUserMenu}
                 >
-                  <Avatar alt={userFullName} src={userAvatar}>
-                    {userFullName[0]}
+                  <Avatar alt={`${name} ${surname}`} src={avatar}>
+                    {`${name[0]}${surname[0]}`}
                   </Avatar>
                 </IconButton>
               </Tooltip>
