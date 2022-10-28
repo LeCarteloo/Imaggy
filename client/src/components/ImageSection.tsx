@@ -3,7 +3,7 @@ import { styled } from '@mui/system';
 import PostCard from './posts/PostCard';
 
 const StyledSection = styled('section')(({ theme }) => ({
-  padding: '0 1em',
+  padding: '0 1em 1.5em 1em',
   '& .MuiImageList-root': {
     columnCount: '3 !important',
     [theme.breakpoints.down('lg')]: {
@@ -20,7 +20,7 @@ const ImageSection = () => {
     {
       _id: 1,
       title: 'First post',
-      image: 'https://place-hold.it/400x500',
+      image: '/images/photo.avif',
       location: 'Warsaw',
       tags: ['Placeholder', 'Placeholder1'],
       description: 'Short description',

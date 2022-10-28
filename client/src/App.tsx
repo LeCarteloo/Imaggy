@@ -1,4 +1,4 @@
-import { ImageSection, Navbar } from './components';
+import { ImageSection, Navbar, UserPreview } from './components';
 import {
   ThemeProvider,
   createTheme,
