@@ -4,3 +4,4 @@ export { default as LikeButton } from './buttons/LikeButton';
 export { default as DownloadButton } from './buttons/DownloadButton';
 export { default as GoProText } from './buttons/GoProText';
 export { default as PostCard } from './posts/PostCard';
+export { default as UserPreview } from './posts/UserPreview';

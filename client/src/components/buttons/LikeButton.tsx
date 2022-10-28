@@ -1,13 +1,26 @@
-import { Favorite, FavoriteBorderSharp } from '@mui/icons-material';
+import {
+  Favorite,
+  FavoriteBorderSharp,
+  PersonAddAlt,
+  PersonAddAltSharp,
+} from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
+
+type LikeType = 'user' | 'post';
 
 type LikeButtonProps = {
   isLiked: boolean;
   ariaLabel: string;
+  type?: LikeType;
   onLike: () => void;
 };
 
-const LikeButton = ({ isLiked, ariaLabel, onLike }: LikeButtonProps) => {
+const LikeButton = ({
+  isLiked,
+  ariaLabel,
+  type = 'post',
+  onLike,
+}: LikeButtonProps) => {
   return (
     <Tooltip title="Like the image">
       <IconButton
@@ -15,7 +28,17 @@ const LikeButton = ({ isLiked, ariaLabel, onLike }: LikeButtonProps) => {
         aria-label={ariaLabel}
         onClick={onLike}
       >
-        {isLiked ? <Favorite color="primary" /> : <FavoriteBorderSharp />}
+        {type === 'post' ? (
+          isLiked ? (
+            <Favorite color="primary" />
+          ) : (
+            <FavoriteBorderSharp />
+          )
+        ) : isLiked ? (
+          <PersonAddAltSharp color="primary" />
+        ) : (
+          <PersonAddAlt />
+        )}
       </IconButton>
     </Tooltip>
   );

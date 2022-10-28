@@ -12,21 +12,19 @@ import { PostInterface } from '../../types/types';
 import DownloadButton from '../buttons/DownloadButton';
 import LikeButton from '../buttons/LikeButton';
 
-const StyledImageListItem = styled(ImageListItem)({
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'transparent',
-    transition: '0.2s ease-in-out',
-  },
-  '&:hover': {
-    '&::before': {
-      backgroundColor: '#00000099',
+const StyledImageListItem = styled(ImageListItem)(({ theme }) => ({
+  [theme.breakpoints.up('md')]: {
+    '& .MuiImageListItemBar-root': {
+      opacity: 0,
+      transition: '0.12s ease-in-out',
+    },
+    '&:hover, &:focus-within': {
+      '& .MuiImageListItemBar-root': {
+        opacity: 1,
+      },
     },
   },
-});
+}));
 
 type PostCardProps = {
   post: PostInterface;
@@ -51,16 +49,21 @@ const PostCard = ({ post }: PostCardProps) => {
 
   const handleDownload = () => {};
 
+  const handleOpenImage = () => {};
+
   return (
-    <StyledImageListItem key={post._id}>
+    <StyledImageListItem key={post._id} onClick={handleOpenImage}>
       <img
         src={post.image}
-        alt="test alt"
+        alt={post.title}
         loading="lazy"
         style={{ maxHeight: '600px' }}
       />
       <ImageListItemBar
-        sx={{ background: 'none', padding: 1 }}
+        sx={{
+          background: 'linear-gradient(#000000b5, transparent)',
+          padding: 1,
+        }}
         position="top"
         actionIcon={
           <>
@@ -70,20 +73,23 @@ const PostCard = ({ post }: PostCardProps) => {
               onLike={handeLike}
             />
             {/* <Tooltip title="Add to collection">
-                <IconButton sx={{ color: 'white' }} aria-label={`star`}>
-                  {isAddedToCollection ? (
+                <IconButton sx={{ color: 'white' }} aria-label={`add X to collection`}>
+                {isAddedToCollection ? (
                     <AddToPhotos color="primary" />
-                  ) : (
+                ) : (
                     <AddToPhotosOutlined />
-                  )}
+                )}
                 </IconButton>
-              </Tooltip> */}
+             </Tooltip> */}
           </>
         }
         actionPosition="right"
       />
       <ImageListItemBar
-        sx={{ background: 'none', padding: 1 }}
+        sx={{
+          background: 'linear-gradient(transparent, #000000b5)',
+          padding: 1,
+        }}
         title={
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar

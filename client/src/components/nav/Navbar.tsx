@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useUserContext } from '../../context/userContext';
 import GoProText from '../buttons/GoProText';
 import SideMenu from './SideMenu';
+import Logo from '../../assets/logo.png';
 
 const Navbar = () => {
   const pages = ['Explore', 'Advertise'];
@@ -53,9 +54,7 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" sx={{ mr: 2 }}>
-          Imaggy
-        </Typography>
+        <img src={Logo} alt="Imaggy logo" width="50px" height="25px" />
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {pages.map((page) => (
             <MenuItem key={page}>
@@ -88,7 +87,6 @@ const Navbar = () => {
               </Tooltip>
               <Menu
                 anchorEl={userMenu}
-                keepMounted
                 open={Boolean(userMenu)}
                 onClose={handleCloseUserMenu}
               >
