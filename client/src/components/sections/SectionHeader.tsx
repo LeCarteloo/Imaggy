@@ -1,7 +1,8 @@
 import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { SearchOutlined } from '@mui/icons-material';
 import { styled } from '@mui/system';
-import HomeVideo from '../assets/home-bg.mp4';
+import HomeVideo from '../../assets/home-bg.mp4';
+import { red } from '@mui/material/colors';
 
 const StyledBox = styled(Box)({
   maxWidth: '100%',
@@ -10,7 +11,7 @@ const StyledBox = styled(Box)({
   position: 'relative',
 });
 
-const StyledHeaderBox = styled(Box)(({ theme }) => ({
+const StyledHeaderBox = styled(Box)({
   position: 'absolute',
   width: 'calc(100% - 2em)',
   height: '100%',
@@ -21,13 +22,12 @@ const StyledHeaderBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: '1em',
   padding: '0 1em',
-}));
+});
 
 const StyledVideo = styled('video')(({ theme }) => ({
   position: 'absolute',
   height: 'auto',
   width: '100vw',
-  opacity: 0.5,
   [theme.breakpoints.down('md')]: {
     height: '100vh',
     width: 'auto',
@@ -41,7 +41,7 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const Home = () => {
+const SectionHeader = () => {
   return (
     <StyledBox component="section">
       <StyledHeaderBox>
@@ -68,7 +68,6 @@ const Home = () => {
           <StyledTextField
             fullWidth
             variant="outlined"
-            //   label="Search"
             placeholder="Search..."
             InputProps={{
               startAdornment: (
@@ -91,4 +90,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SectionHeader;

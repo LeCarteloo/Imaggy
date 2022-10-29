@@ -1,22 +1,48 @@
-import { ImageSection, Navbar, UserPreview } from './components';
+import { Navbar } from './components';
 import {
   ThemeProvider,
   createTheme,
   responsiveFontSizes,
 } from '@mui/material/styles';
 import { styled } from '@mui/system';
-import { Home } from './pages';
 import { UserProvider } from './context/userContext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HomePage, UserPage } from './pages';
+import { CssBaseline } from '@mui/material';
+import { useState } from 'react';
 
-let themeMUI = createTheme({
+let darkTheme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
-      main: '#991299',
+      light: '#fa5bf7',
+      main: '#e91e63',
+      dark: '#8f0093',
+      contrastText: '#fff',
+    },
+    background: {
+      default: '#242424',
     },
   },
 });
 
-themeMUI = responsiveFontSizes(themeMUI);
+let lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      light: '#fa5bf7',
+      main: '#e91e63',
+      dark: '#8f0093',
+      contrastText: '#fff',
+    },
+    background: {
+      default: '#e5e2e2',
+    },
+  },
+});
+
+darkTheme = responsiveFontSizes(darkTheme);
+lightTheme = responsiveFontSizes(lightTheme);
 
 const StyledMain = styled('main')({
   width: '100%',
@@ -24,6 +50,8 @@ const StyledMain = styled('main')({
 });
 
 function App() {
+  const [theme, setTheme] = useState('dark');
+
   // Placeholder user data
   const user = {
     _id: 1,
@@ -63,14 +91,22 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={themeMUI}>
+    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <div className="app">
+        <CssBaseline />
         <UserProvider user={user}>
-          <Navbar />
-          <StyledMain>
-            <Home />
-            <ImageSection />
-          </StyledMain>
+          <Router>
+            <Navbar
+              theme={theme === 'dark'}
+              setTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            />
+            <StyledMain>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/user/:username" element={<UserPage />} />
+              </Routes>
+            </StyledMain>
+          </Router>
         </UserProvider>
       </div>
     </ThemeProvider>

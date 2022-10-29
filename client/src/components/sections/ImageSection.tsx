@@ -1,6 +1,6 @@
 import { ImageList } from '@mui/material';
 import { styled } from '@mui/system';
-import PostCard from './posts/PostCard';
+import PostCard from '../posts/PostCard';
 
 const StyledSection = styled('section')(({ theme }) => ({
   padding: '0 1em 1.5em 1em',
