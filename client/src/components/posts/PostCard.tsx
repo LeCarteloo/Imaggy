@@ -16,7 +16,7 @@ const StyledImageListItem = styled(ImageListItem)(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     '& .MuiImageListItemBar-root': {
       opacity: 0,
-      transition: '0.12s ease-in-out',
+      transition: '0.3s ease-in-out',
     },
     '&:hover, &:focus-within': {
       '& .MuiImageListItemBar-root': {

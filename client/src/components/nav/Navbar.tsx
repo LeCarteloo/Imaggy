@@ -10,6 +10,7 @@ import {
   Box,
   Tooltip,
   Avatar,
+  Switch,
 } from '@mui/material';
 import { useState } from 'react';
 import { useUserContext } from '../../context/userContext';
@@ -17,7 +18,12 @@ import GoProText from '../buttons/GoProText';
 import SideMenu from './SideMenu';
 import Logo from '../../assets/logo.png';
 
-const Navbar = () => {
+type NavbarProps = {
+  theme: boolean;
+  setTheme: () => void;
+};
+
+const Navbar = ({ theme, setTheme }: NavbarProps) => {
   const pages = ['Explore', 'Advertise'];
   const menuItems = [
     'Profile',
@@ -43,7 +49,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#24242424' }}>
+    <AppBar position="static">
       <Toolbar>
         <IconButton
           sx={{ display: { xs: 'flex', md: 'none' } }}
@@ -104,6 +110,7 @@ const Navbar = () => {
             </>
           )}
         </Box>
+        <Switch checked={theme} onChange={setTheme} />
       </Toolbar>
       <SideMenu open={sideMenu} handleOpen={() => setSideMenu(!sideMenu)} />
     </AppBar>
