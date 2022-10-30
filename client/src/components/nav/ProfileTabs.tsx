@@ -1,10 +1,17 @@
-import { Box, Tab, Tabs, tabsClasses } from '@mui/material';
+import { Box, SvgIconProps, Tab, Tabs, tabsClasses } from '@mui/material';
 import { Image, Collections, Favorite } from '@mui/icons-material';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 type ProfileTabsProps = {
   currentTab: number;
   onChange: (event: React.SyntheticEvent, newTab: number) => void;
+};
+
+type LinkTabProps = {
+  label: string;
+  to: string;
+  icon?: React.ReactElement<SvgIconProps>;
 };
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
@@ -21,7 +28,34 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
   },
 }));
 
+const LinkTab = (props: LinkTabProps) => (
+  <Tab component={Link} iconPosition="start" sx={{ minHeight: 0 }} {...props} />
+);
+
 const ProfileTabs = ({ currentTab, onChange }: ProfileTabsProps) => {
+  const tabs = [
+    {
+      label: 'Posts',
+      icon: <Image fontSize="small" />,
+      to: '',
+    },
+    {
+      label: 'Followers',
+      icon: <Favorite fontSize="small" />,
+      to: 'followers',
+    },
+    {
+      label: 'Following',
+      icon: <Favorite fontSize="small" />,
+      to: 'following',
+    },
+    {
+      label: 'Collection',
+      icon: <Collections fontSize="small" />,
+      to: 'collection',
+    },
+  ];
+
   return (
     <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 2 }}>
       <StyledTabs
@@ -31,30 +65,9 @@ const ProfileTabs = ({ currentTab, onChange }: ProfileTabsProps) => {
         scrollButtons
         allowScrollButtonsMobile
       >
-        <Tab
-          label="Photos"
-          icon={<Image fontSize="small" />}
-          iconPosition="start"
-          sx={{ minHeight: 0 }}
-        />
-        <Tab
-          label="Followers"
-          icon={<Favorite fontSize="small" />}
-          iconPosition="start"
-          sx={{ minHeight: 0 }}
-        />
-        <Tab
-          label="Following"
-          icon={<Favorite fontSize="small" />}
-          iconPosition="start"
-          sx={{ minHeight: 0 }}
-        />
-        <Tab
-          label="Collection"
-          icon={<Collections fontSize="small" />}
-          iconPosition="start"
-          sx={{ minHeight: 0 }}
-        />
+        {tabs.map((tab) => (
+          <LinkTab key={tab.label} {...tab}></LinkTab>
+        ))}
       </StyledTabs>
     </Box>
   );

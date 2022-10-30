@@ -103,7 +103,7 @@ function App() {
             <StyledMain>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/user/:username" element={<UserPage />} />
+                <Route path="/user/:username/*" element={<UserPage />} />
               </Routes>
             </StyledMain>
           </Router>
