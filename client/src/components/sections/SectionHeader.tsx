@@ -2,7 +2,6 @@ import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { SearchOutlined } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import HomeVideo from '../../assets/home-bg.mp4';
-import { red } from '@mui/material/colors';
 
 const StyledBox = styled(Box)({
   maxWidth: '100%',

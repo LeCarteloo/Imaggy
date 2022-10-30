@@ -3,9 +3,16 @@ import { Container } from '@mui/system';
 import { useParams } from 'react-router-dom';
 import { useUserContext } from '../context/userContext';
 import { PlaceSharp, LanguageSharp } from '@mui/icons-material';
+import { useState } from 'react';
+import { ProfileTabs } from '../components';
 
 const UserPage = () => {
+  const [currentTab, setCurrentTab] = useState(0);
   const { username } = useParams();
+
+  const handleChange = (event: React.SyntheticEvent, newTab: number) => {
+    setCurrentTab(newTab);
+  };
 
   // TODO: Only for test, later use API with username param
   const user = useUserContext();
@@ -67,12 +74,13 @@ const UserPage = () => {
         <Typography variant="body1" component="h2" sx={{ mt: 2 }}>
           Interests
         </Typography>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
           {user.interest.map((elem) => (
-            <Chip label={elem} />
+            <Chip label={elem} key={elem} />
           ))}
         </Stack>
       </Box>
+      <ProfileTabs currentTab={currentTab} onChange={handleChange} />
     </Container>
   );
 };
