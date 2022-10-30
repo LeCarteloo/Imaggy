@@ -1,10 +1,13 @@
+import { Container } from '@mui/system';
 import { ImageSection, SectionHeader } from '../components';
 
 const HomePage = () => {
   return (
     <>
       <SectionHeader />
-      <ImageSection />
+      <Container>
+        <ImageSection />
+      </Container>
     </>
   );
 };

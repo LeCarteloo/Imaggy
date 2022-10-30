@@ -1,15 +1,21 @@
 import { Avatar, Box, Chip, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { useUserContext } from '../context/userContext';
 import { PlaceSharp, LanguageSharp } from '@mui/icons-material';
 import { useState } from 'react';
-import { ImageSection, ProfileTabs } from '../components';
+import {
+  CollectionSection,
+  ImageSection,
+  ProfileTabs,
+  UserSection,
+} from '../components';
+import { AnimatePresence } from 'framer-motion';
 
 const UserPage = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const { username } = useParams();
-
+  const location = useLocation();
   const handleChange = (event: React.SyntheticEvent, newTab: number) => {
     setCurrentTab(newTab);
   };
@@ -83,13 +89,15 @@ const UserPage = () => {
         </Box>
       </Container>
       <ProfileTabs currentTab={currentTab} onChange={handleChange} />
-      <Container>
-        <Routes>
-          <Route path="/" element={<ImageSection />} />
-          <Route path="/followers" element={<div>followers</div>} />
-          <Route path="/following" element={<div>following</div>} />
-          <Route path="/collection" element={<div>collection</div>} />
-        </Routes>
+      <Container sx={{ position: 'relative' }}>
+        <AnimatePresence initial={false}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<ImageSection animated />} />
+            <Route path="/followers" element={<UserSection />} />
+            <Route path="/following" element={<UserSection />} />
+            <Route path="/collection" element={<CollectionSection />} />
+          </Routes>
+        </AnimatePresence>
       </Container>
     </Box>
   );

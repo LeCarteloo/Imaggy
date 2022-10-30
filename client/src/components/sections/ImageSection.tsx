@@ -1,21 +1,23 @@
 import { ImageList } from '@mui/material';
 import { styled } from '@mui/system';
 import PostCard from '../posts/PostCard';
+import { motion } from 'framer-motion';
 
-const StyledSection = styled('section')(({ theme }) => ({
-  padding: '0 1em 1.5em 1em',
-  '& .MuiImageList-root': {
-    columnCount: '3 !important',
-    [theme.breakpoints.down('lg')]: {
-      columnCount: '2 !important',
-    },
-    [theme.breakpoints.down('sm')]: {
-      columnCount: '1 !important',
-    },
+type ImageSectionProps = {
+  animated?: boolean;
+};
+
+const StyledImageList = styled(ImageList)(({ theme }) => ({
+  columnCount: '3 !important',
+  [theme.breakpoints.down('lg')]: {
+    columnCount: '2 !important',
+  },
+  [theme.breakpoints.down('sm')]: {
+    columnCount: '1 !important',
   },
 }));
 
-const ImageSection = () => {
+const ImageSection = ({ animated = false }: ImageSectionProps) => {
   const postList = [
     {
       _id: 1,
@@ -54,13 +56,34 @@ const ImageSection = () => {
   ];
 
   return (
-    <StyledSection>
-      <ImageList variant="masonry" gap={8}>
-        {postList.map((postItem) => (
-          <PostCard post={postItem} key={postItem._id} />
-        ))}
-      </ImageList>
-    </StyledSection>
+    <>
+      {animated ? (
+        <motion.section
+          animate={{ x: '0%' }}
+          exit={{ x: '-100%' }}
+          initial={{ x: '100%' }}
+          transition={{
+            duration: 0.75,
+            ease: 'easeInOut',
+          }}
+          style={{ position: 'absolute', width: '100%' }}
+        >
+          <StyledImageList variant="masonry" gap={8}>
+            {postList.map((postItem) => (
+              <PostCard post={postItem} key={postItem._id} />
+            ))}
+          </StyledImageList>
+        </motion.section>
+      ) : (
+        <section>
+          <StyledImageList variant="masonry" gap={8}>
+            {postList.map((postItem) => (
+              <PostCard post={postItem} key={postItem._id} />
+            ))}
+          </StyledImageList>
+        </section>
+      )}
+    </>
   );
 };
 
