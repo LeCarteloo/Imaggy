@@ -57,13 +57,14 @@ const ProfileTabs = ({ currentTab, onChange }: ProfileTabsProps) => {
   ];
 
   return (
-    <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 2 }}>
+    <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 4 }}>
       <StyledTabs
         value={currentTab}
         onChange={onChange}
         variant={'scrollable'}
         scrollButtons
         allowScrollButtonsMobile
+        sx={{ pl: { sm: 3 } }}
       >
         {tabs.map((tab) => (
           <LinkTab key={tab.label} {...tab}></LinkTab>

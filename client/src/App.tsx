@@ -6,7 +6,7 @@ import {
 } from '@mui/material/styles';
 import { styled } from '@mui/system';
 import { UserProvider } from './context/userContext';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HomePage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
@@ -95,18 +95,16 @@ function App() {
       <div className="app">
         <CssBaseline />
         <UserProvider user={user}>
-          <Router>
-            <Navbar
-              theme={theme === 'dark'}
-              setTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            />
-            <StyledMain>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/user/:username/*" element={<UserPage />} />
-              </Routes>
-            </StyledMain>
-          </Router>
+          <Navbar
+            theme={theme === 'dark'}
+            setTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          />
+          <StyledMain>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/user/:username/*" element={<UserPage />} />
+            </Routes>
+          </StyledMain>
         </UserProvider>
       </div>
     </ThemeProvider>

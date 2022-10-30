@@ -17,6 +17,7 @@ import { useUserContext } from '../../context/userContext';
 import GoProText from '../buttons/GoProText';
 import SideMenu from './SideMenu';
 import Logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 type NavbarProps = {
   theme: boolean;
@@ -24,17 +25,7 @@ type NavbarProps = {
 };
 
 const Navbar = ({ theme, setTheme }: NavbarProps) => {
-  const pages = ['Explore', 'Advertise'];
-  const menuItems = [
-    'Profile',
-    'My posts',
-    'My likes',
-    'Go Imaggy+',
-    'Account Settings',
-    'Sign out',
-  ];
-
-  const { name, surname, avatar } = useUserContext();
+  const { _id, name, surname, avatar } = useUserContext();
   const [userMenu, setUserMenu] = useState<null | HTMLElement>(null);
   const [sideMenu, setSideMenu] = useState(false);
 
@@ -48,6 +39,26 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
     setUserMenu(null);
   };
 
+  const pages = ['Explore', 'Advertise'];
+  const menuItems = [
+    {
+      name: 'Profile',
+      to: `/user/${_id}`,
+    },
+    {
+      name: 'Go Imaggy+',
+      to: `#!`,
+    },
+    {
+      name: 'Account Settings',
+      to: `#!`,
+    },
+    {
+      name: 'Sign out',
+      to: `#!`,
+    },
+  ];
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -60,7 +71,9 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
         >
           <MenuIcon />
         </IconButton>
-        <img src={Logo} alt="Imaggy logo" width="50px" height="25px" />
+        <Link to="/">
+          <img src={Logo} alt="Imaggy logo" width="50px" height="25px" />
+        </Link>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {pages.map((page) => (
             <MenuItem key={page}>
@@ -97,8 +110,13 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
                 onClose={handleCloseUserMenu}
               >
                 {menuItems.map((menuItem) => (
-                  <MenuItem key={menuItem} onClick={handleCloseUserMenu}>
-                    {menuItem}
+                  <MenuItem
+                    key={menuItem.name}
+                    onClick={handleCloseUserMenu}
+                    component={Link}
+                    to={menuItem.to}
+                  >
+                    {menuItem.name}
                   </MenuItem>
                 ))}
               </Menu>
