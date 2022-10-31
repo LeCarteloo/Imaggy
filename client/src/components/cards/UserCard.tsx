@@ -45,8 +45,9 @@ const UserCard = ({ imgs }: UserCardProps) => {
               gridTemplateColumns: 'repeat(3, 1fr)',
             }}
           >
-            {imgs.map((img) => (
+            {imgs.map((img, i) => (
               <div
+                key={`img-${i}`}
                 style={{
                   backgroundImage: `url(${img})`,
                   backgroundRepeat: 'no-repeat',

@@ -35,9 +35,6 @@ let lightTheme = createTheme({
       dark: '#8f0093',
       contrastText: '#fff',
     },
-    background: {
-      default: '#e5e2e2',
-    },
   },
 });
 

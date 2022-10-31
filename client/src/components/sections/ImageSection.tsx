@@ -1,6 +1,6 @@
 import { ImageList } from '@mui/material';
 import { styled } from '@mui/system';
-import PostCard from '../posts/PostCard';
+import PostCard from '../cards/PostCard';
 import { motion } from 'framer-motion';
 
 type ImageSectionProps = {

@@ -1,24 +1,66 @@
 import { Avatar, Box, Chip, Stack, Typography } from '@mui/material';
 import { Container } from '@mui/system';
-import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+  matchPath,
+} from 'react-router-dom';
 import { useUserContext } from '../context/userContext';
 import { PlaceSharp, LanguageSharp } from '@mui/icons-material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CollectionSection,
   ImageSection,
   ProfileTabs,
   UserSection,
 } from '../components';
+import { Image, Collections, Favorite } from '@mui/icons-material';
 import { AnimatePresence } from 'framer-motion';
 
 const UserPage = () => {
-  const [currentTab, setCurrentTab] = useState(0);
-  const { username } = useParams();
+  const getCurrentTab = () => {
+    if (matchPath('/user/:username/followers', location.pathname)) {
+      return 1;
+    } else if (matchPath('/user/:username/following', location.pathname)) {
+      return 2;
+    } else if (matchPath('/user/:username/collection', location.pathname)) {
+      return 3;
+    }
+
+    return 0;
+  };
+
   const location = useLocation();
+  const [currentTab, setCurrentTab] = useState(getCurrentTab());
+  const { username } = useParams();
   const handleChange = (event: React.SyntheticEvent, newTab: number) => {
     setCurrentTab(newTab);
   };
+
+  const tabs = [
+    {
+      label: 'Posts',
+      icon: <Image fontSize="small" />,
+      to: '',
+    },
+    {
+      label: 'Followers',
+      icon: <Favorite fontSize="small" />,
+      to: 'followers',
+    },
+    {
+      label: 'Following',
+      icon: <Favorite fontSize="small" />,
+      to: 'following',
+    },
+    {
+      label: 'Collection',
+      icon: <Collections fontSize="small" />,
+      to: 'collection',
+    },
+  ];
 
   // TODO: Only for test, later use API with username param
   const user = useUserContext();
@@ -88,7 +130,11 @@ const UserPage = () => {
           </Stack>
         </Box>
       </Container>
-      <ProfileTabs currentTab={currentTab} onChange={handleChange} />
+      <ProfileTabs
+        currentTab={currentTab}
+        tabs={tabs}
+        onChange={handleChange}
+      />
       <Container sx={{ position: 'relative' }}>
         <AnimatePresence initial={false}>
           <Routes location={location} key={location.pathname}>

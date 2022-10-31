@@ -1,12 +1,19 @@
 import { Box, SvgIconProps, Tab, Tabs, tabsClasses } from '@mui/material';
-import { Image, Collections, Favorite } from '@mui/icons-material';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-type ProfileTabsProps = {
-  currentTab: number;
-  onChange: (event: React.SyntheticEvent, newTab: number) => void;
+type TabsProps = {
+  label: string;
+  icon: React.ReactElement<SvgIconProps>;
+  value: number;
+  to: string;
 };
+
+interface ProfileTabsProps {
+  currentTab: number;
+  tabs: TabsProps[];
+  onChange: (event: React.SyntheticEvent, newTab: number) => void;
+}
 
 type LinkTabProps = {
   label: string;
@@ -32,30 +39,7 @@ const LinkTab = (props: LinkTabProps) => (
   <Tab component={Link} iconPosition="start" sx={{ minHeight: 0 }} {...props} />
 );
 
-const ProfileTabs = ({ currentTab, onChange }: ProfileTabsProps) => {
-  const tabs = [
-    {
-      label: 'Posts',
-      icon: <Image fontSize="small" />,
-      to: '',
-    },
-    {
-      label: 'Followers',
-      icon: <Favorite fontSize="small" />,
-      to: 'followers',
-    },
-    {
-      label: 'Following',
-      icon: <Favorite fontSize="small" />,
-      to: 'following',
-    },
-    {
-      label: 'Collection',
-      icon: <Collections fontSize="small" />,
-      to: 'collection',
-    },
-  ];
-
+const ProfileTabs = ({ currentTab, tabs, onChange }: ProfileTabsProps) => {
   return (
     <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 4 }}>
       <StyledTabs
