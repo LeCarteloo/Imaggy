@@ -7,5 +7,6 @@ export { default as SectionHeader } from './sections/SectionHeader';
 export { default as LikeButton } from './buttons/LikeButton';
 export { default as DownloadButton } from './buttons/DownloadButton';
 export { default as GoProText } from './buttons/GoProText';
-export { default as PostCard } from './posts/PostCard';
-export { default as UserPreview } from './posts/UserPreview';
+export { default as PostCard } from './cards/PostCard';
+export { default as UserCard } from './cards/UserCard';
+export { default as UserPreview } from './nav/UserPreview';
