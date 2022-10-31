@@ -1,6 +1,7 @@
-import { Avatar, Card, CardContent, CardHeader, styled } from '@mui/material';
+import { Card, CardContent, CardHeader, styled } from '@mui/material';
 import { Box } from '@mui/system';
 import LikeButton from '../buttons/LikeButton';
+import Avatar from '../nav/Avatar';
 
 type UserCardProps = {
   imgs: string[];
@@ -17,13 +18,19 @@ const StyledNoPostsBox = styled(Box)(({ theme }) => ({
 }));
 
 const UserCard = ({ imgs }: UserCardProps) => {
+  // TODO: Update component with dynamic data
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ width: 50, height: 50 }} aria-label="X user">
-            R
-          </Avatar>
+          <Avatar
+            width={50}
+            height={50}
+            name={'P'}
+            surname={'P'}
+            isPro={true}
+            fontSize="sm"
+          />
         }
         action={
           <LikeButton

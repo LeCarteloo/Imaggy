@@ -60,7 +60,7 @@ const ImageSection = ({ animated = false }: ImageSectionProps) => {
       {animated ? (
         <motion.section
           animate={{ x: '0%' }}
-          exit={{ x: '-100%' }}
+          exit={{ x: '-150%' }}
           initial={{ x: '100%' }}
           transition={{
             duration: 0.75,

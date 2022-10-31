@@ -6,7 +6,7 @@ import UserCard from '../cards/UserCard';
 const UserSection = () => {
   return (
     <motion.section
-      animate={{ x: '00%' }}
+      animate={{ x: '0%' }}
       exit={{ x: '-150%' }}
       initial={{ x: '100%' }}
       transition={{

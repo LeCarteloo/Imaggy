@@ -9,7 +9,6 @@ import {
   Menu,
   Box,
   Tooltip,
-  Avatar,
   Switch,
 } from '@mui/material';
 import { useState } from 'react';
@@ -18,6 +17,7 @@ import GoProText from '../buttons/GoProText';
 import SideMenu from './SideMenu';
 import Logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
+import Avatar from './Avatar';
 
 type NavbarProps = {
   theme: boolean;
@@ -60,7 +60,14 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
   ];
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{
+        backgroundColor: '#201d1d3b',
+        backgroundImage: 'none',
+        backdropFilter: 'blur(5px)',
+      }}
+    >
       <Toolbar>
         <IconButton
           sx={{ display: { xs: 'flex', md: 'none' } }}
@@ -99,9 +106,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
                   aria-label="open user settings"
                   onClick={handleOpenUserMenu}
                 >
-                  <Avatar alt={`${name} ${surname}`} src={avatar}>
-                    {`${name[0]}${surname[0]}`}
-                  </Avatar>
+                  <Avatar name={name} surname={surname} img={avatar} />
                 </IconButton>
               </Tooltip>
               <Menu

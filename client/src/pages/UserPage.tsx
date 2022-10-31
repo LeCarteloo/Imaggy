@@ -1,4 +1,4 @@
-import { Avatar, Box, Chip, Stack, Typography } from '@mui/material';
+import { Box, Chip, Stack, styled, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import {
   Route,
@@ -9,8 +9,9 @@ import {
 } from 'react-router-dom';
 import { useUserContext } from '../context/userContext';
 import { PlaceSharp, LanguageSharp } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
+  Avatar,
   CollectionSection,
   ImageSection,
   ProfileTabs,
@@ -18,6 +19,20 @@ import {
 } from '../components';
 import { Image, Collections, Favorite } from '@mui/icons-material';
 import { AnimatePresence } from 'framer-motion';
+
+const StyledBanner = styled(Box)({
+  position: 'absolute',
+  width: '100%',
+  zIndex: -1,
+  top: 0,
+  height: '250px',
+  // borderBottom: '1px solid #fff',
+  img: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
+});
 
 const UserPage = () => {
   const getCurrentTab = () => {
@@ -66,13 +81,32 @@ const UserPage = () => {
   const user = useUserContext();
 
   return (
-    <Box>
+    <Box sx={{ pt: 5, mt: 11.5 }}>
+      {/* //TODO: Change banner img to variable later */}
+      <StyledBanner>
+        <img src={'/images/banner.jpg'} />
+      </StyledBanner>
       <Container>
-        <Avatar sx={{ width: 100, height: 100 }}>PH</Avatar>
-        <Typography variant="h3" component="h1">
-          {user.name} {user.surname}
-        </Typography>
-        <Typography variant="body1" component="p" sx={{ mb: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <Avatar
+            name={'Place'}
+            surname={'Holder'}
+            width={100}
+            height={100}
+            isPro={true}
+          />
+          <Typography variant="h3" component="h1" sx={{ mt: 3 }}>
+            {user.name} {user.surname}
+          </Typography>
+        </Box>
+        <Typography variant="body1" component="p" sx={{ mb: 2, mt: 2 }}>
           {user.bio}
         </Typography>
         <Box>
