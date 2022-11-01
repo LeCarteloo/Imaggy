@@ -11,6 +11,7 @@ type LikeType = 'user' | 'post';
 type LikeButtonProps = {
   isLiked: boolean;
   ariaLabel: string;
+  size?: 'small' | 'medium' | 'large';
   type?: LikeType;
   onLike: () => void;
 };
@@ -19,6 +20,7 @@ const LikeButton = ({
   isLiked,
   ariaLabel,
   type = 'post',
+  size = 'medium',
   onLike,
 }: LikeButtonProps) => {
   return (
@@ -30,14 +32,14 @@ const LikeButton = ({
       >
         {type === 'post' ? (
           isLiked ? (
-            <Favorite color="primary" />
+            <Favorite fontSize={size} color="primary" />
           ) : (
-            <FavoriteBorderSharp />
+            <FavoriteBorderSharp fontSize={size} />
           )
         ) : isLiked ? (
-          <PersonAddAltSharp color="primary" />
+          <PersonAddAltSharp fontSize={size} color="primary" />
         ) : (
-          <PersonAddAlt />
+          <PersonAddAlt fontSize={size} />
         )}
       </IconButton>
     </Tooltip>

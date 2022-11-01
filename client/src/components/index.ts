@@ -8,6 +8,8 @@ export { default as CollectionSection } from './sections/CollectionSection';
 export { default as SectionHeader } from './sections/SectionHeader';
 export { default as LikeButton } from './buttons/LikeButton';
 export { default as DownloadButton } from './buttons/DownloadButton';
+export { default as ShareButton } from './buttons/ShareButton';
+export { default as CommentButton } from './buttons/CommentButton';
 export { default as GoProText } from './buttons/GoProText';
 export { default as PostCard } from './cards/PostCard';
 export { default as UserCard } from './cards/UserCard';

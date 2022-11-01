@@ -3,10 +3,15 @@ import { Tooltip, IconButton } from '@mui/material';
 
 type DownloadButtonProps = {
   fileTitle: string;
+  size?: 'small' | 'medium' | 'large';
   onDownload: () => void;
 };
 
-const DownloadButton = ({ fileTitle, onDownload }: DownloadButtonProps) => {
+const DownloadButton = ({
+  fileTitle,
+  size = 'medium',
+  onDownload,
+}: DownloadButtonProps) => {
   return (
     <Tooltip title="Download">
       <IconButton
@@ -14,7 +19,7 @@ const DownloadButton = ({ fileTitle, onDownload }: DownloadButtonProps) => {
         aria-label={`download ${fileTitle}`}
         onClick={onDownload}
       >
-        <Download />
+        <Download fontSize={size} />
       </IconButton>
     </Tooltip>
   );
