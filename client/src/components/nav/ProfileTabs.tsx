@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 type TabsProps = {
   label: string;
   icon: React.ReactElement<SvgIconProps>;
-  value: number;
   to: string;
 };
 

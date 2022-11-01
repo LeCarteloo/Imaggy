@@ -7,7 +7,7 @@ import {
 import { styled } from '@mui/system';
 import { UserProvider } from './context/userContext';
 import { Routes, Route } from 'react-router-dom';
-import { HomePage, UserPage } from './pages';
+import { HomePage, PostPage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
 
@@ -42,7 +42,7 @@ darkTheme = responsiveFontSizes(darkTheme);
 lightTheme = responsiveFontSizes(lightTheme);
 
 const StyledMain = styled('main')({
-  width: '100%',
+  marginTop: 40,
   height: '100%',
 });
 
@@ -100,6 +100,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/user/:username/*" element={<UserPage />} />
+              <Route path="/post/:id" element={<PostPage />} />
             </Routes>
           </StyledMain>
         </UserProvider>
