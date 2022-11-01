@@ -35,6 +35,9 @@ let lightTheme = createTheme({
       dark: '#8f0093',
       contrastText: '#fff',
     },
+    background: {
+      paper: '#E7EBF0',
+    },
   },
 });
 
@@ -86,6 +89,8 @@ function App() {
       },
     ],
   };
+
+  console.log(lightTheme);
 
   return (
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
