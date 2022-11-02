@@ -1,38 +1,48 @@
 import {
-  Avatar,
   ImageListItemBar,
   Typography,
   Box,
   ImageListItem,
+  Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useUserContext } from '../../context/userContext';
 import { PostInterface } from '../../types/types';
 import DownloadButton from '../buttons/DownloadButton';
 import LikeButton from '../buttons/LikeButton';
-
-const StyledImageListItem = styled(ImageListItem)(({ theme }) => ({
-  [theme.breakpoints.up('md')]: {
-    '& .MuiImageListItemBar-root': {
-      opacity: 0,
-      transition: '0.3s ease-in-out',
-    },
-    '&:hover, &:focus-within': {
-      '& .MuiImageListItemBar-root': {
-        opacity: 1,
-      },
-    },
-  },
-}));
+import Avatar from '../nav/Avatar';
+import UserPreview from '../nav/UserPreview';
 
 type PostCardProps = {
   post: PostInterface;
 };
 
+type ImageItemProps = {
+  isPreviewOpen: boolean;
+};
+
+const StyledImageListItem = styled(ImageListItem)<ImageItemProps>(
+  ({ theme, isPreviewOpen }) => ({
+    [theme.breakpoints.up('md')]: {
+      '& .MuiImageListItemBar-root': {
+        opacity: isPreviewOpen ? 1 : 0,
+        transition: '0.3s ease-in-out',
+      },
+      '&:hover, &:focus-within': {
+        '& .MuiImageListItemBar-root': {
+          opacity: 1,
+        },
+      },
+    },
+  })
+);
+
 const PostCard = ({ post }: PostCardProps) => {
   const user = useUserContext();
   const [isLiked, setIsLiked] = useState(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const mainAuthor = post.users[0];
 
   useEffect(() => {
@@ -52,7 +62,10 @@ const PostCard = ({ post }: PostCardProps) => {
   const handleOpenImage = () => {};
 
   return (
-    <StyledImageListItem key={post._id} onClick={handleOpenImage}>
+    <StyledImageListItem
+      isPreviewOpen={isPreviewOpen}
+      onClick={handleOpenImage}
+    >
       <img
         src={post.image}
         alt={post.title}
@@ -92,12 +105,21 @@ const PostCard = ({ post }: PostCardProps) => {
         }}
         title={
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar
-              alt={`${mainAuthor.name} ${mainAuthor.surname}`}
-              src={mainAuthor.avatar}
+            <UserPreview
+              user={mainAuthor}
+              open={isPreviewOpen}
+              onOpen={() => setIsPreviewOpen(true)}
+              onClose={() => setIsPreviewOpen(false)}
             >
-              {`${mainAuthor.name[0]}${mainAuthor.surname[0]}`}
-            </Avatar>
+              <Box component={Link} to="#">
+                <Avatar
+                  name={mainAuthor.name}
+                  surname={mainAuthor.surname}
+                  fontSize="sm"
+                  img={mainAuthor.avatar}
+                />
+              </Box>
+            </UserPreview>
             <Box
               sx={{
                 display: 'flex',
