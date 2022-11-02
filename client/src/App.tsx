@@ -46,6 +46,7 @@ lightTheme = responsiveFontSizes(lightTheme);
 
 const StyledMain = styled('main')({
   marginTop: 40,
+  paddingBottom: '32px',
   height: '100%',
 });
 
@@ -56,6 +57,7 @@ function App() {
   const user = {
     _id: 1,
     email: 'placeholder@email.com',
+    username: 'placeholder',
     avatar: 'https://place-hold.it/100x100',
     name: 'Place',
     surname: 'Holder',
@@ -89,8 +91,6 @@ function App() {
       },
     ],
   };
-
-  console.log(lightTheme);
 
   return (
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>

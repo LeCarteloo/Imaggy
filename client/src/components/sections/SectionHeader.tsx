@@ -3,17 +3,18 @@ import { SearchOutlined } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import HomeVideo from '../../assets/home-bg.mp4';
 
-const StyledBox = styled(Box)({
+const StyledSection = styled(Box)({
   maxWidth: '100%',
-  height: '650px',
+  height: '750px',
   overflow: 'hidden',
-  position: 'relative',
 });
 
 const StyledHeaderBox = styled(Box)({
   position: 'absolute',
-  width: 'calc(100% - 2em)',
-  height: '100%',
+  top: 0,
+
+  width: '100%',
+  height: 'inherit',
   zIndex: 1,
   display: 'flex',
   justifyContent: 'center',
@@ -21,28 +22,28 @@ const StyledHeaderBox = styled(Box)({
   flexDirection: 'column',
   gap: '1em',
   padding: '0 1em',
+  color: '#fff',
 });
 
 const StyledVideo = styled('video')(({ theme }) => ({
   position: 'absolute',
-  height: 'auto',
-  width: '100vw',
-  [theme.breakpoints.down('md')]: {
-    height: '100vh',
-    width: 'auto',
+  objectFit: 'cover',
+  zIndex: -1,
+  width: '100%',
+  height: '100%',
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '50vh',
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.primary,
   },
 }));
 
-const StyledTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    borderRadius: '50vh',
-    backgroundColor: '#242424',
-  },
-});
-
 const SectionHeader = () => {
   return (
-    <StyledBox component="section">
+    <StyledSection component="section">
       <StyledHeaderBox>
         <Typography
           variant="h4"
@@ -77,15 +78,15 @@ const SectionHeader = () => {
             }}
           />
         </Box>
+        <StyledVideo
+          src={HomeVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+        ></StyledVideo>
       </StyledHeaderBox>
-      <StyledVideo
-        src={HomeVideo}
-        autoPlay
-        muted
-        loop
-        playsInline
-      ></StyledVideo>
-    </StyledBox>
+    </StyledSection>
   );
 };
 

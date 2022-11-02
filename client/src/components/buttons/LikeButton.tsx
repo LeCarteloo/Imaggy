@@ -6,13 +6,11 @@ import {
 } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
 
-type LikeType = 'user' | 'post';
-
 type LikeButtonProps = {
   isLiked: boolean;
   ariaLabel: string;
   size?: 'small' | 'medium' | 'large';
-  type?: LikeType;
+  type?: 'user' | 'post';
   onLike: () => void;
 };
 
@@ -24,7 +22,7 @@ const LikeButton = ({
   onLike,
 }: LikeButtonProps) => {
   return (
-    <Tooltip title="Like the image">
+    <Tooltip title={type === 'post' ? 'Like the image' : 'Follow user'}>
       <IconButton
         sx={{ color: 'white' }}
         aria-label={ariaLabel}

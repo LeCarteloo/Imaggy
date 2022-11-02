@@ -52,6 +52,7 @@ const Avatar = ({
       <StyledAvatar
         sx={{ width: width, height: height }}
         isPro={isPro}
+        alt={`${name} ${surname}`}
         // TODO: Change img src to IMG prop
         src={
           'https://www.ethnicmusical.com/wp-content/uploads/2020/06/testimonial-avatar-female-1-ux-builder.jpg'
