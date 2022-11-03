@@ -1,0 +1,129 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "placeholder@email.com",
+      "username": "placeholder",
+      "avatar": "https://place-hold.it/100x100",
+      "name": "Place",
+      "surname": "Holder",
+      "bio": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod nihil sapiente cupiditate dolore dolorem. Minima ratione error perspiciatis laborum, molestias, explicabo nemo porro aliquam consectetur eos a velit. Quidem, nemo!",
+      "isPro": true,
+      "profileBg": "",
+      "skills": ["Mobile Design, UI/Visual Design", "Web Design"],
+      "interest": [
+        "Travel Images",
+        " Mountain Images & Pictures",
+        "Nature Images"
+      ],
+      "links": {
+        "facebook": "#",
+        "instagram": "#",
+        "website": "#"
+      },
+      "location": "New York",
+      "followers": [
+        {
+          "id": 2,
+          "username": "placeholder2",
+          "email": "placeholder2@email.com",
+          "avatar": "https://place-hold.it/100x100",
+          "name": "Place2",
+          "surname": "Holder2",
+          "bio": "",
+          "isPro": true,
+          "profileBg": "",
+          "skills": [],
+          "interest": [],
+          "links": {
+            "facebook": "#",
+            "instagram": "#",
+            "website": "#"
+          },
+          "location": "",
+          "followers": [],
+          "following": [],
+          "likedPosts": []
+        }
+      ],
+      "following": [],
+      "likedPosts": [
+        {
+          "id": 1,
+          "title": "First post",
+          "image": "https://place-hold.it/100x200",
+          "location": "Warsaw",
+          "tags": ["Placeholder", "Placeholder1"],
+          "description": "Short description",
+          "views": 5,
+          "downloads": 1,
+          "device": "",
+          "users": [],
+          "likes": [],
+          "comments": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "username": "placeholder2",
+      "email": "placeholder2@email.com",
+      "avatar": "https://place-hold.it/100x100",
+      "name": "Place2",
+      "surname": "Holder2",
+      "bio": "",
+      "isPro": true,
+      "profileBg": "",
+      "skills": [],
+      "interest": [],
+      "links": {
+        "facebook": "#",
+        "instagram": "#",
+        "website": "#"
+      },
+      "location": "",
+      "followers": [],
+      "following": [],
+      "likedPosts": []
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "First post",
+      "image": "/images/photo.avif",
+      "location": "Warsaw",
+      "tags": ["Placeholder", "Placeholder1"],
+      "description": "Short description",
+      "views": 5,
+      "downloads": 1,
+      "device": "",
+      "users": [
+        {
+          "id": 2,
+          "username": "placeholder2",
+          "email": "placeholder2@email.com",
+          "avatar": "https://place-hold.it/100x100",
+          "name": "Place2",
+          "surname": "Holder2",
+          "bio": "",
+          "isPro": true,
+          "profileBg": "",
+          "skills": [],
+          "interest": [],
+          "links": {
+            "facebook": "#",
+            "instagram": "#",
+            "website": "#"
+          },
+          "location": "",
+          "followers": [],
+          "following": [],
+          "likedPosts": []
+        }
+      ],
+      "likes": [],
+      "comments": []
+    }
+  ]
+}

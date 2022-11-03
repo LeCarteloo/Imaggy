@@ -6,6 +6,8 @@ export interface UserInterface {
   surname: string;
   avatar?: string;
   bio: string;
+  isPro: boolean;
+  profileBg: string;
   skills: string[];
   interest: string[];
   links: {

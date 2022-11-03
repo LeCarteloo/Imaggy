@@ -32,11 +32,14 @@ const ImageSection = ({ animated = false }: ImageSectionProps) => {
       users: [
         {
           _id: 2,
+          username: 'placeholder2',
           email: 'placeholder2@email.com',
           avatar: 'https://place-hold.it/100x100',
           name: 'Place2',
           surname: 'Holder2',
           bio: '',
+          isPro: true,
+          profileBg: '',
           skills: [],
           interest: [],
           links: {

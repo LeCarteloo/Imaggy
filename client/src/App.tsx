@@ -10,6 +10,14 @@ import { Routes, Route } from 'react-router-dom';
 import { HomePage, PostPage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
+import {
+  useQuery,
+  QueryClientProvider,
+  QueryClient,
+  UseQueryResult,
+} from '@tanstack/react-query';
+import { UserInterface } from './types/types';
+import { getUser } from './api/usersApi';
 
 let darkTheme = createTheme({
   palette: {
@@ -53,44 +61,22 @@ const StyledMain = styled('main')({
 function App() {
   const [theme, setTheme] = useState('dark');
 
-  // Placeholder user data
-  const user = {
-    _id: 1,
-    email: 'placeholder@email.com',
-    username: 'placeholder',
-    avatar: 'https://place-hold.it/100x100',
-    name: 'Place',
-    surname: 'Holder',
-    bio: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod nihil 
-          sapiente cupiditate dolore dolorem. Minima ratione error perspiciatis laborum, 
-          molestias, explicabo nemo porro aliquam consectetur eos a velit. Quidem, nemo!`,
-    skills: ['Mobile Design, UI/Visual Design', 'Web Design'],
-    interest: ['Travel Images', ' Mountain Images & Pictures', 'Nature Images'],
-    links: {
-      facebook: '#',
-      instagram: '#',
-      website: '#',
-    },
-    location: 'New York',
-    followers: [],
-    following: [],
-    likedPosts: [
-      {
-        _id: 1,
-        title: 'First post',
-        image: 'https://place-hold.it/100x200',
-        location: 'Warsaw',
-        tags: ['Placeholder', 'Placeholder1'],
-        description: 'Short description',
-        views: 5,
-        downloads: 1,
-        device: '',
-        users: [],
-        likes: [],
-        comments: [],
-      },
-    ],
-  };
+  const userId = 1;
+
+  const { data: user, status } = useQuery<UserInterface, Error>({
+    queryKey: ['user', userId],
+    queryFn: () => getUser(userId),
+    refetchOnWindowFocus: false,
+    // enabled: Boolean(userId)
+  });
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'error') {
+    return <div>Error...</div>;
+  }
 
   return (
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>

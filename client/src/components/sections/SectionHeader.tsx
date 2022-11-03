@@ -5,14 +5,13 @@ import HomeVideo from '../../assets/home-bg.mp4';
 
 const StyledSection = styled(Box)({
   maxWidth: '100%',
-  height: '750px',
+  height: '650px',
   overflow: 'hidden',
 });
 
 const StyledHeaderBox = styled(Box)({
   position: 'absolute',
   top: 0,
-
   width: '100%',
   height: 'inherit',
   zIndex: 1,
