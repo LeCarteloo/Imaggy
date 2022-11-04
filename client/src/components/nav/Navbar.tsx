@@ -25,7 +25,7 @@ type NavbarProps = {
 };
 
 const Navbar = ({ theme, setTheme }: NavbarProps) => {
-  const { _id, name, surname, avatar } = useUserContext();
+  const authUser = useUserContext();
   const [userMenu, setUserMenu] = useState<null | HTMLElement>(null);
   const [sideMenu, setSideMenu] = useState(false);
 
@@ -43,7 +43,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
   const menuItems = [
     {
       name: 'Profile',
-      to: `/user/${_id}`,
+      to: `/user/${authUser.username}`,
     },
     {
       name: 'Go Imaggy+',
@@ -58,6 +58,8 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
       to: `#!`,
     },
   ];
+
+  console.log(authUser);
 
   return (
     <AppBar
@@ -99,14 +101,20 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
             justifyContent: 'flex-end',
           }}
         >
-          {name ? (
+          {authUser ? (
             <>
               <Tooltip title="Open user settings">
                 <IconButton
                   aria-label="open user settings"
                   onClick={handleOpenUserMenu}
                 >
-                  <Avatar name={name} surname={surname} img={avatar} />
+                  <Avatar
+                    name={authUser.name}
+                    surname={authUser.surname}
+                    isPro={authUser.isPro}
+                    img={authUser.avatar}
+                    fontSize={'sm'}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

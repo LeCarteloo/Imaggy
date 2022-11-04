@@ -1,5 +1,11 @@
-import { Box, Chip, Stack, styled, Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import { Box, Chip, Stack, styled, Typography, Container } from '@mui/material';
+import {
+  Image,
+  Collections,
+  Favorite,
+  PlaceSharp,
+  LanguageSharp,
+} from '@mui/icons-material';
 import {
   Route,
   Routes,
@@ -7,8 +13,6 @@ import {
   useParams,
   matchPath,
 } from 'react-router-dom';
-import { useUserContext } from '../context/userContext';
-import { PlaceSharp, LanguageSharp } from '@mui/icons-material';
 import { useState } from 'react';
 import {
   Avatar,
@@ -17,8 +21,11 @@ import {
   ProfileTabs,
   UserSection,
 } from '../components';
-import { Image, Collections, Favorite } from '@mui/icons-material';
 import { AnimatePresence } from 'framer-motion';
+import { useQuery } from '@tanstack/react-query';
+import { UserInterface } from '../types/types';
+import { getUser } from '../api/usersApi';
+import Loader from '../Loader';
 
 const StyledBanner = styled(Box)({
   position: 'absolute',
@@ -26,7 +33,6 @@ const StyledBanner = styled(Box)({
   zIndex: -1,
   top: 0,
   height: '250px',
-  // borderBottom: '1px solid #fff',
   img: {
     width: '100%',
     height: '100%',
@@ -50,9 +56,24 @@ const UserPage = () => {
   const location = useLocation();
   const [currentTab, setCurrentTab] = useState(getCurrentTab());
   const { username } = useParams();
-  const handleChange = (event: React.SyntheticEvent, newTab: number) => {
-    setCurrentTab(newTab);
-  };
+
+  const {
+    data: user,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<UserInterface, Error>({
+    queryKey: ['user', username],
+    enabled: Boolean(username),
+    queryFn: () => getUser(username),
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading || isError) {
+    return <Loader />;
+  }
+
+  console.log(user);
 
   const tabs = [
     {
@@ -77,14 +98,15 @@ const UserPage = () => {
     },
   ];
 
-  // TODO: Only for test, later use API with username param
-  const user = useUserContext();
+  const handleChange = (event: React.SyntheticEvent, newTab: number) => {
+    setCurrentTab(newTab);
+  };
 
   return (
     <Box sx={{ pt: 5, mt: 11.5 }}>
       {/* //TODO: Change banner img to variable later */}
       <StyledBanner>
-        <img src={'/images/banner.jpg'} />
+        <img src={'/images/banner.jpg'} aria-hidden={true} />
       </StyledBanner>
       <Container>
         <Box
@@ -158,7 +180,7 @@ const UserPage = () => {
             Interests
           </Typography>
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
-            {user.interest.map((elem) => (
+            {user?.interest?.map((elem) => (
               <Chip label={elem} key={elem} />
             ))}
           </Stack>

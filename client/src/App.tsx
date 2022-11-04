@@ -10,12 +10,7 @@ import { Routes, Route } from 'react-router-dom';
 import { HomePage, PostPage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
-import {
-  useQuery,
-  QueryClientProvider,
-  QueryClient,
-  UseQueryResult,
-} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { UserInterface } from './types/types';
 import { getUser } from './api/usersApi';
 import Loader from './Loader';
@@ -62,16 +57,17 @@ const StyledMain = styled('main')({
 function App() {
   const [theme, setTheme] = useState('dark');
 
-  const userId = 1;
+  const username = 'placeholder';
 
+  // TODO: with real data -> <UserInterface, Error>
   const {
     data: user,
     isLoading,
     isError,
     error,
-  } = useQuery<UserInterface, Error>({
-    queryKey: ['user', userId],
-    queryFn: () => getUser(userId),
+  } = useQuery<any, Error>({
+    queryKey: ['user', username],
+    queryFn: () => getUser(username),
     refetchOnWindowFocus: false,
     // enabled: Boolean(userId)
   });
@@ -87,7 +83,8 @@ function App() {
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <div className="app">
         <CssBaseline />
-        <UserProvider user={user}>
+        {/* //TODO: Change it later from user[0] to user (json-server returns object in array) */}
+        <UserProvider user={user[0]}>
           <Navbar
             theme={theme === 'dark'}
             setTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -96,7 +93,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/user/:username/*" element={<UserPage />} />
-              <Route path="/post/:id" element={<PostPage />} />
+              <Route path="/post/:postId" element={<PostPage />} />
             </Routes>
           </StyledMain>
         </UserProvider>

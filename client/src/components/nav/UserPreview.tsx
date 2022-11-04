@@ -4,6 +4,7 @@ import { UserInterface } from '../../types/types';
 import LikeButton from '../buttons/LikeButton';
 import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
+import { useUserContext } from '../../context/userContext';
 
 type UserPreviewProps = {
   user: UserInterface;
@@ -18,6 +19,10 @@ type TooltipContentProps = {
 };
 
 const TooltipContent = ({ user }: TooltipContentProps) => {
+  const loggedUser = useUserContext();
+  const lastPosts = user.posts?.slice(0, 3);
+  console.log(user);
+
   return (
     <Box sx={{ p: 2, width: '100%' }}>
       <Box
@@ -31,9 +36,10 @@ const TooltipContent = ({ user }: TooltipContentProps) => {
         <Avatar
           width={60}
           height={60}
+          img={user.avatar}
           name={user.name}
           surname={user.surname}
-          isPro={true}
+          isPro={user.isPro}
           fontSize="sm"
         />
         <Box
@@ -56,14 +62,19 @@ const TooltipContent = ({ user }: TooltipContentProps) => {
           type="user"
           //TODO: Change ariaLabel
           ariaLabel="like X user"
-          onLike={() => console.log('')}
+          onLike={() => {}}
         />
       </Box>
       <Box sx={{ display: 'flex', gap: 1, mt: 2, mb: 2, height: '75px' }}>
-        {/* //TODO: Future last 3 user images also ALT needed */}
-        <img src="https://place-hold.it/100x100" width={'100%'} height="auto" />
-        <img src="https://place-hold.it/100x100" width={'100%'} height="auto" />
-        <img src="https://place-hold.it/100x100" width={'100%'} height="auto" />
+        {lastPosts.map((post) => (
+          <img
+            src="https://place-hold.it/100x100"
+            alt={post.title}
+            width={'100%'}
+            style={{ maxWidth: '100px' }}
+            height="auto"
+          />
+        ))}
       </Box>
       <Button
         variant="outlined"

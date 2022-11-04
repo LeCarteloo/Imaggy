@@ -2,8 +2,11 @@ import { ImageList } from '@mui/material';
 import { styled } from '@mui/system';
 import PostCard from '../cards/PostCard';
 import { motion } from 'framer-motion';
+import { PostInterface } from '../../types/types';
+import Loader from '../../Loader';
 
 type ImageSectionProps = {
+  posts: PostInterface[];
   animated?: boolean;
 };
 
@@ -17,46 +20,10 @@ const StyledImageList = styled(ImageList)(({ theme }) => ({
   },
 }));
 
-const ImageSection = ({ animated = false }: ImageSectionProps) => {
-  const postList = [
-    {
-      _id: 1,
-      title: 'First post',
-      image: '/images/photo.avif',
-      location: 'Warsaw',
-      tags: ['Placeholder', 'Placeholder1'],
-      description: 'Short description',
-      views: 5,
-      downloads: 1,
-      device: '',
-      users: [
-        {
-          _id: 2,
-          username: 'placeholder2',
-          email: 'placeholder2@email.com',
-          avatar: 'https://place-hold.it/100x100',
-          name: 'Place2',
-          surname: 'Holder2',
-          bio: '',
-          isPro: true,
-          profileBg: '',
-          skills: [],
-          interest: [],
-          links: {
-            facebook: '#',
-            instagram: '#',
-            website: '#',
-          },
-          location: '',
-          followers: [],
-          following: [],
-          likedPosts: [],
-        },
-      ],
-      likes: [],
-      comments: [],
-    },
-  ];
+const ImageSection = ({ posts, animated = false }: ImageSectionProps) => {
+  if (!posts) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -72,7 +39,7 @@ const ImageSection = ({ animated = false }: ImageSectionProps) => {
           style={{ position: 'absolute', width: '100%' }}
         >
           <StyledImageList variant="masonry" gap={8}>
-            {postList.map((postItem) => (
+            {posts.map((postItem) => (
               <PostCard post={postItem} key={postItem._id} />
             ))}
           </StyledImageList>
@@ -80,7 +47,7 @@ const ImageSection = ({ animated = false }: ImageSectionProps) => {
       ) : (
         <section>
           <StyledImageList variant="masonry" gap={8}>
-            {postList.map((postItem) => (
+            {posts.map((postItem) => (
               <PostCard post={postItem} key={postItem._id} />
             ))}
           </StyledImageList>

@@ -40,16 +40,11 @@ const StyledImageListItem = styled(ImageListItem, {
 }));
 
 const PostCard = ({ post }: PostCardProps) => {
-  const user = useUserContext();
   const [isLiked, setIsLiked] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const mainAuthor = post.users[0];
 
   useEffect(() => {
-    const isPostLiked = user.likedPosts.find(
-      (likedPost) => likedPost._id === post._id
-    );
-
+    const isPostLiked = post.likes.find((like) => like._id === post._id);
     setIsLiked(Boolean(isPostLiked));
   }, []);
 
@@ -106,17 +101,17 @@ const PostCard = ({ post }: PostCardProps) => {
         title={
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <UserPreview
-              user={mainAuthor}
+              user={post.user}
               open={isPreviewOpen}
               onOpen={() => setIsPreviewOpen(true)}
               onClose={() => setIsPreviewOpen(false)}
             >
               <Box component={Link} to="#">
                 <Avatar
-                  name={mainAuthor.name}
-                  surname={mainAuthor.surname}
+                  name={post.user.name}
+                  surname={post.user.surname}
                   fontSize="sm"
-                  img={mainAuthor.avatar}
+                  img={post.user.avatar}
                 />
               </Box>
             </UserPreview>
@@ -129,14 +124,8 @@ const PostCard = ({ post }: PostCardProps) => {
               }}
             >
               <Typography variant="subtitle1">
-                {`${mainAuthor.name} ${mainAuthor.surname}`}
+                {`${post.user.name} ${post.user.surname}`}
               </Typography>
-              {post.users.length > 1 && (
-                <Typography
-                  variant="caption"
-                  sx={{ lineHeight: '0.5' }}
-                >{`and ${post.users.length} more...`}</Typography>
-              )}
             </Box>
           </Box>
         }
