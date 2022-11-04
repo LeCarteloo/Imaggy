@@ -4,12 +4,13 @@
       "id": 1,
       "email": "placeholder@email.com",
       "username": "placeholder",
-      "avatar": "https://place-hold.it/100x100",
+      "avatar": "https://www.ethnicmusical.com/wp-content/uploads/2020/06/testimonial-avatar-female-1-ux-builder.jpg",
       "name": "Place",
       "surname": "Holder",
       "bio": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod nihil sapiente cupiditate dolore dolorem. Minima ratione error perspiciatis laborum, molestias, explicabo nemo porro aliquam consectetur eos a velit. Quidem, nemo!",
       "isPro": true,
-      "profileBg": "",
+      "profileBg": "/images/banner.jpg",
+      "posts": [],
       "skills": ["Mobile Design, UI/Visual Design", "Web Design"],
       "interest": [
         "Travel Images",
@@ -27,11 +28,11 @@
           "id": 2,
           "username": "placeholder2",
           "email": "placeholder2@email.com",
-          "avatar": "https://place-hold.it/100x100",
+          "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
           "name": "Place2",
           "surname": "Holder2",
           "bio": "",
-          "isPro": true,
+          "isPro": false,
           "profileBg": "",
           "skills": [],
           "interest": [],
@@ -51,14 +52,35 @@
         {
           "id": 1,
           "title": "First post",
-          "image": "https://place-hold.it/100x200",
+          "image": "https://images.unsplash.com/photo-1514315384763-ba401779410f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=683&q=80",
           "location": "Warsaw",
           "tags": ["Placeholder", "Placeholder1"],
           "description": "Short description",
           "views": 5,
           "downloads": 1,
           "device": "",
-          "users": [],
+          "user": {
+            "id": 2,
+            "username": "placeholder2",
+            "email": "placeholder2@email.com",
+            "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
+            "name": "Place2",
+            "surname": "Holder2",
+            "bio": "",
+            "isPro": true,
+            "profileBg": "",
+            "skills": [],
+            "interest": [],
+            "links": {
+              "facebook": "#",
+              "instagram": "#",
+              "website": "#"
+            },
+            "location": "",
+            "followers": [],
+            "following": [],
+            "likedPosts": []
+          },
           "likes": [],
           "comments": []
         }
@@ -68,12 +90,49 @@
       "id": 2,
       "username": "placeholder2",
       "email": "placeholder2@email.com",
-      "avatar": "https://place-hold.it/100x100",
+      "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
       "name": "Place2",
       "surname": "Holder2",
       "bio": "",
       "isPro": true,
       "profileBg": "",
+      "posts": [
+        {
+          "id": 1,
+          "title": "First post",
+          "image": "https://images.unsplash.com/photo-1514315384763-ba401779410f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=683&q=80",
+          "location": "Warsaw",
+          "tags": ["Placeholder", "Placeholder1"],
+          "description": "Short description",
+          "views": 5,
+          "downloads": 1,
+          "device": "",
+          "user": {
+            "id": 2,
+            "username": "placeholder2",
+            "email": "placeholder2@email.com",
+            "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
+            "name": "Place2",
+            "surname": "Holder2",
+            "bio": "",
+            "isPro": true,
+            "profileBg": "",
+            "skills": [],
+            "interest": [],
+            "links": {
+              "facebook": "#",
+              "instagram": "#",
+              "website": "#"
+            },
+            "location": "",
+            "followers": [],
+            "following": [],
+            "likedPosts": []
+          },
+          "likes": [],
+          "comments": []
+        }
+      ],
       "skills": [],
       "interest": [],
       "links": {
@@ -91,38 +150,160 @@
     {
       "id": 1,
       "title": "First post",
-      "image": "/images/photo.avif",
+      "image": "https://images.unsplash.com/photo-1514315384763-ba401779410f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=683&q=80",
       "location": "Warsaw",
       "tags": ["Placeholder", "Placeholder1"],
       "description": "Short description",
       "views": 5,
       "downloads": 1,
       "device": "",
-      "users": [
+      "user": {
+        "id": 2,
+        "username": "placeholder2",
+        "email": "placeholder2@email.com",
+        "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
+        "name": "Place2",
+        "surname": "Holder2",
+        "bio": "",
+        "isPro": true,
+        "profileBg": "",
+        "posts": [
+          {
+            "id": 1,
+            "title": "First post",
+            "image": "https://images.unsplash.com/photo-1514315384763-ba401779410f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=683&q=80",
+            "location": "Warsaw",
+            "tags": ["Placeholder", "Placeholder1"],
+            "description": "Short description",
+            "views": 5,
+            "downloads": 1,
+            "device": "",
+            "user": {
+              "id": 2,
+              "username": "placeholder2",
+              "email": "placeholder2@email.com",
+              "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
+              "name": "Place2",
+              "surname": "Holder2",
+              "bio": "",
+              "isPro": true,
+              "profileBg": "",
+              "skills": [],
+              "interest": [],
+              "links": {
+                "facebook": "#",
+                "instagram": "#",
+                "website": "#"
+              },
+              "location": "",
+              "followers": [],
+              "following": [],
+              "likedPosts": []
+            },
+            "likes": [],
+            "comments": []
+          }
+        ],
+        "skills": [],
+        "interest": [],
+        "links": {
+          "facebook": "#",
+          "instagram": "#",
+          "website": "#"
+        },
+        "location": "",
+        "followers": [],
+        "following": [],
+        "likedPosts": []
+      },
+      "likes": [
         {
-          "id": 2,
-          "username": "placeholder2",
-          "email": "placeholder2@email.com",
-          "avatar": "https://place-hold.it/100x100",
-          "name": "Place2",
-          "surname": "Holder2",
-          "bio": "",
+          "id": 1,
+          "email": "placeholder@email.com",
+          "username": "placeholder",
+          "avatar": "https://www.ethnicmusical.com/wp-content/uploads/2020/06/testimonial-avatar-female-1-ux-builder.jpg",
+          "name": "Place",
+          "surname": "Holder",
+          "bio": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod nihil sapiente cupiditate dolore dolorem. Minima ratione error perspiciatis laborum, molestias, explicabo nemo porro aliquam consectetur eos a velit. Quidem, nemo!",
           "isPro": true,
-          "profileBg": "",
-          "skills": [],
-          "interest": [],
+          "profileBg": "/images/banner.jpg",
+          "posts": [],
+          "skills": ["Mobile Design, UI/Visual Design", "Web Design"],
+          "interest": [
+            "Travel Images",
+            " Mountain Images & Pictures",
+            "Nature Images"
+          ],
           "links": {
             "facebook": "#",
             "instagram": "#",
             "website": "#"
           },
-          "location": "",
-          "followers": [],
+          "location": "New York",
+          "followers": [
+            {
+              "id": 2,
+              "username": "placeholder2",
+              "email": "placeholder2@email.com",
+              "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
+              "name": "Place2",
+              "surname": "Holder2",
+              "bio": "",
+              "isPro": false,
+              "profileBg": "",
+              "skills": [],
+              "interest": [],
+              "links": {
+                "facebook": "#",
+                "instagram": "#",
+                "website": "#"
+              },
+              "location": "",
+              "followers": [],
+              "following": [],
+              "likedPosts": []
+            }
+          ],
           "following": [],
-          "likedPosts": []
+          "likedPosts": [
+            {
+              "id": 1,
+              "title": "First post",
+              "image": "https://images.unsplash.com/photo-1514315384763-ba401779410f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=683&q=80",
+              "location": "Warsaw",
+              "tags": ["Placeholder", "Placeholder1"],
+              "description": "Short description",
+              "views": 5,
+              "downloads": 1,
+              "device": "",
+              "user": {
+                "id": 2,
+                "username": "placeholder2",
+                "email": "placeholder2@email.com",
+                "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80",
+                "name": "Place2",
+                "surname": "Holder2",
+                "bio": "",
+                "isPro": true,
+                "profileBg": "",
+                "skills": [],
+                "interest": [],
+                "links": {
+                  "facebook": "#",
+                  "instagram": "#",
+                  "website": "#"
+                },
+                "location": "",
+                "followers": [],
+                "following": [],
+                "likedPosts": []
+              },
+              "likes": [],
+              "comments": []
+            }
+          ]
         }
       ],
-      "likes": [],
       "comments": []
     }
   ]

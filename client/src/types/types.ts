@@ -8,6 +8,7 @@ export interface UserInterface {
   bio: string;
   isPro: boolean;
   profileBg: string;
+  posts: PostInterface[];
   skills: string[];
   interest: string[];
   links: {
@@ -39,7 +40,7 @@ export interface PostInterface {
   views: number;
   downloads: number;
   device: string;
-  users: UserInterface[];
+  user: UserInterface;
   likes: UserInterface[];
   comments: CommentType[];
 }

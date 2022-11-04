@@ -5,8 +5,8 @@ const getUsers = async () => {
   return response.json();
 };
 
-const getUser = async (id: number) => {
-  const response = await fetch(`${baseUrl}/users/${id}`);
+const getUser = async (username: string | undefined) => {
+  const response = await fetch(`${baseUrl}/users/?username=${username}`);
   return response.json();
 };
 
