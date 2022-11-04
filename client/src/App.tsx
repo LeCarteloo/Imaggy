@@ -18,6 +18,7 @@ import {
 } from '@tanstack/react-query';
 import { UserInterface } from './types/types';
 import { getUser } from './api/usersApi';
+import Loader from './Loader';
 
 let darkTheme = createTheme({
   palette: {
@@ -63,19 +64,23 @@ function App() {
 
   const userId = 1;
 
-  const { data: user, status } = useQuery<UserInterface, Error>({
+  const {
+    data: user,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<UserInterface, Error>({
     queryKey: ['user', userId],
     queryFn: () => getUser(userId),
     refetchOnWindowFocus: false,
     // enabled: Boolean(userId)
   });
 
-  if (status === 'loading') {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Loader />;
   }
-
-  if (status === 'error') {
-    return <div>Error...</div>;
+  if (isError) {
+    return <div>{error.toString()}</div>;
   }
 
   return (

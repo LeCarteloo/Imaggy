@@ -20,11 +20,11 @@ type StyledLinkProps = {
   fontSize?: 'sm' | 'md';
 };
 
-const StyledAvatar = styled(UserAvatar)<StyledAvatarProps>(
-  ({ theme, isPro }) => ({
-    outline: isPro ? `2px solid ${theme.palette.primary.main}` : '',
-  })
-);
+const StyledAvatar = styled(UserAvatar, {
+  shouldForwardProp: (prop) => prop !== 'isPro',
+})<StyledAvatarProps>(({ theme, isPro }) => ({
+  outline: isPro ? `2px solid ${theme.palette.primary.main}` : '',
+}));
 
 const StyledLink = styled(Link)<StyledLinkProps>(({ theme, fontSize }) => ({
   position: 'absolute',

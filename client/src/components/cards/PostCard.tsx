@@ -23,21 +23,21 @@ type ImageItemProps = {
   isPreviewOpen: boolean;
 };
 
-const StyledImageListItem = styled(ImageListItem)<ImageItemProps>(
-  ({ theme, isPreviewOpen }) => ({
-    [theme.breakpoints.up('md')]: {
+const StyledImageListItem = styled(ImageListItem, {
+  shouldForwardProp: (prop) => prop !== 'isPreviewOpen',
+})<ImageItemProps>(({ theme, isPreviewOpen }) => ({
+  [theme.breakpoints.up('md')]: {
+    '& .MuiImageListItemBar-root': {
+      opacity: isPreviewOpen ? 1 : 0,
+      transition: '0.3s ease-in-out',
+    },
+    '&:hover, &:focus-within': {
       '& .MuiImageListItemBar-root': {
-        opacity: isPreviewOpen ? 1 : 0,
-        transition: '0.3s ease-in-out',
-      },
-      '&:hover, &:focus-within': {
-        '& .MuiImageListItemBar-root': {
-          opacity: 1,
-        },
+        opacity: 1,
       },
     },
-  })
-);
+  },
+}));
 
 const PostCard = ({ post }: PostCardProps) => {
   const user = useUserContext();
