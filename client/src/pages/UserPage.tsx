@@ -57,12 +57,13 @@ const UserPage = () => {
   const [currentTab, setCurrentTab] = useState(getCurrentTab());
   const { username } = useParams();
 
+  // TODO: with real data -> <UserInterface, Error>
   const {
     data: user,
     isLoading,
     isError,
     error,
-  } = useQuery<UserInterface, Error>({
+  } = useQuery<any, Error>({
     queryKey: ['user', username],
     enabled: Boolean(username),
     queryFn: () => getUser(username),
@@ -105,9 +106,11 @@ const UserPage = () => {
   return (
     <Box sx={{ pt: 5, mt: 11.5 }}>
       {/* //TODO: Change banner img to variable later */}
-      <StyledBanner>
-        <img src={'/images/banner.jpg'} aria-hidden={true} />
-      </StyledBanner>
+      {user[0].profileBg ? (
+        <StyledBanner>
+          <img src={user[0].profileBg} aria-hidden={true} />
+        </StyledBanner>
+      ) : null}
       <Container>
         <Box
           sx={{
@@ -122,14 +125,15 @@ const UserPage = () => {
             surname={'Holder'}
             width={100}
             height={100}
-            isPro={true}
+            img={user[0].avatar}
+            isPro={user[0].isPro}
           />
           <Typography variant="h3" component="h1" sx={{ mt: 3 }}>
-            {user.name} {user.surname}
+            {user[0].name} {user[0].surname}
           </Typography>
         </Box>
         <Typography variant="body1" component="p" sx={{ mb: 2, mt: 2 }}>
-          {user.bio}
+          {user[0].bio}
         </Typography>
         <Box>
           <Box
@@ -140,7 +144,7 @@ const UserPage = () => {
           >
             <PlaceSharp fontSize="small" />
             <Typography variant="body2" component="span" sx={{ ml: 1 }}>
-              {user.location}
+              {user[0].location}
             </Typography>
           </Box>
           <Box
@@ -180,7 +184,7 @@ const UserPage = () => {
             Interests
           </Typography>
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
-            {user?.interest?.map((elem) => (
+            {user[0].interest.map((elem: string) => (
               <Chip label={elem} key={elem} />
             ))}
           </Stack>
@@ -194,7 +198,10 @@ const UserPage = () => {
       <Container sx={{ position: 'relative' }}>
         <AnimatePresence initial={false}>
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<ImageSection animated />} />
+            <Route
+              path="/"
+              element={<ImageSection posts={user[0].posts} animated />}
+            />
             <Route path="/followers" element={<UserSection />} />
             <Route path="/following" element={<UserSection />} />
             <Route path="/collection" element={<CollectionSection />} />

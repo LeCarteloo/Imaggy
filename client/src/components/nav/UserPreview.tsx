@@ -68,6 +68,7 @@ const TooltipContent = ({ user }: TooltipContentProps) => {
       <Box sx={{ display: 'flex', gap: 1, mt: 2, mb: 2, height: '75px' }}>
         {lastPosts.map((post) => (
           <img
+            key={post.title}
             src="https://place-hold.it/100x100"
             alt={post.title}
             width={'100%'}

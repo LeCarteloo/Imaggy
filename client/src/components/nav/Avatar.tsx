@@ -47,8 +47,6 @@ const Avatar = ({
   width,
   height,
 }: AvatarProps) => {
-  console.log(name, surname);
-
   return (
     <Box sx={{ position: 'relative' }}>
       <StyledAvatar

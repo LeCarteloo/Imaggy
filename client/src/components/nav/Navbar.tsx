@@ -59,8 +59,6 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
     },
   ];
 
-  console.log(authUser);
-
   return (
     <AppBar
       position="fixed"
