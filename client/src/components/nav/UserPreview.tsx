@@ -19,7 +19,6 @@ type TooltipContentProps = {
 };
 
 const TooltipContent = ({ user }: TooltipContentProps) => {
-  const loggedUser = useUserContext();
   const lastPosts = user.posts?.slice(0, 3);
 
   return (

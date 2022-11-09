@@ -42,6 +42,21 @@ export const ThemeModeProvider = ({
               },
             }),
       },
+      components: {
+        MuiImageList: {
+          styleOverrides: {
+            root: {
+              columnCount: '3 !important',
+              [theme.breakpoints.down('lg')]: {
+                columnCount: '2 !important',
+              },
+              [theme.breakpoints.down('sm')]: {
+                columnCount: '1 !important',
+              },
+            },
+          },
+        },
+      },
     });
     theme = responsiveFontSizes(theme);
 

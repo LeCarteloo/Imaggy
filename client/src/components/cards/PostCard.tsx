@@ -9,7 +9,7 @@ import { styled } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../context/userContext';
-import { PostInterface } from '../../types/types';
+import { PostInterface, UserInterface } from '../../types/types';
 import DownloadButton from '../buttons/DownloadButton';
 import LikeButton from '../buttons/LikeButton';
 import Avatar from '../nav/Avatar';
@@ -17,6 +17,7 @@ import UserPreview from '../nav/UserPreview';
 
 type PostCardProps = {
   post: PostInterface;
+  user?: UserInterface;
 };
 
 type ImageItemProps = {
@@ -39,12 +40,15 @@ const StyledImageListItem = styled(ImageListItem, {
   },
 }));
 
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post, user }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
+  const author = user ? user : post.user;
+
   useEffect(() => {
     const isPostLiked = post.likes.find((like) => like._id === post._id);
+
     setIsLiked(Boolean(isPostLiked));
   }, []);
 
@@ -52,6 +56,7 @@ const PostCard = ({ post }: PostCardProps) => {
     setIsLiked(!isLiked);
   };
 
+  // TODO: Add logic to download and openImage fn
   const handleDownload = () => {};
 
   const handleOpenImage = () => {};
@@ -101,17 +106,17 @@ const PostCard = ({ post }: PostCardProps) => {
         title={
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <UserPreview
-              user={post.user}
+              user={author}
               open={isPreviewOpen}
               onOpen={() => setIsPreviewOpen(true)}
               onClose={() => setIsPreviewOpen(false)}
             >
               <Box component={Link} to="#">
                 <Avatar
-                  name={post.user.name}
-                  surname={post.user.surname}
+                  name={author.name}
+                  surname={author.surname}
                   fontSize="sm"
-                  img={post.user.avatar}
+                  img={author.avatar}
                 />
               </Box>
             </UserPreview>
@@ -124,7 +129,7 @@ const PostCard = ({ post }: PostCardProps) => {
               }}
             >
               <Typography variant="subtitle1">
-                {`${post.user.name} ${post.user.surname}`}
+                {`${author.name} ${author.surname}`}
               </Typography>
             </Box>
           </Box>

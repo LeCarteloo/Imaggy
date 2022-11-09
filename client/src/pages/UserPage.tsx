@@ -12,6 +12,7 @@ import {
   useLocation,
   useParams,
   matchPath,
+  Link,
 } from 'react-router-dom';
 import { useState } from 'react';
 import {
@@ -23,7 +24,6 @@ import {
 } from '../components';
 import { AnimatePresence } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
-import { UserInterface } from '../types/types';
 import { getUser } from '../api/usersApi';
 import Loader from '../Loader';
 
@@ -74,21 +74,39 @@ const UserPage = () => {
     return <Loader />;
   }
 
-  console.log(user);
+  // TODO: Remove [0] after real db is connected (json-server returns object in array)
+  const links = [
+    {
+      icon: <LanguageSharp fontSize="small" />,
+      label: 'Facebook',
+      to: user[0].facebook,
+    },
+    {
+      icon: <LanguageSharp fontSize="small" />,
+      label: 'Instagram',
+      to: user[0].instagram,
+    },
+    {
+      icon: <LanguageSharp fontSize="small" />,
+      label: 'Website',
+      to: user[0].website,
+    },
+  ];
 
+  // TODO: Remove [0] after real db is connected (json-server returns object in array)
   const tabs = [
     {
-      label: 'Posts',
+      label: `Posts (${user[0].posts.length})`,
       icon: <Image fontSize="small" />,
       to: '',
     },
     {
-      label: 'Followers',
+      label: `Followers (${user[0].followers.length})`,
       icon: <Favorite fontSize="small" />,
       to: 'followers',
     },
     {
-      label: 'Following',
+      label: `Following (${user[0].following.length})`,
       icon: <Favorite fontSize="small" />,
       to: 'following',
     },
@@ -135,58 +153,48 @@ const UserPage = () => {
           {user[0].bio}
         </Typography>
         <Box>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 1,
-            }}
-          >
-            <PlaceSharp fontSize="small" />
-            <Typography variant="body2" component="span" sx={{ ml: 1 }}>
-              {user[0].location}
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 1,
-            }}
-          >
-            <LanguageSharp fontSize="small" />
-            <Typography variant="body2" component="span" sx={{ ml: 1 }}>
-              Facebook
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 1,
-            }}
-          >
-            <LanguageSharp fontSize="small" />
-            <Typography variant="body2" component="span" sx={{ ml: 1 }}>
-              Instagram
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 1,
-            }}
-          >
-            <LanguageSharp fontSize="small" />
-            <Typography variant="body2" component="span" sx={{ ml: 1 }}>
-              Website
-            </Typography>
-          </Box>
-          <Typography variant="body1" component="h2" sx={{ mt: 2 }}>
-            Interests
-          </Typography>
-          <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
-            {user[0].interest.map((elem: string) => (
-              <Chip label={elem} key={elem} />
-            ))}
-          </Stack>
+          {user[0].location ? (
+            <Box
+              sx={{
+                display: 'flex',
+                mt: 1,
+              }}
+            >
+              <PlaceSharp fontSize="small" />
+              <Typography variant="body2" component="span" sx={{ ml: 1 }}>
+                {user[0].location}
+              </Typography>
+            </Box>
+          ) : null}
+          {links.map((link) =>
+            link.to ? (
+              <Box
+                sx={{
+                  display: 'flex',
+                  mt: 1,
+                }}
+                to={link.to}
+                component={Link}
+              >
+                {link.icon}
+                <Typography variant="body2" component="span" sx={{ ml: 1 }}>
+                  {link.label}
+                </Typography>
+              </Box>
+            ) : null
+          )}
+          {user[0].interest.length > 0 ? (
+            <>
+              <Typography variant="body1" component="h2" sx={{ mt: 2 }}>
+                Interests
+              </Typography>
+              <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
+                {user[0].interest.map((elem: string) => (
+                  <Chip label={elem} key={elem} />
+                ))}
+              </Stack>
+            </>
+          ) : null}
         </Box>
       </Container>
       <ProfileTabs
@@ -199,7 +207,9 @@ const UserPage = () => {
           <Routes location={location} key={location.pathname}>
             <Route
               path="/"
-              element={<ImageSection posts={user[0].posts} animated />}
+              element={
+                <ImageSection user={user[0]} posts={user[0].posts} animated />
+              }
             />
             <Route path="/followers" element={<UserSection />} />
             <Route path="/following" element={<UserSection />} />

@@ -2,25 +2,16 @@ import { ImageList } from '@mui/material';
 import { styled } from '@mui/system';
 import PostCard from '../cards/PostCard';
 import { motion } from 'framer-motion';
-import { PostInterface } from '../../types/types';
+import { PostInterface, UserInterface } from '../../types/types';
 import Loader from '../../Loader';
 
 type ImageSectionProps = {
   posts: PostInterface[];
+  user?: UserInterface;
   animated?: boolean;
 };
 
-const StyledImageList = styled(ImageList)(({ theme }) => ({
-  columnCount: '3 !important',
-  [theme.breakpoints.down('lg')]: {
-    columnCount: '2 !important',
-  },
-  [theme.breakpoints.down('sm')]: {
-    columnCount: '1 !important',
-  },
-}));
-
-const ImageSection = ({ posts, animated = false }: ImageSectionProps) => {
+const ImageSection = ({ posts, user, animated = false }: ImageSectionProps) => {
   if (!posts) {
     return <Loader />;
   }
@@ -38,19 +29,19 @@ const ImageSection = ({ posts, animated = false }: ImageSectionProps) => {
           }}
           style={{ position: 'absolute', width: '100%' }}
         >
-          <StyledImageList variant="masonry" gap={8}>
+          <ImageList variant="masonry" gap={8}>
             {posts.map((postItem) => (
-              <PostCard post={postItem} key={postItem._id} />
+              <PostCard user={user} post={postItem} key={postItem._id} />
             ))}
-          </StyledImageList>
+          </ImageList>
         </motion.section>
       ) : (
         <section>
-          <StyledImageList variant="masonry" gap={8}>
+          <ImageList variant="masonry" gap={8}>
             {posts.map((postItem) => (
               <PostCard post={postItem} key={postItem._id} />
             ))}
-          </StyledImageList>
+          </ImageList>
         </section>
       )}
     </>
