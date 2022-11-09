@@ -105,7 +105,6 @@ const UserPage = () => {
 
   return (
     <Box sx={{ pt: 5, mt: 11.5 }}>
-      {/* //TODO: Change banner img to variable later */}
       {user[0].profileBg ? (
         <StyledBanner>
           <img src={user[0].profileBg} aria-hidden={true} />

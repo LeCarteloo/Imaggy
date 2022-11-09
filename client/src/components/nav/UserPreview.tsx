@@ -4,7 +4,7 @@ import { UserInterface } from '../../types/types';
 import LikeButton from '../buttons/LikeButton';
 import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
-import { useUserContext } from '../../context/userContext';
+import { useUserContext } from '../../context/UserContext';
 
 type UserPreviewProps = {
   user: UserInterface;
@@ -21,7 +21,6 @@ type TooltipContentProps = {
 const TooltipContent = ({ user }: TooltipContentProps) => {
   const loggedUser = useUserContext();
   const lastPosts = user.posts?.slice(0, 3);
-  console.log(user);
 
   return (
     <Box sx={{ p: 2, width: '100%' }}>

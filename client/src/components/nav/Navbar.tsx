@@ -12,7 +12,7 @@ import {
   Switch,
 } from '@mui/material';
 import { useState } from 'react';
-import { useUserContext } from '../../context/userContext';
+import { useUserContext } from '../../context/UserContext';
 import GoProText from '../buttons/GoProText';
 import SideMenu from './SideMenu';
 import Logo from '../../assets/logo.png';
@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 
 type NavbarProps = {
-  theme: boolean;
+  theme: string;
   setTheme: () => void;
 };
 
@@ -139,7 +139,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
             </>
           )}
         </Box>
-        <Switch checked={theme} onChange={setTheme} />
+        <Switch checked={theme === 'dark'} onChange={setTheme} />
       </Toolbar>
       <SideMenu open={sideMenu} handleOpen={() => setSideMenu(!sideMenu)} />
     </AppBar>

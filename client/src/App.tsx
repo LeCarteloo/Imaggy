@@ -1,11 +1,6 @@
 import { Navbar } from './components';
-import {
-  ThemeProvider,
-  createTheme,
-  responsiveFontSizes,
-} from '@mui/material/styles';
 import { styled } from '@mui/system';
-import { UserProvider } from './context/userContext';
+import { UserProvider } from './context/UserContext';
 import { Routes, Route } from 'react-router-dom';
 import { HomePage, PostPage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
@@ -14,39 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { UserInterface } from './types/types';
 import { getUser } from './api/usersApi';
 import Loader from './Loader';
-
-let darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      light: '#fa5bf7',
-      main: '#e91e63',
-      dark: '#8f0093',
-      contrastText: '#fff',
-    },
-    background: {
-      default: '#242424',
-    },
-  },
-});
-
-let lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      light: '#fa5bf7',
-      main: '#e91e63',
-      dark: '#8f0093',
-      contrastText: '#fff',
-    },
-    background: {
-      paper: '#E7EBF0',
-    },
-  },
-});
-
-darkTheme = responsiveFontSizes(darkTheme);
-lightTheme = responsiveFontSizes(lightTheme);
+import { ThemeModeProvider } from './context/ThemeContext';
 
 const StyledMain = styled('main')({
   marginTop: 40,
@@ -54,8 +17,10 @@ const StyledMain = styled('main')({
   height: '100%',
 });
 
+type ThemeType = 'dark' | 'light';
+
 function App() {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState<ThemeType>('dark');
 
   const username = 'placeholder';
 
@@ -80,13 +45,13 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+    <ThemeModeProvider themeMode={theme}>
       <div className="app">
         <CssBaseline />
         {/* //TODO: Change it later from user[0] to user (json-server returns object in array) */}
         <UserProvider user={user[0]}>
           <Navbar
-            theme={theme === 'dark'}
+            theme={theme}
             setTheme={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           />
           <StyledMain>
@@ -98,7 +63,7 @@ function App() {
           </StyledMain>
         </UserProvider>
       </div>
-    </ThemeProvider>
+    </ThemeModeProvider>
   );
 }
 
