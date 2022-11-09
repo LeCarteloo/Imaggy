@@ -3,12 +3,10 @@ import {
   Typography,
   Box,
   ImageListItem,
-  Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useUserContext } from '../../context/userContext';
 import { PostInterface, UserInterface } from '../../types/types';
 import DownloadButton from '../buttons/DownloadButton';
 import LikeButton from '../buttons/LikeButton';
@@ -47,7 +45,7 @@ const PostCard = ({ post, user }: PostCardProps) => {
   const author = user ? user : post.user;
 
   useEffect(() => {
-    const isPostLiked = post.likes.find((like) => like._id === post._id);
+    const isPostLiked = post.likes.find((like) => like.id === post.id);
 
     setIsLiked(Boolean(isPostLiked));
   }, []);

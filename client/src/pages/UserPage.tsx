@@ -211,8 +211,14 @@ const UserPage = () => {
                 <ImageSection user={user[0]} posts={user[0].posts} animated />
               }
             />
-            <Route path="/followers" element={<UserSection />} />
-            <Route path="/following" element={<UserSection />} />
+            <Route
+              path="/followers"
+              element={<UserSection users={user[0].followers} />}
+            />
+            <Route
+              path="/following"
+              element={<UserSection users={user[0].following} />}
+            />
             <Route path="/collection" element={<CollectionSection />} />
           </Routes>
         </AnimatePresence>

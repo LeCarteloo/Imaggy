@@ -1,11 +1,15 @@
 import { Card, CardContent, CardHeader, styled } from '@mui/material';
 import { Box } from '@mui/system';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useUserContext } from '../../context/UserContext';
+import { UserInterface } from '../../types/types';
 import LikeButton from '../buttons/LikeButton';
 import Avatar from '../nav/Avatar';
 
-type UserCardProps = {
-  imgs: string[];
-};
+interface UserCardProps {
+  user: UserInterface;
+}
 
 const StyledNoPostsBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -17,34 +21,53 @@ const StyledNoPostsBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
-const UserCard = ({ imgs }: UserCardProps) => {
-  // TODO: Update component with dynamic data
+const UserCard = ({ user }: UserCardProps) => {
+  const [isFollowed, setIsFollowed] = useState(false);
+  const authUser = useUserContext();
+
+  useEffect(() => {
+    const followedUser = user.followers.find(
+      (follower) => follower.id === authUser.id
+    );
+
+    setIsFollowed(Boolean(followedUser));
+  }, []);
+
   return (
     <Card sx={{ height: '100%' }}>
       <CardHeader
         avatar={
-          <Avatar
-            width={50}
-            height={50}
-            name={'P'}
-            surname={'P'}
-            isPro={true}
-            fontSize="sm"
-          />
+          <Link to={`/user/${user.username}`}>
+            <Avatar
+              width={50}
+              height={50}
+              img={user.avatar}
+              name={user.name[0]}
+              surname={user.surname[0]}
+              isPro={user.isPro}
+              fontSize="sm"
+            />
+          </Link>
         }
         action={
           <LikeButton
-            isLiked={true}
-            ariaLabel="Follow X user"
+            isLiked={isFollowed}
+            ariaLabel={`${isFollowed ? 'Unfollow' : 'Follow'} ${user.name} ${
+              user.surname
+            }`}
             type="user"
             onLike={() => {}}
           />
         }
-        title="Name Surname"
-        subheader="@namesurname"
+        title={
+          <Link to={`/user/${user.username}`}>
+            {user.name} {user.surname}
+          </Link>
+        }
+        subheader={<Link to={`/user/${user.username}`}>@{user.username}</Link>}
       />
       <CardContent>
-        {imgs.length > 0 ? (
+        {user.posts.length > 0 ? (
           <Box
             sx={{
               display: 'grid',
@@ -52,11 +75,11 @@ const UserCard = ({ imgs }: UserCardProps) => {
               gridTemplateColumns: 'repeat(3, 1fr)',
             }}
           >
-            {imgs.map((img, i) => (
+            {user.posts.slice(0, 3).map((post) => (
               <div
-                key={`img-${i}`}
+                key={`img-${post.id}`}
                 style={{
-                  backgroundImage: `url(${img})`,
+                  backgroundImage: `url(${post.image})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center',
                   backgroundSize: 'cover',

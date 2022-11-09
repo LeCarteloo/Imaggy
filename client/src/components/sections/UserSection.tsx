@@ -1,9 +1,14 @@
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import { motion } from 'framer-motion';
+import { UserInterface } from '../../types/types';
 import UserCard from '../cards/UserCard';
 
-const UserSection = () => {
+interface UserSectionProps {
+  users: UserInterface[];
+}
+
+const UserSection = ({ users }: UserSectionProps) => {
   return (
     <motion.section
       animate={{ x: '0%' }}
@@ -16,21 +21,11 @@ const UserSection = () => {
       style={{ position: 'relative', width: '100%' }}
     >
       <Grid container sx={{ mt: 1, position: 'absolute' }} spacing={1}>
-        <Grid item xs={12} md={6} lg={4}>
-          <UserCard imgs={[]} />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <UserCard
-            imgs={[
-              '/images/photo.avif',
-              '/images/photo.avif',
-              '/images/photo.avif',
-            ]}
-          />
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <UserCard imgs={[]} />
-        </Grid>
+        {users.map((user) => (
+          <Grid item xs={12} md={6} lg={4} key={user.id}>
+            <UserCard user={user} />
+          </Grid>
+        ))}
       </Grid>
     </motion.section>
   );

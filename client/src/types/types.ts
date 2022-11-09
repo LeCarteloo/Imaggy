@@ -1,5 +1,6 @@
+// TODO: Later change id to _id (json-server doesnt support _id)
 export interface UserInterface {
-  _id: number;
+  id: number;
   username: string;
   email: string;
   name: string;
@@ -23,7 +24,7 @@ export interface UserInterface {
 }
 
 export type CommentType = {
-  _id: number;
+  id: number;
   text: string;
   userId: string;
   postId: string;
@@ -31,7 +32,7 @@ export type CommentType = {
 };
 
 export interface PostInterface {
-  _id: number;
+  id: number;
   title: string;
   image: string;
   location: string;
