@@ -4,7 +4,7 @@ import { Tooltip, IconButton } from '@mui/material';
 type DownloadButtonProps = {
   fileTitle: string;
   size?: 'small' | 'medium' | 'large';
-  onDownload: () => void;
+  onDownload: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const DownloadButton = ({

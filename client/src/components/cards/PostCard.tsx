@@ -5,8 +5,8 @@ import {
   ImageListItem,
 } from '@mui/material';
 import { styled } from '@mui/system';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { PostInterface, UserInterface } from '../../types/types';
 import DownloadButton from '../buttons/DownloadButton';
 import LikeButton from '../buttons/LikeButton';
@@ -25,6 +25,7 @@ type ImageItemProps = {
 const StyledImageListItem = styled(ImageListItem, {
   shouldForwardProp: (prop) => prop !== 'isPreviewOpen',
 })<ImageItemProps>(({ theme, isPreviewOpen }) => ({
+  cursor: 'pointer',
   [theme.breakpoints.up('md')]: {
     '& .MuiImageListItemBar-root': {
       opacity: isPreviewOpen ? 1 : 0,
@@ -41,6 +42,8 @@ const StyledImageListItem = styled(ImageListItem, {
 const PostCard = ({ post, user }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const navigate = useNavigate();
+
 
   const author = user ? user : post.user;
 
@@ -50,14 +53,19 @@ const PostCard = ({ post, user }: PostCardProps) => {
     setIsLiked(Boolean(isPostLiked));
   }, []);
 
-  const handeLike = () => {
+  const handeLike = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     setIsLiked(!isLiked);
   };
 
   // TODO: Add logic to download and openImage fn
-  const handleDownload = () => {};
+  const handleDownload = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+  };
 
-  const handleOpenImage = () => {};
+  const handleOpenImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    navigate(`/post/${post.id}`)
+  };
 
   return (
     <StyledImageListItem
@@ -81,7 +89,7 @@ const PostCard = ({ post, user }: PostCardProps) => {
             <LikeButton
               isLiked={isLiked}
               ariaLabel={`${!isLiked ? 'Like' : 'Unlike'} ${post.title}`}
-              onLike={handeLike}
+              onLike={(e:any) => handeLike(e)}
             />
             {/* <Tooltip title="Add to collection">
                 <IconButton sx={{ color: 'white' }} aria-label={`add X to collection`}>
