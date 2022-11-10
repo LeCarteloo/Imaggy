@@ -21,6 +21,11 @@ const StyledNoPostsBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
+const StyledLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: theme.palette.text.primary,
+}));
+
 const UserCard = ({ user }: UserCardProps) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const authUser = useUserContext();
@@ -37,7 +42,7 @@ const UserCard = ({ user }: UserCardProps) => {
     <Card sx={{ height: '100%' }}>
       <CardHeader
         avatar={
-          <Link to={`/user/${user.username}`}>
+          <StyledLink to={`/user/${user.username}`}>
             <Avatar
               width={50}
               height={50}
@@ -47,7 +52,7 @@ const UserCard = ({ user }: UserCardProps) => {
               isPro={user.isPro}
               fontSize="sm"
             />
-          </Link>
+          </StyledLink>
         }
         action={
           <LikeButton
@@ -60,11 +65,11 @@ const UserCard = ({ user }: UserCardProps) => {
           />
         }
         title={
-          <Link to={`/user/${user.username}`}>
+          <StyledLink to={`/user/${user.username}`}>
             {user.name} {user.surname}
-          </Link>
+          </StyledLink>
         }
-        subheader={<Link to={`/user/${user.username}`}>@{user.username}</Link>}
+        subheader={<StyledLink to={`/user/${user.username}`}>@{user.username}</StyledLink>}
       />
       <CardContent>
         {user.posts.length > 0 ? (

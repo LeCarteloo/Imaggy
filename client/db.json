@@ -62,7 +62,32 @@
           "likedPosts": []
         }
       ],
-      "following": [],
+      "following": [
+        {
+          "id": 3,
+          "username": "placeholder3",
+          "email": "placeholder3@email.com",
+          "avatar": "",
+          "name": "Place3",
+          "surname": "Holder3",
+          "bio": "",
+          "isPro": false,
+          "profileBg": "",
+          "posts": [
+          ],
+          "skills": [],
+          "interest": [],
+          "links": {
+            "facebook": "#",
+            "instagram": "#",
+            "website": "#"
+          },
+          "location": "",
+          "followers": [],
+          "following": [],
+          "likedPosts": []
+        }
+      ],
       "likedPosts": [
         {
           "id": 1,
@@ -134,6 +159,55 @@
         "website": "#"
       },
       "location": "",
+      "followers": [
+        {
+          "id": 3,
+          "username": "placeholder3",
+          "email": "placeholder3@email.com",
+          "avatar": "",
+          "name": "Place3",
+          "surname": "Holder3",
+          "bio": "",
+          "isPro": false,
+          "profileBg": "",
+          "posts": [
+          ],
+          "skills": [],
+          "interest": [],
+          "links": {
+            "facebook": "#",
+            "instagram": "#",
+            "website": "#"
+          },
+          "location": "",
+          "followers": [],
+          "following": [],
+          "likedPosts": []
+        }
+      ],
+      "following": [],
+      "likedPosts": []
+    },
+    {
+      "id": 3,
+      "username": "placeholder3",
+      "email": "placeholder3@email.com",
+      "avatar": "",
+      "name": "Place3",
+      "surname": "Holder3",
+      "bio": "",
+      "isPro": false,
+      "profileBg": "",
+      "posts": [
+      ],
+      "skills": [],
+      "interest": [],
+      "links": {
+        "facebook": "#",
+        "instagram": "#",
+        "website": "#"
+      },
+      "location": "",
       "followers": [],
       "following": [],
       "likedPosts": []
@@ -149,7 +223,7 @@
       "description": "Short description",
       "views": 5,
       "downloads": 1,
-      "device": "",
+      "device": "Nikon",
       "user": {
         "id": 2,
         "username": "placeholder2",

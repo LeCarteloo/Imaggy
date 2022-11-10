@@ -39,7 +39,7 @@ const ImageSection = ({ posts, user, animated = false }: ImageSectionProps) => {
         <section>
           <ImageList variant="masonry" gap={8}>
             {posts.map((postItem) => (
-              <PostCard post={postItem} key={postItem._id} />
+              <PostCard post={postItem} key={postItem.id} />
             ))}
           </ImageList>
         </section>
