@@ -44,7 +44,6 @@ const PostCard = ({ post, user }: PostCardProps) => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const navigate = useNavigate();
 
-
   const author = user ? user : post.user;
 
   useEffect(() => {
@@ -59,24 +58,26 @@ const PostCard = ({ post, user }: PostCardProps) => {
   };
 
   // TODO: Add logic to download and openImage fn
-  const handleDownload = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleDownload = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.stopPropagation();
   };
 
-  const handleOpenImage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    navigate(`/post/${post.id}`)
+  const handleOpenImage = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    navigate(`/post/${post.id}`);
   };
 
   return (
-    <StyledImageListItem
-      isPreviewOpen={isPreviewOpen}
-      onClick={handleOpenImage}
-    >
+    <StyledImageListItem isPreviewOpen={isPreviewOpen}>
       <img
         src={post.image}
         alt={post.title}
         loading="lazy"
         style={{ maxHeight: '600px' }}
+        onClick={handleOpenImage}
       />
       <ImageListItemBar
         sx={{
@@ -89,7 +90,7 @@ const PostCard = ({ post, user }: PostCardProps) => {
             <LikeButton
               isLiked={isLiked}
               ariaLabel={`${!isLiked ? 'Like' : 'Unlike'} ${post.title}`}
-              onLike={(e:any) => handeLike(e)}
+              onLike={(e: any) => handeLike(e)}
             />
             {/* <Tooltip title="Add to collection">
                 <IconButton sx={{ color: 'white' }} aria-label={`add X to collection`}>
@@ -110,7 +111,11 @@ const PostCard = ({ post, user }: PostCardProps) => {
           padding: 1,
         }}
         title={
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box
+            sx={{ display: 'flex', alignItems: 'center' }}
+            component={Link}
+            to={`/user/${author.username}`}
+          >
             <UserPreview
               user={author}
               open={isPreviewOpen}

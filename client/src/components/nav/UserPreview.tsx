@@ -19,16 +19,14 @@ type TooltipContentProps = {
 };
 
 const TooltipContent = ({ user }: TooltipContentProps) => {
-  const lastPosts = user.posts?.slice(0, 3);
-
   return (
     <Box sx={{ p: 2, width: '100%' }}>
       <Box
         sx={{
           display: 'flex',
-          width: '100%',
           justifyContent: 'space-between',
           alignItems: 'center',
+          gap: 2,
         }}
       >
         <Avatar
@@ -44,7 +42,6 @@ const TooltipContent = ({ user }: TooltipContentProps) => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            ml: 2,
             flexGrow: 1,
           }}
         >
@@ -63,14 +60,26 @@ const TooltipContent = ({ user }: TooltipContentProps) => {
           onLike={() => {}}
         />
       </Box>
-      <Box sx={{ display: 'flex', gap: 1, mt: 2, mb: 2, height: '75px' }}>
-        {lastPosts.map((post) => (
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 1,
+          mt: 2,
+          mb: 2,
+          height: '75px',
+        }}
+      >
+        {user.posts.slice(0, 3).map((post) => (
           <img
             key={post.title}
-            src="https://place-hold.it/100x100"
+            src={post.image}
             alt={post.title}
-            width={'100%'}
-            style={{ maxWidth: '100px' }}
+            style={{
+              minWidth: '82px',
+              minHeight: '82px',
+              objectFit: 'cover',
+              borderRadius: '2px',
+            }}
             height="auto"
           />
         ))}
@@ -103,9 +112,11 @@ const UserPreview = ({
       leaveDelay={100}
       onOpen={onOpen}
       onClose={onClose}
+      sx={{}}
       componentsProps={{
         tooltip: {
           sx: {
+            maxWidth: '500px',
             backgroundColor: 'background.paper',
             color: 'text.primary',
             '& .MuiTooltip-arrow': {

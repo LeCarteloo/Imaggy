@@ -69,7 +69,11 @@ const UserCard = ({ user }: UserCardProps) => {
             {user.name} {user.surname}
           </StyledLink>
         }
-        subheader={<StyledLink to={`/user/${user.username}`}>@{user.username}</StyledLink>}
+        subheader={
+          <StyledLink to={`/user/${user.username}`}>
+            @{user.username}
+          </StyledLink>
+        }
       />
       <CardContent>
         {user.posts.length > 0 ? (
@@ -81,8 +85,10 @@ const UserCard = ({ user }: UserCardProps) => {
             }}
           >
             {user.posts.slice(0, 3).map((post) => (
-              <div
+              <Box
                 key={`img-${post.id}`}
+                component={Link}
+                to={`/post/${post.id}`}
                 style={{
                   backgroundImage: `url(${post.image})`,
                   backgroundRepeat: 'no-repeat',
@@ -91,7 +97,7 @@ const UserCard = ({ user }: UserCardProps) => {
                   paddingTop: '75%',
                   borderRadius: '4px',
                 }}
-              ></div>
+              ></Box>
             ))}
           </Box>
         ) : (
