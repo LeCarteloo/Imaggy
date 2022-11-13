@@ -1,5 +1,17 @@
-import { Box, Container, Button, Typography, styled } from '@mui/material';
+import {
+  Box,
+  Container,
+  Button,
+  Typography,
+  styled,
+  Card,
+  CardContent,
+  Grid,
+} from '@mui/material';
 import { motion } from 'framer-motion';
+import Gif01 from '../assets/imaggyplus-gif-01.gif';
+import Profile from '../assets/imaggyplus-profile.png';
+import { FeatureCard } from '../components';
 
 const StyledList = styled('ul')({
   listStyle: 'none',
@@ -105,8 +117,9 @@ const ImaggyPlus = () => {
   ];
 
   return (
-    <Container component={'section'}>
+    <Container>
       <Box
+        component={'section'}
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -126,11 +139,11 @@ const ImaggyPlus = () => {
             </li>
             <li>
               <span>+ </span>
-              Special banner on profile
+              Special avatar outline and banner on profile page
             </li>
             <li>
               <span>+ </span>
-              Banner on profile
+              Priority in search results
             </li>
           </StyledList>
           <Button variant="contained">
@@ -165,6 +178,46 @@ const ImaggyPlus = () => {
             </StyledGridItem>
           ))}
         </StyledGrid>
+      </Box>
+      <Box component={'section'}>
+        <Typography
+          variant="h3"
+          component="h2"
+          sx={{ textAlign: 'center', pb: 3 }}
+        >
+          Why go Imaggy+
+        </Typography>
+        <Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <FeatureCard
+                title="Uploading videos and gifs"
+                subtitle="Imaggy+ allows you to upload not only bigger images but
+                      also videos and gifs"
+                img={Gif01}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FeatureCard
+                title="Avatar outline and custom banner"
+                subtitle="Distinguish yourself from others with custom banner on
+                your profile and with special outline around your avatar"
+                img={Profile}
+                display="column"
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FeatureCard
+                title="Priority in search results"
+                subtitle="Your images will be displayed before non-pro users, it will get around 40% more views"
+                img={
+                  'https://unsplash-assets.imgix.net/unsplashplus/why-grid-b.webp?auto=format&fit=crop&h=1226&q=75'
+                }
+                display="column"
+              />
+            </Grid>
+          </Grid>
+        </Box>
       </Box>
     </Container>
   );
