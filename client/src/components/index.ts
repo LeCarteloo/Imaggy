@@ -14,3 +14,4 @@ export { default as GoProText } from './buttons/GoProText';
 export { default as PostCard } from './cards/PostCard';
 export { default as UserCard } from './cards/UserCard';
 export { default as FeatureCard } from './cards/FeatureCard';
+export { default as PlanCard } from './cards/PlanCard';

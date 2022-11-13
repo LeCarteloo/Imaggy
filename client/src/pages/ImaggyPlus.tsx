@@ -4,14 +4,15 @@ import {
   Button,
   Typography,
   styled,
-  Card,
-  CardContent,
   Grid,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import Gif01 from '../assets/imaggyplus-gif-01.gif';
 import Profile from '../assets/imaggyplus-profile.png';
-import { FeatureCard } from '../components';
+import { FeatureCard, PlanCard } from '../components';
 
 const StyledList = styled('ul')({
   listStyle: 'none',
@@ -48,6 +49,15 @@ const StyledDiv = styled(motion.div)<StyledDivProps>(({ bgColor }) => ({
 }));
 
 const ImaggyPlus = () => {
+  const [plan, setPlan] = useState('monthly');
+
+  const handlePlanChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newPlan: string
+  ) => {
+    setPlan(newPlan);
+  };
+
   const gridTiles = [
     {
       children: [
@@ -217,6 +227,36 @@ const ImaggyPlus = () => {
               />
             </Grid>
           </Grid>
+        </Box>
+      </Box>
+      <Box component={'section'} sx={{ pt: 10 }}>
+        <Typography
+          variant="h3"
+          component="h2"
+          sx={{ textAlign: 'center', pb: 3 }}
+        >
+          Imaggy+ Pircing
+        </Typography>
+        <Typography sx={{ textAlign: 'center' }}>
+          No bundles. No add-ons. One simple plan unlocks everything.
+        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 4 }}>
+          <ToggleButtonGroup
+            exclusive
+            value={plan}
+            onChange={handlePlanChange}
+            aria-label="Premium plans"
+          >
+            <ToggleButton value="monthly" aria-label="Monthly plan">
+              Monthly
+            </ToggleButton>
+            <ToggleButton value="yearly" aria-label="Yearly plan">
+              Yearly
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
+        <Box sx={{ display: 'flex' }}>
+          <PlanCard />
         </Box>
       </Box>
     </Container>
