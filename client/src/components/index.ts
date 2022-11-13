@@ -4,6 +4,7 @@ export { default as UserPreview } from './nav/UserPreview';
 export { default as Avatar } from './nav/Avatar';
 export { default as ImageSection } from './sections/ImageSection';
 export { default as UserSection } from './sections/UserSection';
+export { default as Footer } from './sections/Footer';
 export { default as CollectionSection } from './sections/CollectionSection';
 export { default as SectionHeader } from './sections/SectionHeader';
 export { default as LikeButton } from './buttons/LikeButton';

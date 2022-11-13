@@ -7,12 +7,16 @@ import {
   Grid,
   ToggleButton,
   ToggleButtonGroup,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Paper,
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Gif01 from '../assets/imaggyplus-gif-01.gif';
 import Profile from '../assets/imaggyplus-profile.png';
-import { FeatureCard, PlanCard } from '../components';
+import { FeatureCard, Footer, PlanCard } from '../components';
 
 const StyledList = styled('ul')({
   listStyle: 'none',
@@ -57,6 +61,29 @@ const ImaggyPlus = () => {
   ) => {
     setPlan(newPlan);
   };
+
+  const faqList = [
+    {
+      question: 'Faq question #1',
+      answer:
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
+    },
+    {
+      question: 'Faq question #2',
+      answer:
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
+    },
+    {
+      question: 'Faq question #3',
+      answer:
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
+    },
+    {
+      question: 'Faq question #4',
+      answer:
+        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
+    },
+  ];
 
   const gridTiles = [
     {
@@ -127,139 +154,163 @@ const ImaggyPlus = () => {
   ];
 
   return (
-    <Container>
-      <Box
-        component={'section'}
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '10%',
-          height: '80vh',
-        }}
-      >
-        <Box sx={{ width: '100%' }}>
-          <Typography variant="h2" component="h1" sx={{ fontWeight: 'bold' }}>
-            Upgrade to Imaggy+ and start creating with extra features.
-          </Typography>
-          <StyledList>
-            <li>
-              <span>+ </span>
-              Uploading videos and gifs
-            </li>
-            <li>
-              <span>+ </span>
-              Special avatar outline and banner on profile page
-            </li>
-            <li>
-              <span>+ </span>
-              Priority in search results
-            </li>
-          </StyledList>
-          <Button variant="contained">
-            <Typography variant="body1">
-              Get <strong>Imaggy+</strong> for $5/month
+    <Box>
+      <Container>
+        <Box
+          component={'section'}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '10%',
+            height: '80vh',
+          }}
+        >
+          <Box sx={{ width: '100%' }}>
+            <Typography variant="h2" component="h1" sx={{ fontWeight: 'bold' }}>
+              Upgrade to Imaggy+ and start creating with extra features.
             </Typography>
-          </Button>
+            <StyledList>
+              <li>
+                <span>+ </span>
+                Uploading videos and gifs
+              </li>
+              <li>
+                <span>+ </span>
+                Special avatar outline and banner on profile page
+              </li>
+              <li>
+                <span>+ </span>
+                Priority in search results
+              </li>
+            </StyledList>
+            <Button variant="contained">
+              <Typography variant="body1">
+                Get <strong>Imaggy+</strong> for $5/month
+              </Typography>
+            </Button>
+          </Box>
+          <StyledGrid>
+            {gridTiles.map((tile, i) => (
+              <StyledGridItem
+                key={`grid-item-${i}`}
+                grid={tile.children.length > 1}
+              >
+                {tile.children.map((children, j) => (
+                  <StyledDiv
+                    key={`grid-div-${j}`}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      delay: 0.5 + i * 0.5,
+                      duration: 0.3,
+                      ease: 'easeInOut',
+                    }}
+                    bgColor={children?.color}
+                  >
+                    {children?.src && (
+                      <img src={children.src} width="100%" height="100%" />
+                    )}
+                  </StyledDiv>
+                ))}
+              </StyledGridItem>
+            ))}
+          </StyledGrid>
         </Box>
-        <StyledGrid>
-          {gridTiles.map((tile, i) => (
-            <StyledGridItem
-              key={`grid-item-${i}`}
-              grid={tile.children.length > 1}
-            >
-              {tile.children.map((children, j) => (
-                <StyledDiv
-                  key={`grid-div-${j}`}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    delay: 0.5 + i * 0.5,
-                    duration: 0.3,
-                    ease: 'easeInOut',
-                  }}
-                  bgColor={children?.color}
-                >
-                  {children?.src && (
-                    <img src={children.src} width="100%" height="100%" />
-                  )}
-                </StyledDiv>
-              ))}
-            </StyledGridItem>
-          ))}
-        </StyledGrid>
-      </Box>
-      <Box component={'section'}>
-        <Typography
-          variant="h3"
-          component="h2"
-          sx={{ textAlign: 'center', pb: 3 }}
-        >
-          Why go Imaggy+
-        </Typography>
-        <Box>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <FeatureCard
-                title="Uploading videos and gifs"
-                subtitle="Imaggy+ allows you to upload not only bigger images but
-                      also videos and gifs"
-                img={Gif01}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FeatureCard
-                title="Avatar outline and custom banner"
-                subtitle="Distinguish yourself from others with custom banner on
-                your profile and with special outline around your avatar"
-                img={Profile}
-                display="column"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FeatureCard
-                title="Priority in search results"
-                subtitle="Your images will be displayed before non-pro users, it will get around 40% more views"
-                img={
-                  'https://unsplash-assets.imgix.net/unsplashplus/why-grid-b.webp?auto=format&fit=crop&h=1226&q=75'
-                }
-                display="column"
-              />
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-      <Box component={'section'} sx={{ pt: 10 }}>
-        <Typography
-          variant="h3"
-          component="h2"
-          sx={{ textAlign: 'center', pb: 3 }}
-        >
-          Imaggy+ Pircing
-        </Typography>
-        <Typography sx={{ textAlign: 'center' }}>
-          No bundles. No add-ons. One simple plan unlocks everything.
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 4 }}>
-          <ToggleButtonGroup
-            exclusive
-            value={plan}
-            onChange={handlePlanChange}
-            aria-label="Premium plans"
+        <Box component={'section'}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{ textAlign: 'center', pb: 3 }}
           >
-            <ToggleButton value="monthly" aria-label="Monthly plan">
-              Monthly
-            </ToggleButton>
-            <ToggleButton value="yearly" aria-label="Yearly plan">
-              Yearly
-            </ToggleButton>
-          </ToggleButtonGroup>
+            Why go Imaggy+
+          </Typography>
+          <Box>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FeatureCard
+                  title="Uploading videos and gifs"
+                  subtitle="Imaggy+ allows you to upload not only bigger images but
+                      also videos and gifs"
+                  img={Gif01}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FeatureCard
+                  title="Avatar outline and custom banner"
+                  subtitle="Distinguish yourself from others with custom banner on
+                your profile and with special outline around your avatar"
+                  img={Profile}
+                  display="column"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FeatureCard
+                  title="Priority in search results"
+                  subtitle="Your images will be displayed before non-pro users, it will get around 40% more views"
+                  img={
+                    'https://unsplash-assets.imgix.net/unsplashplus/why-grid-b.webp?auto=format&fit=crop&h=1226&q=75'
+                  }
+                  display="column"
+                />
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
-        <Box sx={{ display: 'flex' }}>
-          <PlanCard />
+        <Box component={'section'} sx={{ mt: 10 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{ textAlign: 'center', pb: 3 }}
+          >
+            Imaggy+ Pircing
+          </Typography>
+          <Typography sx={{ textAlign: 'center' }}>
+            No bundles. No add-ons. One simple plan unlocks everything.
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 4 }}>
+            <ToggleButtonGroup
+              exclusive
+              value={plan}
+              onChange={handlePlanChange}
+              aria-label="Premium plans"
+            >
+              <ToggleButton value="monthly" aria-label="Monthly plan">
+                Monthly
+              </ToggleButton>
+              <ToggleButton value="yearly" aria-label="Yearly plan">
+                Yearly
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+          <Box sx={{ display: 'flex' }}>
+            <PlanCard />
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+      <Paper component={'section'} sx={{ mt: 10 }}>
+        <Container sx={{ pt: 10, pb: 10 }}>
+          <Typography variant="h3" component="h2" sx={{ pb: 3 }}>
+            Frequently asked questions
+          </Typography>
+          <Typography>Haven’t found what you’re looking for?</Typography>
+          <Typography>Try our Help Center — we’re here to help.</Typography>
+          <Box sx={{ mt: 3 }}>
+            {faqList.map((item) => (
+              <Accordion>
+                <AccordionSummary aria-controls={`${item} content`}>
+                  <Typography>{item.question}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>{item.answer}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Box>
+        </Container>
+      </Paper>
+      <Footer />
+    </Box>
   );
 };
 
