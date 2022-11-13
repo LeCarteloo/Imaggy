@@ -2,7 +2,7 @@ import { Navbar } from './components';
 import { styled } from '@mui/system';
 import { UserProvider } from './context/UserContext';
 import { Routes, Route } from 'react-router-dom';
-import { HomePage, PostPage, UserPage } from './pages';
+import { HomePage, ImaggyPlus, PostPage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ import Loader from './Loader';
 import { ThemeModeProvider } from './context/ThemeContext';
 
 const StyledMain = styled('main')({
-  marginTop: 40,
+  marginTop: 70,
   paddingBottom: '32px',
   height: '100%',
 });
@@ -57,6 +57,7 @@ function App() {
           <StyledMain>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/imaggyplus" element={<ImaggyPlus />} />
               <Route path="/user/:username/*" element={<UserPage />} />
               <Route path="/post/:postId" element={<PostPage />} />
             </Routes>
