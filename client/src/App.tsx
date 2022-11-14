@@ -6,7 +6,6 @@ import { HomePage, ImaggyPlus, PostPage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { UserInterface } from './types/types';
 import { getUser } from './api/usersApi';
 import Loader from './Loader';
 import { ThemeModeProvider } from './context/ThemeContext';

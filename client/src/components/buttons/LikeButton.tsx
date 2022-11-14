@@ -11,7 +11,7 @@ type LikeButtonProps = {
   ariaLabel: string;
   size?: 'small' | 'medium' | 'large';
   type?: 'user' | 'post';
-  onLike: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onLike: () => void;
 };
 
 const LikeButton = ({

@@ -52,20 +52,15 @@ const PostCard = ({ post, user }: PostCardProps) => {
     setIsLiked(Boolean(isPostLiked));
   }, []);
 
-  const handeLike = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
+  const handeLike = () => {
     setIsLiked(!isLiked);
   };
 
   // TODO: Add logic to download and openImage fn
-  const handleDownload = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-  };
+  const handleDownload = () => {};
 
   const handleOpenImage = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
     navigate(`/post/${post.id}`);
   };
@@ -90,7 +85,7 @@ const PostCard = ({ post, user }: PostCardProps) => {
             <LikeButton
               isLiked={isLiked}
               ariaLabel={`${!isLiked ? 'Like' : 'Unlike'} ${post.title}`}
-              onLike={(e: any) => handeLike(e)}
+              onLike={handeLike}
             />
             {/* <Tooltip title="Add to collection">
                 <IconButton sx={{ color: 'white' }} aria-label={`add X to collection`}>
