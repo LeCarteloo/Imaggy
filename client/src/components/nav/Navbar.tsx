@@ -39,7 +39,17 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
     setUserMenu(null);
   };
 
-  const pages = ['Explore', 'Advertise'];
+  const pages = [
+    {
+      name: 'Explore',
+      to: '/explore',
+    },
+    {
+      name: 'Advertise',
+      to: '/advertise',
+    },
+  ];
+
   const menuItems = [
     {
       name: 'Profile',
@@ -47,7 +57,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
     },
     {
       name: 'Go Imaggy+',
-      to: `#!`,
+      to: `imaggyplus`,
     },
     {
       name: 'Account Settings',
@@ -83,8 +93,8 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
         </Link>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
           {pages.map((page) => (
-            <MenuItem key={page}>
-              <Typography variant="h6">{page}</Typography>
+            <MenuItem key={page.name} component={Link} to={page.to}>
+              <Typography variant="h6">{page.name}</Typography>
             </MenuItem>
           ))}
           <MenuItem>

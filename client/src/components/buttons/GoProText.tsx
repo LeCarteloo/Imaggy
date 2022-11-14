@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import { keyframes, styled } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const gradientChange = keyframes`
   from {
@@ -18,10 +19,14 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   color: 'transparent',
   fontWeight: 'bold',
   animation: `${gradientChange} 3s linear infinite;`,
-}));
+})) as typeof Typography;
 
 const GoProText = () => {
-  return <StyledTypography variant="h6">Imaggy+</StyledTypography>;
+  return (
+    <StyledTypography variant="h6" component={Link} to={'/imaggyplus'}>
+      Imaggy+
+    </StyledTypography>
+  );
 };
 
 export default GoProText;

@@ -1,7 +1,15 @@
 import { Language } from '@mui/icons-material';
-import { Box, Typography } from '@mui/material';
-import { Container } from '@mui/system';
+import { Container, Box, Typography, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  marginRight: 5,
+  textDecoration: 'none',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
+}));
 
 const Footer = () => {
   const groups = [
@@ -67,20 +75,20 @@ const Footer = () => {
       <hr />
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box>
-          <Link to="#">Privacy Policy </Link>
-          <Link to="#">Terms </Link>
-          <Link to="#">Security </Link>
+          <StyledLink to="#">Privacy Policy </StyledLink>
+          <StyledLink to="#">Terms </StyledLink>
+          <StyledLink to="#">Security </StyledLink>
         </Box>
         <Box>
-          <Link to="#">
+          <StyledLink to="#">
             <Language />
-          </Link>
-          <Link to="#">
+          </StyledLink>
+          <StyledLink to="#">
             <Language />
-          </Link>
-          <Link to="#">
+          </StyledLink>
+          <StyledLink to="#">
             <Language />
-          </Link>
+          </StyledLink>
         </Box>
       </Box>
     </Container>

@@ -7,6 +7,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
+import { motion } from 'framer-motion';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   width: '100%',
@@ -14,31 +15,38 @@ const StyledCard = styled(Card)(({ theme }) => ({
   backgroundImage: `linear-gradient(${theme.palette.primary.main}, #0099ff, ${theme.palette.primary.main})`,
 }));
 
-const PlanCard = () => {
+interface PlanCardProps {
+  title: string;
+  subtitle: string;
+  list: string[];
+}
+
+const PlanCard = ({ title, subtitle, list }: PlanCardProps) => {
   return (
-    <StyledCard>
-      <CardContent sx={{ p: 4, background: 'black' }}>
-        <Typography variant="h4">$5 monthly</Typography>
-        <Typography>5 dollars, billed monthly</Typography>
-        <ul style={{ padding: 0, listStyle: 'none' }}>
-          <li>Uploading videos and gifs</li>
-          <li>Special avatar outline</li>
-          <li>Special banner on profile page</li>
-          <li>Priority in search results</li>
-        </ul>
-        <Button variant="contained" fullWidth sx={{ mt: 3 }}>
-          Get Imaggy+
-        </Button>
-        <Box sx={{ display: 'flex', justifyContent: 'space-evenly', mt: 3 }}>
-          <Box sx={{ display: 'flex' }}>
-            <Check /> Renews automatically
+    <motion.div style={{ width: '100%' }}>
+      <StyledCard>
+        <CardContent sx={{ p: 4, background: 'black' }}>
+          <Typography variant="h4">{title}</Typography>
+          <Typography>{subtitle}</Typography>
+          <ul style={{ padding: 0, listStyle: 'none' }}>
+            {list.map((item) => (
+              <li>- {item}</li>
+            ))}
+          </ul>
+          <Button variant="contained" fullWidth sx={{ mt: 3 }}>
+            Get Imaggy+
+          </Button>
+          <Box sx={{ display: 'flex', justifyContent: 'space-evenly', mt: 3 }}>
+            <Box sx={{ display: 'flex' }}>
+              <Check /> Renews automatically
+            </Box>
+            <Box sx={{ display: 'flex' }}>
+              <Check /> Cancel anytime
+            </Box>
           </Box>
-          <Box sx={{ display: 'flex' }}>
-            <Check /> Cancel anytime
-          </Box>
-        </Box>
-      </CardContent>
-    </StyledCard>
+        </CardContent>
+      </StyledCard>
+    </motion.div>
   );
 };
 

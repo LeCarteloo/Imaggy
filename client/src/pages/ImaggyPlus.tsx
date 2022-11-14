@@ -153,6 +153,29 @@ const ImaggyPlus = () => {
     },
   ];
 
+  const plans = [
+    {
+      title: '$5 monthly',
+      subtitle: '5 dollars, billed monthly',
+      list: [
+        'Uploading videos and gifs',
+        'Special avatar outline',
+        'Special banner on profile page',
+        'Priority in search results',
+      ],
+    },
+    {
+      title: '$48 yearly',
+      subtitle: '4 dollars, billed monthly',
+      list: [
+        'Uploading videos and gifs',
+        'Special avatar outline',
+        'Special banner on profile page',
+        'Priority in search results',
+      ],
+    },
+  ];
+
   return (
     <Box>
       <Container>
@@ -284,7 +307,7 @@ const ImaggyPlus = () => {
             </ToggleButtonGroup>
           </Box>
           <Box sx={{ display: 'flex' }}>
-            <PlanCard />
+            <PlanCard {...plans[plan === 'monthly' ? 0 : 1]} />
           </Box>
         </Box>
       </Container>

@@ -16,7 +16,7 @@ type StyledAvatarProps = {
   isPro?: boolean;
 };
 
-type StyledLinkProps = {
+type StyledSpanProps = {
   fontSize?: 'sm' | 'md';
 };
 
@@ -26,7 +26,7 @@ const StyledAvatar = styled(UserAvatar, {
   outline: isPro ? `2px solid ${theme.palette.primary.main}` : '',
 }));
 
-const StyledLink = styled(Link)<StyledLinkProps>(({ theme, fontSize }) => ({
+const StyledSpan = styled('span')<StyledSpanProps>(({ theme, fontSize }) => ({
   position: 'absolute',
   left: 0,
   bottom: 0,
@@ -57,11 +57,7 @@ const Avatar = ({
       >
         {`${name[0]}${surname[0]}`}
       </StyledAvatar>
-      {isPro ? (
-        <StyledLink fontSize={fontSize} to="/imaggyplus">
-          PRO
-        </StyledLink>
-      ) : null}
+      {isPro ? <StyledSpan fontSize={fontSize}>PRO</StyledSpan> : null}
     </Box>
   );
 };
