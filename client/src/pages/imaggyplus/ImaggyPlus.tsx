@@ -5,18 +5,14 @@ import {
   Typography,
   styled,
   Grid,
-  ToggleButton,
-  ToggleButtonGroup,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Paper,
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import Gif01 from '../assets/imaggyplus-gif-01.gif';
-import Profile from '../assets/imaggyplus-profile.png';
-import { FeatureCard, Footer, PlanCard } from '../components';
+import { Link } from 'react-router-dom';
+import Gif01 from '../../assets/imaggyplus-gif-01.gif';
+import Profile from '../../assets/imaggyplus-profile.png';
+import { FeatureCard, Footer } from '../../components';
+import FaqSection from './FaqSection';
+import PricingSection from './PricingSection';
 
 const StyledList = styled('ul')({
   listStyle: 'none',
@@ -53,38 +49,6 @@ const StyledDiv = styled(motion.div)<StyledDivProps>(({ bgColor }) => ({
 }));
 
 const ImaggyPlus = () => {
-  const [plan, setPlan] = useState('monthly');
-
-  const handlePlanChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newPlan: string
-  ) => {
-    setPlan(newPlan);
-  };
-
-  const faqList = [
-    {
-      question: 'Faq question #1',
-      answer:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
-    },
-    {
-      question: 'Faq question #2',
-      answer:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
-    },
-    {
-      question: 'Faq question #3',
-      answer:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
-    },
-    {
-      question: 'Faq question #4',
-      answer:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium consequatur minima harum velit exercitationem rem. Rem ipsam doloremque veniam sit?',
-    },
-  ];
-
   const gridTiles = [
     {
       children: [
@@ -153,29 +117,6 @@ const ImaggyPlus = () => {
     },
   ];
 
-  const plans = [
-    {
-      title: '$5 monthly',
-      subtitle: '5 dollars, billed monthly',
-      list: [
-        'Uploading videos and gifs',
-        'Special avatar outline',
-        'Special banner on profile page',
-        'Priority in search results',
-      ],
-    },
-    {
-      title: '$48 yearly',
-      subtitle: '4 dollars, billed monthly',
-      list: [
-        'Uploading videos and gifs',
-        'Special avatar outline',
-        'Special banner on profile page',
-        'Priority in search results',
-      ],
-    },
-  ];
-
   return (
     <Box>
       <Container>
@@ -195,19 +136,19 @@ const ImaggyPlus = () => {
             </Typography>
             <StyledList>
               <li>
-                <span>+ </span>
+                <span>- </span>
                 Uploading videos and gifs
               </li>
               <li>
-                <span>+ </span>
+                <span>- </span>
                 Special avatar outline and banner on profile page
               </li>
               <li>
-                <span>+ </span>
+                <span>- </span>
                 Priority in search results
               </li>
             </StyledList>
-            <Button variant="contained">
+            <Button variant="contained" component={Link} to="/futurebuy">
               <Typography variant="body1">
                 Get <strong>Imaggy+</strong> for $5/month
               </Typography>
@@ -280,58 +221,9 @@ const ImaggyPlus = () => {
             </Grid>
           </Box>
         </Box>
-        <Box component={'section'} sx={{ mt: 10 }}>
-          <Typography
-            variant="h3"
-            component="h2"
-            sx={{ textAlign: 'center', pb: 3 }}
-          >
-            Imaggy+ Pircing
-          </Typography>
-          <Typography sx={{ textAlign: 'center' }}>
-            No bundles. No add-ons. One simple plan unlocks everything.
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', pt: 4, pb: 4 }}>
-            <ToggleButtonGroup
-              exclusive
-              value={plan}
-              onChange={handlePlanChange}
-              aria-label="Premium plans"
-            >
-              <ToggleButton value="monthly" aria-label="Monthly plan">
-                Monthly
-              </ToggleButton>
-              <ToggleButton value="yearly" aria-label="Yearly plan">
-                Yearly
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </Box>
-          <Box sx={{ display: 'flex' }}>
-            <PlanCard {...plans[plan === 'monthly' ? 0 : 1]} />
-          </Box>
-        </Box>
+        <PricingSection />
       </Container>
-      <Paper component={'section'} sx={{ mt: 10 }}>
-        <Container sx={{ pt: 10, pb: 10 }}>
-          <Typography variant="h3" component="h2" sx={{ pb: 3 }}>
-            Frequently asked questions
-          </Typography>
-          <Typography>Haven’t found what you’re looking for?</Typography>
-          <Typography>Try our Help Center — we’re here to help.</Typography>
-          <Box sx={{ mt: 3 }}>
-            {faqList.map((item) => (
-              <Accordion>
-                <AccordionSummary aria-controls={`${item} content`}>
-                  <Typography>{item.question}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>{item.answer}</Typography>
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </Box>
-        </Container>
-      </Paper>
+      <FaqSection />
       <Footer />
     </Box>
   );

@@ -1,5 +1,11 @@
-import { Box, SvgIconProps, Tab, Tabs, tabsClasses } from '@mui/material';
-import styled from '@emotion/styled';
+import {
+  Box,
+  SvgIconProps,
+  Tab,
+  Tabs,
+  tabsClasses,
+  styled,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 type TabsProps = {
