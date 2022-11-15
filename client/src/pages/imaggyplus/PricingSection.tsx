@@ -5,7 +5,7 @@ import {
   Box,
 } from '@mui/material';
 import { useState } from 'react';
-import { PlanCard } from '../../components';
+import PlanCard from './PlanCard';
 
 const PricingSection = () => {
   const [plan, setPlan] = useState('monthly');

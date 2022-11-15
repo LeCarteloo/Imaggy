@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   width: '100%',
@@ -29,11 +30,17 @@ const PlanCard = ({ title, subtitle, list }: PlanCardProps) => {
           <Typography variant="h4">{title}</Typography>
           <Typography>{subtitle}</Typography>
           <ul style={{ padding: 0, listStyle: 'none' }}>
-            {list.map((item) => (
-              <li>- {item}</li>
+            {list.map((item, i) => (
+              <li key={i}>- {item}</li>
             ))}
           </ul>
-          <Button variant="contained" fullWidth sx={{ mt: 3 }}>
+          <Button
+            variant="contained"
+            component={Link}
+            to={'/biling'}
+            sx={{ mt: 3 }}
+            fullWidth
+          >
             Get Imaggy+
           </Button>
           <Box sx={{ display: 'flex', justifyContent: 'space-evenly', mt: 3 }}>
