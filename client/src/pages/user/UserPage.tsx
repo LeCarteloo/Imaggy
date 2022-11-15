@@ -21,11 +21,11 @@ import {
   ImageSection,
   ProfileTabs,
   UserSection,
-} from '../components';
+} from '../../components';
 import { AnimatePresence } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from '../api/usersApi';
-import Loader from '../Loader';
+import { getUser } from '../../api/usersApi';
+import Loader from '../../Loader';
 
 const StyledBanner = styled(Box)({
   position: 'absolute',

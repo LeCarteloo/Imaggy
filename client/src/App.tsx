@@ -2,7 +2,7 @@ import { Navbar } from './components';
 import { styled } from '@mui/system';
 import { UserProvider } from './context/UserContext';
 import { Routes, Route } from 'react-router-dom';
-import { HomePage, ImaggyPlus, PostPage, UserPage } from './pages';
+import { AboutPage, HomePage, ImaggyPlus, PostPage, UserPage } from './pages';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -57,6 +57,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/imaggyplus" element={<ImaggyPlus />} />
+              <Route path="/about" element={<AboutPage />} />
               <Route path="/user/:username/*" element={<UserPage />} />
               <Route path="/post/:postId" element={<PostPage />} />
             </Routes>
