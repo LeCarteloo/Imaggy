@@ -9,15 +9,17 @@ import {
 import { Box, Container } from '@mui/system';
 import { Link } from 'react-router-dom';
 import Img from '../../assets/imaggyplus-profile.png';
-import InfoCard from './InfoCard';
+import CommunitySection from './CommunitySection';
+import InfoBlock from './InfoBlock';
 
 const StyledHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   gap: '32px',
-  height: '80vh',
+  padding: '120px 0',
   [theme.breakpoints.down('md')]: {
+    padding: '32px 0',
     flexDirection: 'column',
   },
 }));
@@ -34,17 +36,17 @@ const StyledCardDisplay = styled(Box)(({ theme }) => ({
 const AboutPage = () => {
   const blocks = [
     {
-      title: 'Test title',
+      title: 'Test title1',
       desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit officiis quos dignissimos cum minima non ea in ipsa nisi exercitationem.',
       img: Img,
     },
     {
-      title: 'Test title',
+      title: 'Test title2',
       desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit officiis quos dignissimos cum minima non ea in ipsa nisi exercitationem.',
       img: Img,
     },
     {
-      title: 'Test title',
+      title: 'Test title3',
       desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit officiis quos dignissimos cum minima non ea in ipsa nisi exercitationem.',
       img: Img,
     },
@@ -67,7 +69,7 @@ const AboutPage = () => {
             molestiae ut aliquid nobis distinctio aperiam odio reprehenderit
             minus rem voluptas.
           </Typography>
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <Button variant="contained" component={Link} to="/">
               Start browsing
             </Button>
@@ -90,7 +92,7 @@ const AboutPage = () => {
         </Typography>
         <StyledCardDisplay>
           {blocks.map((block) => (
-            <Card>
+            <Card key={block.title}>
               <CardMedia component="img" width="auto" image={block.img} />
               <CardContent>
                 <Typography
@@ -135,7 +137,12 @@ const AboutPage = () => {
           </Box>
         </StyledHeader>
       </Box>
-      <InfoCard title="Test title" desc="Test Desc" img={Img} />
+      <InfoBlock
+        title="Test title"
+        desc="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor quas aliquam non debitis atque nostrum voluptate quibusdam odit voluptatum est!"
+        img={Img}
+      />
+      <CommunitySection />
     </Container>
   );
 };
