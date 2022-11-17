@@ -50,7 +50,7 @@ const Footer = () => {
   ];
 
   return (
-    <Container component={'footer'} sx={{ mt: 4 }}>
+    <Container component={'footer'} sx={{ mt: 15 }}>
       <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
         {groups.map((group) => (
           <Box sx={{ minWidth: '150px', flex: 1 }}>

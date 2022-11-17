@@ -1,4 +1,4 @@
-import { Typography, Box, styled } from '@mui/material';
+import { Typography, Box, styled, Container } from '@mui/material';
 
 type StyledImgProps = {
   pos: 'left' | 'right';
@@ -8,9 +8,12 @@ const StyledImg = styled('img')<StyledImgProps>(({ theme, pos }) => ({
   position: 'absolute',
   height: '100%',
   zIndex: -1,
-  left: '0',
+  left: pos === 'left' ? 0 : '',
+  right: pos === 'right' ? 0 : '',
   [theme.breakpoints.down('md')]: {
-    left: '-10%',
+    left: pos === 'left' ? '-30%' : '',
+    right: pos === 'right' ? '-30%' : '',
+    height: '70%',
   },
 }));
 
@@ -21,26 +24,28 @@ const CommunitySection = () => {
       sx={{
         mt: 6,
         mb: 6,
+        overflow: 'hidden',
+        position: 'relative',
       }}
     >
       <StyledImg
-        pos="right"
+        pos="left"
         src="https://unsplash-assets.imgix.net/marketing/photographers-left-img.png?auto=format&fit=crop&w=986&q=60"
       />
       <StyledImg
-        pos="left"
+        pos="right"
         src="https://unsplash-assets.imgix.net/marketing/photographers-right-img.png?auto=format&fit=crop&w=986&q=60"
       />
-      <Box
+      <Container
         sx={{
           display: 'flex',
-          minHeight: '900px',
+          minHeight: { xs: '500px', md: '900px' },
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
         }}
       >
-        <Box sx={{ width: '50%' }}>
+        <Box sx={{ width: { xs: '100%', md: '50%' } }}>
           <Typography variant="h4" component="h3" textAlign="center">
             Anyone can join the Imaggy community
           </Typography>
@@ -52,7 +57,7 @@ const CommunitySection = () => {
             veritatis est iure iste?
           </Typography>
         </Box>
-      </Box>
+      </Container>
     </Box>
   );
 };
