@@ -7,6 +7,7 @@ import {
   CardContent,
   CardMedia,
 } from '@mui/material';
+import { Footer } from '../../components';
 import TrendingSection from './TrendingSection';
 
 const CommunityPage = () => {
@@ -118,7 +119,7 @@ const CommunityPage = () => {
           </Box>
         </Box>
       </Container>
-      <Box sx={{ mt: 10 }}>
+      <Box sx={{ mt: 10 }} component="section">
         <img
           src="https://unsplash-assets.imgix.net/marketing/madewith-banner.jpg?auto=format&fit=crop&w=1200&q=60"
           style={{ width: '100%', maxHeight: '800px', objectFit: 'cover' }}
@@ -127,6 +128,7 @@ const CommunityPage = () => {
       <Container>
         <TrendingSection />
       </Container>
+      <Footer />
     </>
   );
 };

@@ -16,3 +16,5 @@ export { default as PostCard } from './cards/PostCard';
 export { default as UserCard } from './cards/UserCard';
 export { default as FeatureCard } from './cards/FeatureCard';
 export { default as TrendingCard } from './cards/TrendingCard';
+export { default as InfoBlock } from './cards/InfoBlock';
+export { default as StatCard } from './cards/StatCard';

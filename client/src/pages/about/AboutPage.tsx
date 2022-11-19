@@ -9,9 +9,8 @@ import {
 import { Box, Container } from '@mui/system';
 import { Link } from 'react-router-dom';
 import Img from '../../assets/imaggyplus-profile.png';
-import { Footer } from '../../components';
+import { Footer, InfoBlock } from '../../components';
 import CommunitySection from './CommunitySection';
-import InfoBlock from './InfoBlock';
 
 const StyledHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
