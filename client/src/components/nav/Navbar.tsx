@@ -61,7 +61,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
     },
     {
       name: 'Account Settings',
-      to: `#!`,
+      to: `settings`,
     },
     {
       name: 'Sign out',
