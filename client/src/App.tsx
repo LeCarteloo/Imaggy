@@ -4,6 +4,7 @@ import { UserProvider } from './context/UserContext';
 import { Routes, Route } from 'react-router-dom';
 import {
   AboutPage,
+  AdvertisePage,
   CommunityPage,
   HomePage,
   ImaggyPlus,
@@ -65,6 +66,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/imaggyplus" element={<ImaggyPlus />} />
               <Route path="/community" element={<CommunityPage />} />
+              <Route path="/advertise" element={<AdvertisePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/user/:username/*" element={<UserPage />} />
               <Route path="/post/:postId" element={<PostPage />} />
