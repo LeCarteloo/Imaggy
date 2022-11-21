@@ -10,11 +10,11 @@ import { Link } from 'react-router-dom';
 
 type TabsProps = {
   label: string;
-  icon: React.ReactElement<SvgIconProps>;
+  icon?: React.ReactElement<SvgIconProps>;
   to: string;
 };
 
-interface ProfileTabsProps {
+interface NavTabsProps {
   currentTab: number;
   tabs: TabsProps[];
   onChange: (event: React.SyntheticEvent, newTab: number) => void;
@@ -44,7 +44,7 @@ const LinkTab = (props: LinkTabProps) => (
   <Tab component={Link} iconPosition="start" sx={{ minHeight: 0 }} {...props} />
 );
 
-const ProfileTabs = ({ currentTab, tabs, onChange }: ProfileTabsProps) => {
+const NavTabs = ({ currentTab, tabs, onChange }: NavTabsProps) => {
   return (
     <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 4 }}>
       <StyledTabs
@@ -63,4 +63,4 @@ const ProfileTabs = ({ currentTab, tabs, onChange }: ProfileTabsProps) => {
   );
 };
 
-export default ProfileTabs;
+export default NavTabs;

@@ -19,7 +19,7 @@ import {
   Avatar,
   CollectionSection,
   ImageSection,
-  ProfileTabs,
+  NavTabs,
   UserSection,
 } from '../../components';
 import { AnimatePresence } from 'framer-motion';
@@ -197,11 +197,7 @@ const UserPage = () => {
           ) : null}
         </Box>
       </Container>
-      <ProfileTabs
-        currentTab={currentTab}
-        tabs={tabs}
-        onChange={handleChange}
-      />
+      <NavTabs currentTab={currentTab} tabs={tabs} onChange={handleChange} />
       <Container sx={{ position: 'relative' }}>
         <AnimatePresence initial={false}>
           <Routes location={location} key={location.pathname}>

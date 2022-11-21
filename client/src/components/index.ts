@@ -1,5 +1,5 @@
 export { default as Navbar } from './nav/Navbar';
-export { default as ProfileTabs } from './nav/ProfileTabs';
+export { default as NavTabs } from './nav/NavTabs';
 export { default as UserPreview } from './nav/UserPreview';
 export { default as Avatar } from './nav/Avatar';
 export { default as ImageSection } from './sections/ImageSection';
