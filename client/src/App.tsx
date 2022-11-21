@@ -68,7 +68,7 @@ function App() {
               <Route path="/imaggyplus" element={<ImaggyPlus />} />
               <Route path="/community" element={<CommunityPage />} />
               <Route path="/advertise" element={<AdvertisePage />} />
-              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/settings/*" element={<SettingsPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/user/:username/*" element={<UserPage />} />
               <Route path="/post/:postId" element={<PostPage />} />
