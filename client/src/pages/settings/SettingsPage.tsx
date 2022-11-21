@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Footer, NavTabs } from '../../components';
 import CloseAccSettings from './CloseAccSettings';
 import GeneralSettings from './GeneralSettings';
+import PasswordSettings from './PasswordSettings';
 
 const SettingsPage = () => {
   const [currentTab, setCurrentTab] = useState(0);
@@ -38,6 +39,7 @@ const SettingsPage = () => {
         </Box>
         <Routes>
           <Route path="/" element={<GeneralSettings />} />
+          <Route path="/password" element={<PasswordSettings />} />
           <Route path="/close" element={<CloseAccSettings />} />
         </Routes>
       </Container>
