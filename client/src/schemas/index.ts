@@ -4,6 +4,32 @@ import * as yup from 'yup';
 const passwordRule =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 
+export const generalSettingsSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(5, 'Name must be at least 5 characters')
+    .max(14, 'Name must be at most 14 characters')
+    .required('Name is required'),
+  surname: yup
+    .string()
+    .min(5, 'Surname must be at least 5 characters')
+    .max(14, 'Surname must be at most 14 characters')
+    .required('Surname is required'),
+  email: yup.string().email().required('Email is required'),
+  username: yup
+    .string()
+    .min(5, 'Surname must be at least 5 characters')
+    .max(14, 'Surname must be at most 14 characters')
+    .required('Surname is required'),
+  location: yup.string().max(24, 'Location must be at most 24 characters'),
+  interest: yup.string(),
+  skills: yup.string(),
+  bio: yup.string().max(250, 'Bio must be at most 250 characters'),
+  website: yup.string().url('Portfolio website should be a correct url'),
+  instagram: yup.string().min(3).max(30),
+  facebook: yup.string().min(5).max(50),
+});
+
 export const changePasswordSchema = yup.object().shape({
   currentPassword: yup
     .string()
