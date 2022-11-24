@@ -22,8 +22,8 @@ export const generalSettingsSchema = yup.object().shape({
     .max(14, 'Surname must be at most 14 characters')
     .required('Surname is required'),
   location: yup.string().max(24, 'Location must be at most 24 characters'),
-  interest: yup.string(),
-  skills: yup.string(),
+  interest: yup.array().max(7).of(yup.string()),
+  skills: yup.array().max(7).of(yup.string()),
   bio: yup.string().max(250, 'Bio must be at most 250 characters'),
   website: yup.string().url('Portfolio website should be a correct url'),
   instagram: yup.string().min(3).max(30),

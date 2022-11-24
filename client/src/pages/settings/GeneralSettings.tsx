@@ -6,6 +6,8 @@ import {
   Grid,
   InputAdornment,
   Button,
+  Autocomplete,
+  Chip,
 } from '@mui/material';
 import { useUserContext } from '../../context/UserContext';
 import { AlternateEmail, Language } from '@mui/icons-material';
@@ -13,7 +15,19 @@ import { motion } from 'framer-motion';
 import { useFormik } from 'formik';
 import { generalSettingsSchema } from '../../schemas';
 
-const sections = [
+interface IInputs {
+  id: string;
+  label: string;
+  chipInput?: boolean;
+  [key: string]: any;
+}
+
+interface ISections {
+  title: string;
+  inputs: IInputs[];
+}
+
+const sections: ISections[] = [
   {
     title: 'General',
     inputs: [
@@ -43,18 +57,20 @@ const sections = [
         label: 'Location',
       },
       {
-        id: 'interest',
-        label: 'Interests',
-      },
-      {
         id: 'bio',
         label: 'Bio',
         multiline: true,
         maxRows: 4,
       },
       {
+        id: 'interest',
+        label: 'Interests',
+        chipInput: true,
+      },
+      {
         id: 'skills',
         label: 'Skills',
+        chipInput: true,
       },
     ],
   },
@@ -98,8 +114,26 @@ const sections = [
   },
 ];
 
+interface ITest {
+  [key: string]: any;
+}
+
 const GeneralSettings = () => {
   const authUser = useUserContext();
+  const initialValues: ITest = {
+    name: authUser.name,
+    surname: authUser.surname,
+    email: authUser.email,
+    username: authUser.username,
+    location: authUser.location,
+    interest: authUser.interest,
+    skills: authUser.skills,
+    bio: authUser.bio,
+    website: authUser.links.website,
+    instagram: authUser.links.instagram,
+    facebook: authUser.links.facebook,
+  };
+
   const {
     values,
     errors,
@@ -108,26 +142,36 @@ const GeneralSettings = () => {
     handleBlur,
     handleChange,
     handleSubmit,
+    setFieldValue,
   } = useFormik({
-    initialValues: {
-      name: authUser.name,
-      surname: authUser.surname,
-      email: authUser.email,
-      username: authUser.username,
-      location: authUser.location,
-      interest: authUser.interest,
-      skills: authUser.skills,
-      bio: authUser.bio,
-      website: authUser.links.website,
-      instagram: authUser.links.instagram,
-      facebook: authUser.links.facebook,
-    },
+    initialValues: initialValues,
     onSubmit: (values) => {
       // TODO: Future API call
       console.log(values);
     },
     validationSchema: generalSettingsSchema,
   });
+
+  const handleAddChip = (
+    e: React.SyntheticEvent<Element, Event>,
+    value: (string | string[])[],
+    id: string
+  ) => {
+    if (e.type === 'click') {
+      setFieldValue(id, []);
+      return;
+    }
+
+    setFieldValue(id, value);
+  };
+
+  const handleDeleteChip = (e: any, chipToDelete: string, id: any) => {
+    const filteredValue = values[id as any].filter(
+      (chip: string) => chip !== chipToDelete
+    );
+
+    setFieldValue(id, filteredValue);
+  };
 
   return (
     <motion.div
@@ -187,16 +231,59 @@ const GeneralSettings = () => {
                 const id = input.id as keyof typeof values;
                 return (
                   <Grid item xs={12} sm={6} key={input.id}>
-                    <TextField
-                      key={id}
-                      value={values[id]}
-                      helperText={errors[id] && touched[id] ? errors[id] : null}
-                      error={Boolean(errors[id] && touched[id])}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      fullWidth
-                      {...input}
-                    />
+                    {input.chipInput ? (
+                      <Autocomplete
+                        value={values[id] as string[]}
+                        options={[]}
+                        onChange={(e, value) =>
+                          handleAddChip(e, value, input.id)
+                        }
+                        multiple
+                        freeSolo
+                        renderTags={(value) =>
+                          value.map((option: any, index: number) => {
+                            return (
+                              <Chip
+                                key={index}
+                                label={option}
+                                onDelete={(e) =>
+                                  handleDeleteChip(e, option, input.id)
+                                }
+                                sx={{ mr: 1 }}
+                              />
+                            );
+                          })
+                        }
+                        renderInput={(params) => (
+                          <TextField
+                            label={input.label}
+                            placeholder="Type and press enter"
+                            helperText={
+                              errors[id] && touched[id]
+                                ? errors[id]?.toString()
+                                : null
+                            }
+                            error={Boolean(errors[id] && touched[id])}
+                            {...params}
+                          />
+                        )}
+                      />
+                    ) : (
+                      <TextField
+                        key={id}
+                        value={values[id]}
+                        helperText={
+                          errors[id] && touched[id]
+                            ? errors[id]?.toString()
+                            : null
+                        }
+                        error={Boolean(errors[id] && touched[id])}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        fullWidth
+                        {...input}
+                      />
+                    )}
                   </Grid>
                 );
               })}
