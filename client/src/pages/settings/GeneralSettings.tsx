@@ -238,6 +238,7 @@ const GeneralSettings = () => {
                         onChange={(e, value) =>
                           handleAddChip(e, value, input.id)
                         }
+                        onBlur={handleBlur}
                         multiple
                         freeSolo
                         renderTags={(value) =>
