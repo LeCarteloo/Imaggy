@@ -6,3 +6,4 @@ export { default as ImaggyPlus } from './imaggyplus/ImaggyPlus';
 export { default as CommunityPage } from './community/CommunityPage';
 export { default as AdvertisePage } from './advertise/AdvertisePage';
 export { default as SettingsPage } from './settings/SettingsPage';
+export { default as DevelopersPage } from './developers/DevelopersPage';

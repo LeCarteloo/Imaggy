@@ -6,6 +6,7 @@ import {
   AboutPage,
   AdvertisePage,
   CommunityPage,
+  DevelopersPage,
   HomePage,
   ImaggyPlus,
   PostPage,
@@ -68,6 +69,7 @@ function App() {
               <Route path="/imaggyplus" element={<ImaggyPlus />} />
               <Route path="/community" element={<CommunityPage />} />
               <Route path="/advertise" element={<AdvertisePage />} />
+              <Route path="/developers" element={<DevelopersPage />} />
               <Route path="/settings/*" element={<SettingsPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/user/:username/*" element={<UserPage />} />
