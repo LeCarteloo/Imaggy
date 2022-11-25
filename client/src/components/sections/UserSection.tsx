@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material';
-import { Box } from '@mui/system';
 import { motion } from 'framer-motion';
 import { UserInterface } from '../../types/types';
 import UserCard from '../cards/UserCard';

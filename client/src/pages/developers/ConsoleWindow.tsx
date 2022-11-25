@@ -7,11 +7,33 @@ const StyledSpan = styled('span')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
+const StyledContent = styled(Box)(({ theme }) => ({
+  padding: '16px 16px 0 16px',
+  position: 'relative',
+  overflow: 'hidden',
+  overflowWrap: 'break-word',
+  fontSize: '12px',
+  maxHeight: '305px',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '20px',
+    pointerEvents: 'none',
+    borderRadius: '4px',
+    background: `linear-gradient(to top, ${theme.palette.background.paper} 0%, transparent 100%);`,
+  },
+}));
+
 interface IConsoleWindow {
+  height?: string;
+  width?: string;
   children: React.ReactNode;
 }
 
-const ConsoleWindow = ({ children }: IConsoleWindow) => {
+const ConsoleWindow = ({ height, width, children }: IConsoleWindow) => {
   return (
     <Paper>
       <Box
@@ -29,30 +51,9 @@ const ConsoleWindow = ({ children }: IConsoleWindow) => {
         <StyledSpan></StyledSpan>
         <StyledSpan></StyledSpan>
       </Box>
-      <Box
-        sx={{
-          p: '16px 16px 0 16px',
-          position: 'relative',
-          overflow: 'hidden',
-          overflowWrap: 'break-word',
-          maxHeight: '305px',
-          fontSize: '12px',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            right: 0,
-            bottom: 0,
-            width: '100%',
-            height: '20px',
-            pointerEvents: 'none',
-            borderRadius: '4px',
-            background:
-              'linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 100%);',
-          },
-        }}
-      >
+      <StyledContent height={height} width={width}>
         {children}
-      </Box>
+      </StyledContent>
     </Paper>
   );
 };
