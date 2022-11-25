@@ -25,3 +25,8 @@ body {
 #root {
   height: 100%;
 }
+
+code[class*='language-'],
+pre[class*='language-'] {
+  background-color: transparent;
+}
