@@ -58,3 +58,15 @@ export const closeAccountSchema = yup.object().shape({
     .max(24, 'Current password must be at most 24 characters')
     .required('Current password is required'),
 });
+
+export const loginSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Email must be a valid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(24, 'Password must be at most 24 characters')
+    .required('Password is required'),
+});

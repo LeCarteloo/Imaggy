@@ -7,9 +7,37 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
+import { loginSchema } from '../../schemas';
+
+const inputs = [
+  {
+    id: 'email',
+    label: 'E-mail adress',
+  },
+  {
+    id: 'password',
+    label: 'Password',
+    type: 'password',
+  },
+];
+
+const initialValues = {
+  email: '',
+  password: '',
+};
 
 const LoginPage = () => {
+  const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
+    useFormik({
+      initialValues,
+      onSubmit: () => {},
+      validationSchema: loginSchema,
+      // validateOnChange: false,
+      // validateOnBlur: false,
+    });
+
   return (
     <Box
       component="section"
@@ -17,7 +45,7 @@ const LoginPage = () => {
         display: 'grid',
         placeItems: 'center',
         width: '100%',
-        height: '100%',
+        height: '100vh',
       }}
     >
       <img
@@ -32,16 +60,31 @@ const LoginPage = () => {
           zIndex: -1,
         }}
       />
-      <Paper sx={{ p: 4, width: { xs: '80%', md: '50%', lg: '30%' } }}>
+      <Paper sx={{ p: 4, width: { xs: '90%', md: '50%', lg: '30%' } }}>
         <Typography>LOGO</Typography>
         <Typography component="h1" variant="h5" fontWeight="bold">
           Sign in
         </Typography>
-        <TextField label="E-mail adress" margin="normal" fullWidth />
-        <TextField label="Password" margin="normal" fullWidth />
-        <Button variant="contained" sx={{ mt: 1, mb: 2 }}>
-          Login
-        </Button>
+        <form onSubmit={handleSubmit}>
+          {inputs.map((input) => {
+            const id = input.id as keyof typeof initialValues;
+            return (
+              <TextField
+                margin="normal"
+                fullWidth
+                value={values[id]}
+                error={Boolean(touched[id] && errors[id])}
+                helperText={touched[id] && errors[id] ? errors[id] : null}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                {...input}
+              />
+            );
+          })}
+          <Button type="submit" variant="contained" sx={{ mt: 1, mb: 2 }}>
+            Login
+          </Button>
+        </form>
         <hr />
         <Typography sx={{ mt: 2 }}>
           {'New user? '}

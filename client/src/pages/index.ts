@@ -1,4 +1,6 @@
 export { default as HomePage } from './HomePage';
+export { default as LoginPage } from './auth/LoginPage';
+export { default as RegisterPage } from './auth/RegisterPage';
 export { default as UserPage } from './user/UserPage';
 export { default as PostPage } from './PostPage';
 export { default as AboutPage } from './about/AboutPage';
