@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { loginSchema } from '../../schemas';
 
@@ -32,7 +33,10 @@ const LoginPage = () => {
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     useFormik({
       initialValues,
-      onSubmit: () => {},
+      onSubmit: (values) => {
+        //TODO: Future API call
+        console.log(values);
+      },
       validationSchema: loginSchema,
       // validateOnChange: false,
       // validateOnBlur: false,
@@ -60,7 +64,13 @@ const LoginPage = () => {
           zIndex: -1,
         }}
       />
-      <Paper sx={{ p: 4, width: { xs: '90%', md: '50%', lg: '30%' } }}>
+      <Paper
+        component={motion.div}
+        initial={{ x: 20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        sx={{ p: 4, width: { xs: '90%', md: '50%', lg: '30%' } }}
+      >
         <Typography>LOGO</Typography>
         <Typography component="h1" variant="h5" fontWeight="bold">
           Sign in
@@ -70,6 +80,7 @@ const LoginPage = () => {
             const id = input.id as keyof typeof initialValues;
             return (
               <TextField
+                key={id}
                 margin="normal"
                 fullWidth
                 value={values[id]}

@@ -53,7 +53,7 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
   const menuItems = [
     {
       name: 'Profile',
-      to: `/user/${authUser.username}`,
+      to: `/u/${authUser.username}`,
     },
     {
       name: 'Go Imaggy+',

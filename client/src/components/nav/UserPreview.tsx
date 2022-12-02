@@ -88,7 +88,7 @@ const TooltipContent = ({ user }: TooltipContentProps) => {
         variant="outlined"
         color="primary"
         component={Link}
-        to={`/user/${user.username}`}
+        to={`/u/${user.username}`}
         fullWidth
       >
         View profile

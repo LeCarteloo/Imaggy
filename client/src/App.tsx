@@ -13,6 +13,7 @@ import {
   PostPage,
   RegisterPage,
   SettingsPage,
+  TopicPage,
   UserPage,
 } from './pages';
 import { CssBaseline } from '@mui/material';
@@ -82,8 +83,9 @@ function App() {
                       <Route path="/developers" element={<DevelopersPage />} />
                       <Route path="/settings/*" element={<SettingsPage />} />
                       <Route path="/about" element={<AboutPage />} />
-                      <Route path="/user/:username/*" element={<UserPage />} />
-                      <Route path="/post/:postId" element={<PostPage />} />
+                      <Route path="/u/:username/*" element={<UserPage />} />
+                      <Route path="/p/:postId" element={<PostPage />} />
+                      <Route path="/t/:tag" element={<TopicPage />} />
                     </Routes>
                   </StyledMain>
                 </>

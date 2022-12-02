@@ -90,7 +90,10 @@ const RegisterPage = () => {
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     useFormik({
       initialValues,
-      onSubmit: () => {},
+      onSubmit: (values) => {
+        // TODO: Future API call
+        console.log(values);
+      },
     });
 
   // Function renders a form depending on page number (inputs are taken from global variable)
@@ -196,7 +199,7 @@ const RegisterPage = () => {
           <hr />
           <Typography sx={{ mt: 2 }}>
             {'Already have an account? '}
-            <MuiLink underline="hover" component={Link} to="/register">
+            <MuiLink underline="hover" component={Link} to="/login">
               Sign in
             </MuiLink>
           </Typography>

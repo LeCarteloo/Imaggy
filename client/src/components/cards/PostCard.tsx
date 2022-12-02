@@ -3,6 +3,7 @@ import {
   Typography,
   Box,
   ImageListItem,
+  Link as MuiLink,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useEffect, useState } from 'react';
@@ -62,7 +63,7 @@ const PostCard = ({ post, user }: PostCardProps) => {
   const handleOpenImage = (
     e: React.MouseEvent<HTMLImageElement, MouseEvent>
   ) => {
-    navigate(`/post/${post.id}`);
+    navigate(`/p/${post.id}`);
   };
 
   return (
@@ -106,10 +107,12 @@ const PostCard = ({ post, user }: PostCardProps) => {
           padding: 1,
         }}
         title={
-          <Box
+          <MuiLink
+            underline="hover"
+            color="#fff"
             sx={{ display: 'flex', alignItems: 'center' }}
             component={Link}
-            to={`/user/${author.username}`}
+            to={`/u/${author.username}`}
           >
             <UserPreview
               user={author}
@@ -138,7 +141,7 @@ const PostCard = ({ post, user }: PostCardProps) => {
                 {`${author.name} ${author.surname}`}
               </Typography>
             </Box>
-          </Box>
+          </MuiLink>
         }
         position="bottom"
         actionIcon={

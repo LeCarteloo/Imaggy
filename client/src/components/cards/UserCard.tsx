@@ -42,7 +42,7 @@ const UserCard = ({ user }: UserCardProps) => {
     <Card sx={{ height: '100%' }}>
       <CardHeader
         avatar={
-          <StyledLink to={`/user/${user.username}`}>
+          <StyledLink to={`/u/${user.username}`}>
             <Avatar
               width={50}
               height={50}
@@ -65,14 +65,12 @@ const UserCard = ({ user }: UserCardProps) => {
           />
         }
         title={
-          <StyledLink to={`/user/${user.username}`}>
+          <StyledLink to={`/u/${user.username}`}>
             {user.name} {user.surname}
           </StyledLink>
         }
         subheader={
-          <StyledLink to={`/user/${user.username}`}>
-            @{user.username}
-          </StyledLink>
+          <StyledLink to={`/u/${user.username}`}>@{user.username}</StyledLink>
         }
       />
       <CardContent>
@@ -88,7 +86,7 @@ const UserCard = ({ user }: UserCardProps) => {
               <Box
                 key={`img-${post.id}`}
                 component={Link}
-                to={`/post/${post.id}`}
+                to={`/p/${post.id}`}
                 style={{
                   backgroundImage: `url(${post.image})`,
                   backgroundRepeat: 'no-repeat',
