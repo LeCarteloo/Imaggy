@@ -1,13 +1,13 @@
-const baseUrl = 'http://localhost:3000';
+import axios from './axios';
 
 const getPosts = async () => {
-  const response = await fetch(`${baseUrl}/posts`);
-  return response.json();
+  const response = await axios.get('/posts');
+  return response.data;
 };
 
 const getPost = async (postId: string | undefined) => {
-  const response = await fetch(`${baseUrl}/posts/${postId}`);
-  return response.json();
+  const response = await axios.get(`/posts/${postId}`);
+  return response.data;
 };
 
 export { getPosts, getPost };

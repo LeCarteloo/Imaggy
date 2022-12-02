@@ -7,7 +7,6 @@ const HomePage = () => {
   const { data: posts } = useQuery({
     queryKey: ['posts'],
     queryFn: () => getPosts(),
-    refetchOnWindowFocus: false,
   });
 
   return (
