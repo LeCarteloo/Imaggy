@@ -1,4 +1,4 @@
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, SearchOutlined } from '@mui/icons-material';
 import {
   AppBar,
   Toolbar,
@@ -104,11 +104,15 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
         <Box
           sx={{
             display: 'flex',
-            gap: '1em',
+            gap: '0.6em',
             flexGrow: 1,
             justifyContent: 'flex-end',
+            alignItems: 'center',
           }}
         >
+          <IconButton component={Link} to="/search">
+            <SearchOutlined />
+          </IconButton>
           {authUser ? (
             <>
               <Tooltip title="Open user settings">
@@ -140,16 +144,23 @@ const Navbar = ({ theme, setTheme }: NavbarProps) => {
                     {menuItem.name}
                   </MenuItem>
                 ))}
+                <Box sx={{ p: '6px 0 6px 16px' }}>
+                  <Typography component="span">Dark mode</Typography>
+                  <Switch checked={theme === 'dark'} onChange={setTheme} />
+                </Box>
               </Menu>
             </>
           ) : (
             <>
-              <Button variant="text">Sign in</Button>
-              <Button variant="contained">Sign up</Button>
+              <Button component={Link} to="/login" variant="text">
+                Sign in
+              </Button>
+              <Button component={Link} to="/register" variant="contained">
+                Sign up
+              </Button>
             </>
           )}
         </Box>
-        <Switch checked={theme === 'dark'} onChange={setTheme} />
       </Toolbar>
       <SideMenu open={sideMenu} handleOpen={() => setSideMenu(!sideMenu)} />
     </AppBar>

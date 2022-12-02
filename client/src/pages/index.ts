@@ -9,3 +9,4 @@ export { default as CommunityPage } from './community/CommunityPage';
 export { default as AdvertisePage } from './advertise/AdvertisePage';
 export { default as SettingsPage } from './settings/SettingsPage';
 export { default as DevelopersPage } from './developers/DevelopersPage';
+export { default as SearchPage } from './search/SearchPage';

@@ -1,4 +1,4 @@
-import { Navbar } from './components';
+import { Navbar, ScrollToTop } from './components';
 import { styled } from '@mui/system';
 import { UserProvider } from './context/UserContext';
 import { Routes, Route } from 'react-router-dom';
@@ -13,7 +13,7 @@ import {
   PostPage,
   RegisterPage,
   SettingsPage,
-  TopicPage,
+  SearchPage,
   UserPage,
 } from './pages';
 import { CssBaseline } from '@mui/material';
@@ -58,6 +58,7 @@ function App() {
   return (
     <ThemeModeProvider themeMode={theme}>
       <div className="app">
+        <ScrollToTop />
         <CssBaseline />
         {/* //TODO: Change it later from user[0] to user (json-server returns object in array) */}
         <UserProvider user={user[0]}>
@@ -85,7 +86,7 @@ function App() {
                       <Route path="/about" element={<AboutPage />} />
                       <Route path="/u/:username/*" element={<UserPage />} />
                       <Route path="/p/:postId" element={<PostPage />} />
-                      <Route path="/t/:tag" element={<TopicPage />} />
+                      <Route path="/search" element={<SearchPage />} />
                     </Routes>
                   </StyledMain>
                 </>

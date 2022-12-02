@@ -19,3 +19,5 @@ export { default as TrendingCard } from './cards/TrendingCard';
 export { default as InfoBlock } from './cards/InfoBlock';
 export { default as CodeBlock } from './blocks/CodeBlock';
 export { default as StatCard } from './cards/StatCard';
+export { default as SearchInput } from './inputs/SearchInput';
+export { default as ScrollToTop } from './ScrollToTop';
