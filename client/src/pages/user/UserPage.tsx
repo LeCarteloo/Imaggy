@@ -67,7 +67,6 @@ const UserPage = () => {
     queryKey: ['user', username],
     enabled: Boolean(username),
     queryFn: () => getUser(username),
-    refetchOnWindowFocus: false,
   });
 
   if (isLoading || isError) {
