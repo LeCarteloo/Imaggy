@@ -22,3 +22,6 @@ node_modules/
 # Build folder
 build
 
+# Docker
+docker-compose.yaml
+

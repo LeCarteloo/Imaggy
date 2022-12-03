@@ -10,7 +10,8 @@
       "@/services/*": ["services/*"],
       "@/controllers/*": ["controllers/*"],
       "@/utilis/*": ["utilis/*"],
-      "@/middleware/*": ["middleware/*"]
+      "@/middleware/*": ["middleware/*"],
+      "@/interfaces/*": ["interfaces/*"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
