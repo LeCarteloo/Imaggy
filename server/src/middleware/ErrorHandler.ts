@@ -9,7 +9,7 @@ const errorHandler = (
 ): void => {
   const status = error.status || 500;
   const message =
-    error.message || 'Something went wrong, connect imaggy support';
+    error.message || 'Something went wrong, connect with Imaggy support';
   res.status(status).send({ status, message });
   next();
 };

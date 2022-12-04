@@ -4,7 +4,7 @@ import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
 import { IController } from '@/interfaces/interfaces';
-import errorHandler from './middleware/ErrorHandler';
+import errorHandler from '@/middleware/errorHandler';
 
 class App {
   public express: Application;
@@ -54,10 +54,18 @@ class App {
     this.express.use(errorHandler);
   }
 
-  private initDbConn(): void {
+  private async initDbConn(): Promise<void> {
     const { MONGO_URI, MONGO_USER, MONGO_PASS } = process.env;
 
-    mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_URI}`);
+    try {
+      await mongoose.connect(
+        `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_URI}`,
+      );
+      console.log('Connection with database established');
+    } catch (error) {
+      console.log('Could not connect with database');
+      process.exit(1);
+    }
   }
 
   public listen(): void {
