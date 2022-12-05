@@ -1,0 +1,22 @@
+version: '1.0'
+services:
+  mongo-main:
+    container_name: imaggy
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=dbname
+    restart: always
+  mongo-test:
+    container_name: imaggy-test
+    image: mongo
+    ports:
+      - 27018:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=testuser
+      - MONGO_INITDB_ROOT_PASSWORD=testpassword
+      - MONGO_INITDB_DATABASE=dbname-test
+    restart: always

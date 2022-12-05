@@ -18,15 +18,14 @@ const validationMiddleware = (schema: Schema): RequestHandler => {
       req.body = value;
       next();
     } catch (error) {
-      const errors: string[] = [];
       if (error instanceof Joi.ValidationError) {
+        const errors: string[] = [];
         error.details.forEach((error: ValidationErrorItem) => {
           errors.push(error.message);
         });
         res.status(400).send({ errors });
-      } else {
-        res.status(400).send({ message: 'Unexpected error' });
       }
+      res.status(400).send({ message: 'Unexpected error' });
     }
   };
 };

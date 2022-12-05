@@ -10,7 +10,7 @@
     "start": "node build/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "dev": "tsc-watch --onSuccess \"node ./build/index.js\"",
+    "dev": "tsc-watch --onSuccess \"node ./build/src/index.js\"",
     "build": "tsc",
     "postinstall": "npm run build"
   },
@@ -41,12 +41,12 @@
     "typescript": "^4.9.3"
   },
   "_moduleAliases": {
-    "@/models": "build/models",
-    "@/routes": "build/routes",
-    "@/services": "build/services",
-    "@/controllers": "build/controllers",
-    "@/utilis": "build/utilis",
-    "@/middleware": "build/middleware",
-    "@/interfaces": "build/interfaces"
+    "@/models": "build/src/models",
+    "@/routes": "build/src/routes",
+    "@/services": "build/src/services",
+    "@/controllers": "build/src/controllers",
+    "@/utilis": "build/src/utilis",
+    "@/middleware": "build/src/middleware",
+    "@/interfaces": "build/src/interfaces"
   }
 }

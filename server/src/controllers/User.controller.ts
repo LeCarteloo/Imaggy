@@ -23,7 +23,7 @@ class UserController implements IController {
   ): Promise<Response | void> => {
     try {
       const user = await this.UserService.register(req.body);
-      res.status(201).json({ user });
+      res.status(201).json(user);
     } catch (error) {
       if (error instanceof Error) {
         next(new HttpException(400, error.message));

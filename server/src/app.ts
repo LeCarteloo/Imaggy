@@ -55,11 +55,11 @@ class App {
   }
 
   private async initDbConn(): Promise<void> {
-    const { MONGO_URI, MONGO_USER, MONGO_PASS } = process.env;
+    const { MONGO_URI, MONGO_DB, MONGO_USER, MONGO_PASS } = process.env;
 
     try {
       await mongoose.connect(
-        `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_URI}`,
+        `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_URI}/${MONGO_DB}`,
       );
     } catch (error) {
       console.log('Could not connect with database');
@@ -73,6 +73,14 @@ class App {
     } catch (error) {
       console.log('Could not close database connection');
       process.exit(1);
+    }
+  }
+
+  public async dropDb(): Promise<void> {
+    try {
+      await mongoose.connection.db.dropDatabase();
+    } catch (error) {
+      console.log('Could not drop database');
     }
   }
 

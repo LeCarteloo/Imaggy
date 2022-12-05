@@ -24,4 +24,6 @@ build
 
 # Docker
 docker-compose.yaml
+mongo-init.js
+mongo-test-init.js
 
