@@ -61,9 +61,17 @@ class App {
       await mongoose.connect(
         `mongodb://${MONGO_USER}:${MONGO_PASS}@${MONGO_URI}`,
       );
-      console.log('Connection with database established');
     } catch (error) {
       console.log('Could not connect with database');
+      process.exit(1);
+    }
+  }
+
+  public async closeDbConn(): Promise<void> {
+    try {
+      await mongoose.connection.close();
+    } catch (error) {
+      console.log('Could not close database connection');
       process.exit(1);
     }
   }
