@@ -1,8 +1,14 @@
 import { Router } from 'express';
+import mongoose from 'mongoose';
 
 interface IController {
   path: string;
   router: Router;
+}
+
+interface IToken {
+  id: mongoose.Schema.Types.ObjectId;
+  expiresIn: number;
 }
 
 interface IUser {
@@ -26,4 +32,4 @@ interface IUser {
   following?: IUser[];
 }
 
-export { IUser, IController };
+export { IUser, IToken, IController };
