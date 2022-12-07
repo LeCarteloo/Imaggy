@@ -2,6 +2,8 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { IController } from '@/interfaces/interfaces';
 import HttpException from '@/utilis/HttpException';
 import UserService from '@/services/User.service';
+import valdiate from '@/validation/User.validation';
+import validationMiddleware from '@/middleware/validationMiddleware';
 
 class UserController implements IController {
   public path = '/users';
@@ -13,7 +15,11 @@ class UserController implements IController {
   }
 
   private initRoutes(): void {
-    this.router.post(`${this.path}/register`, this.register);
+    this.router.post(
+      `${this.path}/register`,
+      validationMiddleware(valdiate.register),
+      this.register,
+    );
   }
 
   private register = async (

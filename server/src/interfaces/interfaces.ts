@@ -22,8 +22,8 @@ interface IUser {
     website: string;
   };
   location?: string;
-  followers: IUser[];
-  following: IUser[];
+  followers?: IUser[];
+  following?: IUser[];
 }
 
 export { IUser, IController };

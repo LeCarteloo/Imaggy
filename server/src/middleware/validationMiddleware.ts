@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import Joi, { Schema, ValidationErrorItem } from 'joi';
+import Joi, { Schema } from 'joi';
+
+type Errors = {
+  [key: string]: string;
+};
 
 const validationMiddleware = (schema: Schema): RequestHandler => {
   return async (
@@ -19,13 +23,20 @@ const validationMiddleware = (schema: Schema): RequestHandler => {
       next();
     } catch (error) {
       if (error instanceof Joi.ValidationError) {
-        const errors: string[] = [];
-        error.details.forEach((error: ValidationErrorItem) => {
-          errors.push(error.message);
+        const errors: Errors = {};
+
+        error.details.forEach((error: Joi.ValidationErrorItem) => {
+          errors[error.path.toString()] = error.message;
         });
-        res.status(400).send({ errors });
+
+        res.status(400).send({
+          status: 400,
+          message: 'Validation request payload error',
+          errors,
+        });
+        return;
       }
-      res.status(400).send({ message: 'Unexpected error' });
+      res.status(400).send({ status: 400, message: 'Unexpected error' });
     }
   };
 };
