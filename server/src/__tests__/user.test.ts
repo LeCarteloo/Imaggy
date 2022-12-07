@@ -16,7 +16,6 @@ const userPayload = {
   password: 'Password',
   surname: 'Holder',
   bio: 'Lorem ipsum dolor sit amet consectetur',
-  isPro: false,
   profileBg: '',
   skills: ['Mobile Design'],
   interest: [],
@@ -26,8 +25,6 @@ const userPayload = {
     website: '',
   },
   location: 'New York',
-  followers: [],
-  following: [],
 };
 
 describe('Users', () => {
@@ -35,17 +32,28 @@ describe('Users', () => {
     // describe('If user is logged', () => {
     // });
 
-    it('Should return a 201 status and user', async () => {
+    beforeAll(() => {
+      app.dropDb();
+    });
+
+    it('Should return a 201 status and user object', async () => {
       const { body, statusCode } = await supertest(app.express)
         .post('/api/users/register')
         .send(userPayload);
       expect(statusCode).toBe(201);
-      //   expect(body).toEqual(userPayload);
+      expect(body).toEqual({
+        __v: expect.any(Number),
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+        followers: [],
+        following: [],
+        isPro: false,
+        ...userPayload,
+      });
     });
   });
 
   afterAll(() => {
-    app.dropDb();
     app.closeDbConn();
   });
 });

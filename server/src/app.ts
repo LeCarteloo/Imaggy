@@ -78,7 +78,7 @@ class App {
 
   public async dropDb(): Promise<void> {
     try {
-      await mongoose.connection.db.dropDatabase();
+      await mongoose.connection.dropDatabase();
     } catch (error) {
       console.log('Could not drop database');
     }

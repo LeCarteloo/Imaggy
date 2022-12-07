@@ -42,7 +42,7 @@
   },
   "_moduleAliases": {
     "@/models": "build/src/models",
-    "@/routes": "build/src/routes",
+    "@/validation": "build/src/validation",
     "@/services": "build/src/services",
     "@/controllers": "build/src/controllers",
     "@/utilis": "build/src/utilis",
