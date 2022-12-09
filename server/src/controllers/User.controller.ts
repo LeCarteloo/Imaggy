@@ -4,6 +4,7 @@ import HttpException from '@/utilis/HttpException';
 import UserService from '@/services/User.service';
 import valdiate from '@/validation/User.validation';
 import validationMiddleware from '@/middleware/validationMiddleware';
+import authMiddleware from '@/middleware/authMiddleware';
 
 class UserController implements Controller {
   public path = '/users';
@@ -20,6 +21,11 @@ class UserController implements Controller {
       validationMiddleware(valdiate.register),
       this.register,
     );
+    this.router.post(
+      `${this.path}/login`,
+      validationMiddleware(valdiate.login),
+      this.login,
+    );
   }
 
   private register = async (
@@ -30,6 +36,27 @@ class UserController implements Controller {
     try {
       const user = await this.UserService.register(req.body);
       res.status(201).json(user);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  private login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> => {
+    try {
+      const { email, password } = req.body;
+      const user = await this.UserService.login(email, password);
+
+      if (user instanceof Error) {
+        return next(new HttpException(400, 'Unable to login'));
+      }
+
+      res.status(200).json(user);
     } catch (error) {
       if (error instanceof Error) {
         next(new HttpException(400, error.message));

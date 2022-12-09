@@ -18,6 +18,15 @@ class UserService {
         throw new Error('User already exist');
       }
 
+      // Hashing password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(body.password, salt);
+
+      const user = new UserModel({
+        ...body,
+        password: hashedPassword,
+      });
+
       const createdUser = await user.save();
       return createdUser;
     } catch (error) {
@@ -28,6 +37,48 @@ class UserService {
       throw new Error('Unable to create user');
     }
   }
+
+  // @desc Login user
+  // @route POST /login
+  // @access Public
+  public async login(email: string, password: string): Promise<User | Error> {
+    try {
+      const user = await UserModel.findOne({ email });
+      if (!user) {
+        throw new Error("User doesn't exist");
+      }
+
+      const passwordMatches = await bcrypt.compare(password, user.password);
+      if (!passwordMatches) {
+        throw new Error('Invalid credentials');
+      }
+
+      const { JWT_SECRET, JWT_LIFE } = process.env;
+      const token = createToken(user, JWT_SECRET as string, JWT_LIFE as string);
+
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { email },
+        { token: token },
+        { new: true },
+      );
+
+      if (!updatedUser) {
+        throw new Error("User doesn't exist");
+      }
+
+      return updatedUser;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+
+      throw new Error('Unable to login');
+    }
+  }
+
+  // @desc Get user
+  // @route POST /login
+  // @access Public
 }
 
 export default UserService;
