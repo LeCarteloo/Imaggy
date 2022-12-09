@@ -31,7 +31,7 @@ const validationMiddleware = (schema: Schema): RequestHandler => {
 
         res.status(400).send({
           status: 400,
-          message: 'Validation request payload error',
+          message: 'Validation error',
           errors,
         });
         return;
