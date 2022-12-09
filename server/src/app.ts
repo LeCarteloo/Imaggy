@@ -3,14 +3,14 @@ import mongoose from 'mongoose';
 import compression from 'compression';
 import cors from 'cors';
 import morgan from 'morgan';
-import { IController } from '@/interfaces/interfaces';
+import { Controller } from '@/interfaces/interfaces';
 import errorHandler from '@/middleware/errorHandler';
 
 class App {
   public express: Application;
   public port: number;
 
-  constructor(controllers: IController[], port: number) {
+  constructor(controllers: Controller[], port: number) {
     this.express = express();
     this.port = port;
     this.initDbConn();
@@ -44,8 +44,8 @@ class App {
     this.express.use(compression());
   }
 
-  private initControllers(controllers: IController[]): void {
-    controllers.forEach((controller: IController) => {
+  private initControllers(controllers: Controller[]): void {
+    controllers.forEach((controller: Controller) => {
       this.express.use('/api', controller.router);
     });
   }
@@ -71,7 +71,7 @@ class App {
     try {
       await mongoose.connection.close();
     } catch (error) {
-      console.log('Could not close database connection');
+      // console.log('Could not close database connection');
       process.exit(1);
     }
   }
@@ -80,7 +80,7 @@ class App {
     try {
       await mongoose.connection.dropDatabase();
     } catch (error) {
-      console.log('Could not drop database');
+      // console.log('Could not drop database');
     }
   }
 

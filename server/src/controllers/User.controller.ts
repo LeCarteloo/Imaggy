@@ -1,11 +1,11 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { IController } from '@/interfaces/interfaces';
+import { Controller } from '@/interfaces/interfaces';
 import HttpException from '@/utilis/HttpException';
 import UserService from '@/services/User.service';
 import valdiate from '@/validation/User.validation';
 import validationMiddleware from '@/middleware/validationMiddleware';
 
-class UserController implements IController {
+class UserController implements Controller {
   public path = '/users';
   public router = Router();
   private UserService = new UserService();

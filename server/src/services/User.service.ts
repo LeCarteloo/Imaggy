@@ -1,16 +1,17 @@
 import UserModel from '@/models/User.model';
-import { IUser } from '@/interfaces/interfaces';
-import { Error } from 'mongoose';
+import { User } from '@/interfaces/interfaces';
+import bcrypt from 'bcryptjs';
+import { createToken } from '@/utilis/Token';
 
 class UserService {
   // @desc Register user
   // @route POST /register
   // @access Public
-  public async register(body: IUser): Promise<IUser | Error> {
+  public async register(body: User): Promise<User | Error> {
     try {
-      const user = new UserModel(body);
+      // Checking if user exist with given username and email
       const userExist = await UserModel.findOne({
-        $or: [{ username: user.username }, { email: user.email }],
+        $or: [{ username: body.username }, { email: body.email }],
       });
 
       if (userExist) {

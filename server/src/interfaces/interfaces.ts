@@ -1,21 +1,22 @@
 import { Router } from 'express';
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-interface IController {
+interface Controller {
   path: string;
   router: Router;
 }
 
-interface IToken {
+interface Token {
   id: mongoose.Schema.Types.ObjectId;
   expiresIn: number;
 }
 
-interface IUser {
+interface User extends Document {
   username: string;
   email: string;
   name: string;
   surname: string;
+  password: string;
   avatar?: string;
   bio: string;
   isPro: boolean;
@@ -28,8 +29,9 @@ interface IUser {
     website: string;
   };
   location?: string;
-  followers?: IUser[];
-  following?: IUser[];
+  followers?: User[];
+  following?: User[];
+  token: string;
 }
 
-export { IUser, IToken, IController };
+export { User, Token, Controller };

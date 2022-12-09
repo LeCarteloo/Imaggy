@@ -1,7 +1,5 @@
-import { IUser } from '@/interfaces/interfaces';
-import mongoose, { Schema, Document } from 'mongoose';
-
-export interface IUserModel extends IUser, Document {}
+import { User } from '@/interfaces/interfaces';
+import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new Schema(
   {
@@ -87,10 +85,13 @@ const UserSchema = new Schema(
         ref: 'user',
       },
     ],
+    token: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-export default mongoose.model<IUserModel>('User', UserSchema);
+export default mongoose.model<User>('User', UserSchema);
