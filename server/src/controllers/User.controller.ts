@@ -26,6 +26,12 @@ class UserController implements Controller {
       validationMiddleware(valdiate.login),
       this.login,
     );
+    this.router.get(`${this.path}/:username`, this.getUser);
+    this.router.patch(
+      `${this.path}/:id/follow`,
+      authMiddleware,
+      this.followUser,
+    );
   }
 
   private register = async (
@@ -55,6 +61,41 @@ class UserController implements Controller {
       if (user instanceof Error) {
         return next(new HttpException(400, 'Unable to login'));
       }
+
+      res.status(200).json(user);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  private getUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> => {
+    try {
+      const { username } = req.params;
+      const user = await this.UserService.getUser(username);
+
+      res.status(200).json(user);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(404, error.message));
+      }
+    }
+  };
+
+  private followUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const userId = req.user._id;
+      const { id } = req.params;
+      const user = await this.UserService.followUser(userId, id);
 
       res.status(200).json(user);
     } catch (error) {

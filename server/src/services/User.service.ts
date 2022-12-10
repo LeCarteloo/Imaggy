@@ -77,8 +77,75 @@ class UserService {
   }
 
   // @desc Get user
-  // @route POST /login
+  // @route GET /:username
   // @access Public
+  public async getUser(username: string): Promise<User | Error> {
+    try {
+      const user = await UserModel.findOne({ username }).populate(
+        'followers following',
+        '-password',
+      );
+
+      if (!user) {
+        throw new Error("User doesn't exist");
+      }
+
+      return user;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+
+      throw new Error('Unable to find user');
+    }
+  }
+
+  // @desc Follow user
+  // @route PATCH /:id/follow
+  // @access Private
+  public async followUser(
+    userId: string,
+    followingId: string,
+  ): Promise<User | Error> {
+    try {
+      const user = await UserModel.findOne({
+        _id: userId,
+        following: followingId,
+      });
+
+      if (user) {
+        throw new Error('You already follow this user');
+      }
+
+      // Updating logged user's following array
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        userId,
+        {
+          $push: { following: followingId },
+        },
+        { new: true },
+      );
+
+      if (!updatedUser) {
+        throw new Error('User doesnt exist');
+      }
+
+      // Updating followed user's followers array
+      await UserModel.findByIdAndUpdate(
+        followingId,
+        { $push: { followers: userId } },
+        { new: true },
+      );
+
+      return updatedUser;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+
+      throw new Error('Unable to login');
+    }
+  }
 }
 
 export default UserService;

@@ -76,13 +76,13 @@ const UserSchema = new Schema(
     followers: [
       {
         type: mongoose.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
       },
     ],
     following: [
       {
         type: mongoose.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
       },
     ],
     token: {
