@@ -32,6 +32,11 @@ class UserController implements Controller {
       authMiddleware,
       this.followUser,
     );
+    this.router.patch(
+      `${this.path}/:id/unfollow`,
+      authMiddleware,
+      this.unfollowUser,
+    );
   }
 
   private register = async (
@@ -91,11 +96,39 @@ class UserController implements Controller {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<void> => {
+  ): Promise<Response | void> => {
     try {
       const userId = req.user._id;
-      const { id } = req.params;
-      const user = await this.UserService.followUser(userId, id);
+      const followingId = req.params.id;
+
+      if (userId.toString() === followingId) {
+        return next(new HttpException(400, 'You cannot follow yourself'));
+      }
+
+      const user = await this.UserService.followUser(userId, followingId);
+
+      res.status(200).json(user);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  private unfollowUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> => {
+    try {
+      const userId = req.user._id;
+      const unfollowingId = req.params.id;
+
+      if (userId.toString() === unfollowingId) {
+        return next(new HttpException(400, 'You cannot unfollow yourself'));
+      }
+
+      const user = await this.UserService.unfollowUser(userId, unfollowingId);
 
       res.status(200).json(user);
     } catch (error) {

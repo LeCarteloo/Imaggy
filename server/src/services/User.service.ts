@@ -114,7 +114,7 @@ class UserService {
       });
 
       if (user) {
-        throw new Error('You already follow this user');
+        throw new Error('You are already following this user');
       }
 
       // Updating logged user's following array
@@ -143,7 +143,38 @@ class UserService {
         throw new Error(error.message);
       }
 
-      throw new Error('Unable to login');
+      throw new Error('Unable to follow');
+    }
+  }
+
+  // @desc Unfollow user
+  // @route PATCH /:id/unfollow
+  // @access Private
+  public async unfollowUser(userId: string, unfollowingId: string) {
+    try {
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { _id: userId, following: unfollowingId },
+        {
+          $pull: { following: unfollowingId },
+        },
+        { new: true },
+      ).populate('followers following', '-password');
+
+      if (!updatedUser) {
+        throw new Error('You are not following this user');
+      }
+
+      await UserModel.updateOne(
+        { _id: unfollowingId },
+        { $pull: { followers: userId } },
+      );
+
+      return updatedUser;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unable to unfollow');
     }
   }
 }
