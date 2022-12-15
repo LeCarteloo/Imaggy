@@ -44,7 +44,7 @@ describe('Users', () => {
     app.dropDb();
   });
 
-  describe('Register user route', () => {
+  describe('Register route', () => {
     beforeEach(() => {
       app.dropDb();
     });
@@ -84,7 +84,7 @@ describe('Users', () => {
     });
   });
 
-  describe('Login user route', () => {
+  describe('Login route', () => {
     // Registering user before login tests
     beforeAll(async () => {
       await supertest(app.express).post(`${path}/register`).send(userPayload);
@@ -108,7 +108,7 @@ describe('Users', () => {
     });
   });
 
-  describe('Get user route', () => {
+  describe('Get route', () => {
     // Registering user before get user tests
     beforeAll(async () => {
       await supertest(app.express).post(`${path}/register`).send(userPayload);
@@ -133,7 +133,7 @@ describe('Users', () => {
     });
   });
 
-  describe('Follow user route', () => {
+  describe('Follow route', () => {
     let user: User;
 
     // Registering users before login tests
@@ -146,7 +146,7 @@ describe('Users', () => {
       await supertest(app.express).post(`${path}/register`).send(userPayload2);
     });
 
-    it('Should return 200 status and follow user', async () => {
+    it('Should return 200 status and have user in following array', async () => {
       const token = createToken(
         user,
         process.env.JWT_SECRET as string,
@@ -159,6 +159,57 @@ describe('Users', () => {
 
       expect(statusCode).toBe(200);
       expect(body.following).toContain(userId2);
+    });
+  });
+
+  describe('Unfollow route', () => {
+    let user: User;
+
+    // Registering users before login tests
+    beforeAll(async () => {
+      app.dropDb();
+      const { body } = await supertest(app.express)
+        .post(`${path}/register`)
+        .send(userPayload);
+      user = body;
+      await supertest(app.express).post(`${path}/register`).send(userPayload2);
+    });
+
+    it('Should return 200 status and not have user in following array', async () => {
+      const token = createToken(
+        user,
+        process.env.JWT_SECRET as string,
+        process.env.JWT_LIFE as string,
+      );
+
+      // Following user
+      await supertest(app.express)
+        .patch(`${path}/${userId2}/follow`)
+        .set('Authorization', `Bearer ${token}`);
+
+      // Unfollowing user
+      const { body, statusCode } = await supertest(app.express)
+        .patch(`${path}/${userId2}/unfollow`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(200);
+      expect(body.following).not.toContain(userId2);
+    });
+
+    it('Should return 400 status and correct message', async () => {
+      const token = createToken(
+        user,
+        process.env.JWT_SECRET as string,
+        process.env.JWT_LIFE as string,
+      );
+
+      // Unfollowing user that have not been followed
+      const { body, statusCode } = await supertest(app.express)
+        .patch(`${path}/${userId2}/unfollow`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(400);
+      expect(body.message).toBe('You are not following this user');
     });
   });
 
