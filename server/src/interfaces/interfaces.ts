@@ -34,4 +34,19 @@ interface User extends Document {
   token: string;
 }
 
-export { User, Token, Controller };
+interface Post extends Document {
+  title: string;
+  image: string;
+  location?: string;
+  tags: string[];
+  description?: string;
+  views: number;
+  downloads: number;
+  device?: string;
+  likes: User[];
+  // TODO: Implement comment interface and model
+  // comments: Comment[]
+  author: User;
+}
+
+export { Post, User, Token, Controller };
