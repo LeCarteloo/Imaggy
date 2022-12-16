@@ -71,7 +71,7 @@ class App {
     try {
       await mongoose.connection.close();
     } catch (error) {
-      // console.log('Could not close database connection');
+      console.log('Could not close database connection');
       process.exit(1);
     }
   }
@@ -80,7 +80,7 @@ class App {
     try {
       await mongoose.connection.dropDatabase();
     } catch (error) {
-      // console.log('Could not drop database');
+      console.log('Could not drop database');
     }
   }
 

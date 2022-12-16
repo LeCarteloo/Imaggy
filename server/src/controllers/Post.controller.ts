@@ -1,4 +1,5 @@
 import { Controller, Post } from '@/interfaces/interfaces';
+import authMiddleware from '@/middleware/authMiddleware';
 import validationMiddleware from '@/middleware/validationMiddleware';
 import PostService from '@/services/Post.service';
 import HttpException from '@/utilis/HttpException';
@@ -16,23 +17,28 @@ class PostController implements Controller {
 
   private initRotues() {
     this.router.post(
-      `${this.path}`,
+      this.path,
       validationMiddleware(postValidation.create),
+      authMiddleware,
       this.createPost,
     );
+    this.router.get(this.path, this.getPosts);
   }
 
+  //* @desc Create post
+  //* @route POST /
+  //* @access Private
   private createPost = async (
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<Post | void> => {
     try {
-      const { author, title, image, tags, device, location, description } =
-        req.body;
+      const authorId = req.user._id;
+      const { title, image, tags, device, location, description } = req.body;
 
       const post = await this.PostService.createPost(
-        author,
+        authorId,
         title,
         image,
         tags,
@@ -42,6 +48,24 @@ class PostController implements Controller {
       );
 
       res.status(200).json(post);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+  //* @desc Get posts
+  //* @route GET /
+  //* @access Public
+  private getPosts = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Post[] | void> => {
+    try {
+      const posts = await this.PostService.getPosts();
+
+      res.status(200).json(posts);
     } catch (error) {
       if (error instanceof Error) {
         next(new HttpException(400, error.message));

@@ -29,13 +29,13 @@ const authMiddleware = async (
       return next(new HttpException(401, 'Invalid token'));
     }
 
-    const user = await UserModel.findById(decodedToken.id).select('_id');
+    const user = await UserModel.findById(decodedToken.id).select('-password');
     if (!user) {
       return next(new HttpException(401, 'Not authorized'));
     }
 
     // Adding user id to API payload
-    req.user = user._id;
+    req.user = user;
 
     next();
   } catch (error) {

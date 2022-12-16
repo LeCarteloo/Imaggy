@@ -35,7 +35,6 @@ const UserSchema = new Schema(
     isPro: {
       type: Boolean,
       default: false,
-      required: true,
     },
     skills: [
       {

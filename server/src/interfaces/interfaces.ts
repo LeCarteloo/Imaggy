@@ -31,7 +31,7 @@ interface User extends Document {
   location?: string;
   followers?: User[];
   following?: User[];
-  token: string;
+  token?: string;
 }
 
 interface Post extends Document {

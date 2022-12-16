@@ -27,7 +27,7 @@ const userPayload = {
 };
 
 const userPayload2 = {
-  _id: userId,
+  _id: userId2,
   email: 'placeholder2@email.com',
   username: 'placeholder2',
   name: 'Place',
@@ -40,15 +40,7 @@ const userPayload2 = {
 };
 
 describe('Users', () => {
-  beforeAll(() => {
-    app.dropDb();
-  });
-
   describe('Register route', () => {
-    beforeEach(() => {
-      app.dropDb();
-    });
-
     it('Should return a 400 status and validation error', async () => {
       const { body, statusCode } = await supertest(app.express)
         .post(`${path}/register`)
@@ -62,6 +54,8 @@ describe('Users', () => {
       const { body, statusCode } = await supertest(app.express)
         .post(`${path}/register`)
         .send(userPayload);
+
+      console.log(body);
 
       expect(statusCode).toBe(201);
       expect(body).toEqual({
@@ -81,6 +75,10 @@ describe('Users', () => {
         following: [],
         isPro: false,
       });
+    });
+
+    afterAll(async () => {
+      await app.dropDb();
     });
   });
 
@@ -105,6 +103,10 @@ describe('Users', () => {
         .send({ email: userPayload.email, password: userPayload.password });
       expect(statusCode).toBe(200);
       expect(body._id).toBe(userPayload._id);
+    });
+
+    afterAll(async () => {
+      await app.dropDb();
     });
   });
 
@@ -131,6 +133,10 @@ describe('Users', () => {
       expect(statusCode).toBe(404);
       expect(body.message).toBe("User doesn't exist");
     });
+
+    afterAll(async () => {
+      await app.dropDb();
+    });
   });
 
   describe('Follow route', () => {
@@ -138,7 +144,6 @@ describe('Users', () => {
 
     // Registering users before login tests
     beforeAll(async () => {
-      app.dropDb();
       const { body } = await supertest(app.express)
         .post(`${path}/register`)
         .send(userPayload);
@@ -160,6 +165,10 @@ describe('Users', () => {
       expect(statusCode).toBe(200);
       expect(body.following).toContain(userId2);
     });
+
+    afterAll(async () => {
+      await app.dropDb();
+    });
   });
 
   describe('Unfollow route', () => {
@@ -167,7 +176,6 @@ describe('Users', () => {
 
     // Registering users before login tests
     beforeAll(async () => {
-      app.dropDb();
       const { body } = await supertest(app.express)
         .post(`${path}/register`)
         .send(userPayload);
@@ -211,9 +219,13 @@ describe('Users', () => {
       expect(statusCode).toBe(400);
       expect(body.message).toBe('You are not following this user');
     });
+
+    afterAll(async () => {
+      await app.dropDb();
+    });
   });
 
-  afterAll(() => {
-    app.closeDbConn();
+  afterAll(async () => {
+    await app.closeDbConn();
   });
 });
