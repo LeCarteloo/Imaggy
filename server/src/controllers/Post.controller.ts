@@ -1,9 +1,11 @@
-import { Post } from '@/interfaces/interfaces';
+import { Controller, Post } from '@/interfaces/interfaces';
+import validationMiddleware from '@/middleware/validationMiddleware';
 import PostService from '@/services/Post.service';
 import HttpException from '@/utilis/HttpException';
+import postValidation from '@/validation/Post.validation';
 import { Request, Response, NextFunction, Router } from 'express';
 
-class PostController {
+class PostController implements Controller {
   public path = '/posts';
   public router = Router();
   private PostService = new PostService();
@@ -13,7 +15,11 @@ class PostController {
   }
 
   private initRotues() {
-    this.router.post(`${this.path}`, this.createPost);
+    this.router.post(
+      `${this.path}`,
+      validationMiddleware(postValidation.create),
+      this.createPost,
+    );
   }
 
   private createPost = async (
