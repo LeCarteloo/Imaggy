@@ -12,6 +12,9 @@ const app = new App(
 );
 const superTest = supertest(app.express);
 
+const userId = new mongoose.Types.ObjectId();
+const postId = new mongoose.Types.ObjectId();
+
 const validPostPayload = {
   title: 'TestTitle',
   image: 'TestImage',
@@ -33,6 +36,7 @@ describe('Posts', () => {
 
   beforeAll(async () => {
     const userPayload = {
+      _id: userId,
       email: 'placeholder3@email.com',
       username: 'placeholder3',
       name: 'Place',
@@ -43,10 +47,11 @@ describe('Posts', () => {
       interest: [],
       location: 'New York',
     };
+
     const { body } = await superTest
       .post('/api/users/register')
       .send(userPayload);
-    console.log(body);
+
     token = createToken(
       body,
       process.env.JWT_SECRET as string,
@@ -110,7 +115,7 @@ describe('Posts', () => {
     });
   });
 
-  describe('Get route', () => {
+  describe('Get all route', () => {
     beforeAll(async () => {
       await superTest
         .post(`${path}`)
@@ -136,8 +141,41 @@ describe('Posts', () => {
     });
   });
 
+  describe('Get by id route', () => {
+    it('Should specify JSON in the Content-Type header', async () => {
+      const { headers } = await superTest.get(`${path}/${userId}`);
+
+      expect(headers['content-type']).toEqual(expect.stringContaining('json'));
+    });
+
+    it('Should return 400 status and correct message', async () => {
+      const { body, statusCode } = await superTest.get(`${path}/${postId}`);
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty('message');
+    });
+
+    it('Should return 200 status and correct post', async () => {
+      const response = await superTest
+        .post(`${path}`)
+        .send(validPostPayload)
+        .set('Authorization', `Bearer ${token}`);
+
+      const { body, statusCode } = await superTest.get(
+        `${path}/${response.body._id}`,
+      );
+
+      expect(statusCode).toBe(200);
+      expect(body._id).toBe(response.body._id);
+    });
+
+    afterAll(async () => {
+      await mongoose.connection.collection('posts').drop();
+    });
+  });
+
   afterAll(async () => {
-    mongoose.connection.dropDatabase();
-    await mongoose.connection.close();
+    await app.dropDb();
+    await app.closeDbConn();
   });
 });

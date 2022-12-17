@@ -23,6 +23,7 @@ class PostController implements Controller {
       this.createPost,
     );
     this.router.get(this.path, this.getPosts);
+    this.router.get(`${this.path}/:id`, this.getPost);
   }
 
   //* @desc Create post
@@ -54,6 +55,7 @@ class PostController implements Controller {
       }
     }
   };
+
   //* @desc Get posts
   //* @route GET /
   //* @access Public
@@ -64,6 +66,26 @@ class PostController implements Controller {
   ): Promise<Post[] | void> => {
     try {
       const posts = await this.PostService.getPosts();
+
+      res.status(200).json(posts);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  //* @desc Get post by id
+  //* @route GET /:id
+  //* @access Public
+  private getPost = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Post | void> => {
+    try {
+      const postId = req.params.id;
+      const posts = await this.PostService.getPost(postId);
 
       res.status(200).json(posts);
     } catch (error) {

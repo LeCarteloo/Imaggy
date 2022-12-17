@@ -55,8 +55,6 @@ describe('Users', () => {
         .post(`${path}/register`)
         .send(userPayload);
 
-      console.log(body);
-
       expect(statusCode).toBe(201);
       expect(body).toEqual({
         ...userPayload,

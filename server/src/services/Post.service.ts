@@ -41,14 +41,36 @@ class PostService {
    */
   public async getPosts(): Promise<Post[] | Error> {
     try {
-      const posts = await PostModel.find().populate('author likes');
+      const posts = await PostModel.find()
+        .populate('author likes')
+        .sort('-createdAt');
 
       return posts;
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);
       }
-      throw new Error('Unablte to get posts');
+      throw new Error('Unable to get posts');
+    }
+  }
+
+  /*
+   * Getting post by id
+   */
+  public async getPost(postId: string): Promise<Post | Error> {
+    try {
+      const post = await PostModel.findById(postId).populate('author likes');
+
+      if (!post) {
+        throw new Error('Post doesnt exist');
+      }
+
+      return post;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unable to get user posts');
     }
   }
 }
