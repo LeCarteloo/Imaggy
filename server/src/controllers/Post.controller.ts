@@ -24,6 +24,12 @@ class PostController implements Controller {
     );
     this.router.get(this.path, this.getPosts);
     this.router.get(`${this.path}/:id`, this.getPost);
+    this.router.patch(`${this.path}/:id/like`, authMiddleware, this.likePost);
+    this.router.patch(
+      `${this.path}/:id/unlike`,
+      authMiddleware,
+      this.unlikePost,
+    );
   }
 
   //* @desc Create post
@@ -33,7 +39,7 @@ class PostController implements Controller {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Post | void> => {
+  ): Promise<void> => {
     try {
       const authorId = req.user._id;
       const { title, image, tags, device, location, description } = req.body;
@@ -63,7 +69,7 @@ class PostController implements Controller {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Post[] | void> => {
+  ): Promise<void> => {
     try {
       const posts = await this.PostService.getPosts();
 
@@ -82,12 +88,54 @@ class PostController implements Controller {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Post | void> => {
+  ): Promise<void> => {
     try {
       const postId = req.params.id;
       const posts = await this.PostService.getPost(postId);
 
       res.status(200).json(posts);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(404, error.message));
+      }
+    }
+  };
+
+  //* @desc Like post by id
+  //* @route PATCH /:id/like
+  //* @access Private
+  private likePost = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const postId = req.params.id;
+      const userId = req.user._id;
+      const post = await this.PostService.likePost(postId, userId);
+
+      res.status(200).json(post);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  //* @desc Unlike post by id
+  //* @route PATCH /:id/unlike
+  //* @access Private
+  private unlikePost = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const postId = req.params.id;
+      const userId = req.user._id;
+      const post = await this.PostService.unlikePost(postId, userId);
+
+      res.status(200).json(post);
     } catch (error) {
       if (error instanceof Error) {
         next(new HttpException(400, error.message));

@@ -1,4 +1,4 @@
-import { Post } from '@/interfaces/interfaces';
+import { Post, User } from '@/interfaces/interfaces';
 import PostModel from '@/models/Post.model';
 
 class PostService {
@@ -71,6 +71,70 @@ class PostService {
         throw new Error(error.message);
       }
       throw new Error('Unable to get user posts');
+    }
+  }
+
+  /*
+   * Like the post by id
+   */
+  public async likePost(postId: string, userId: string): Promise<Post | Error> {
+    try {
+      const post = await PostModel.findOne({
+        _id: postId,
+        likes: userId,
+      }).populate('author');
+
+      if (post) {
+        throw new Error('You already like this post');
+      }
+
+      const updatedPost = await PostModel.findByIdAndUpdate(
+        postId,
+        {
+          $push: { likes: userId },
+        },
+        { new: true },
+      );
+
+      if (!updatedPost) {
+        throw new Error('Post doesnt exist');
+      }
+
+      return updatedPost;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unable to like post');
+    }
+  }
+
+  /*
+   * Unlike the post by id
+   */
+  public async unlikePost(
+    postId: string,
+    userId: string,
+  ): Promise<Post | Error> {
+    try {
+      const updatedPost = await PostModel.findOneAndUpdate(
+        { _id: postId, likes: userId },
+        {
+          $pull: { likes: userId },
+        },
+        { new: true },
+      ).populate('author');
+
+      if (!updatedPost) {
+        throw new Error('You are not liking this post');
+      }
+
+      return updatedPost;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unable to unlike post');
     }
   }
 }

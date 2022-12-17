@@ -13,7 +13,7 @@ describe('Healthcheck', () => {
     expect(body).toHaveProperty('message');
   });
 
-  afterAll(() => {
-    app.closeDbConn();
+  afterAll(async () => {
+    await app.closeDbConn();
   });
 });

@@ -148,10 +148,10 @@ describe('Posts', () => {
       expect(headers['content-type']).toEqual(expect.stringContaining('json'));
     });
 
-    it('Should return 400 status and correct message', async () => {
+    it('Should return 404 status and correct message', async () => {
       const { body, statusCode } = await superTest.get(`${path}/${postId}`);
 
-      expect(statusCode).toBe(400);
+      expect(statusCode).toBe(404);
       expect(body).toHaveProperty('message');
     });
 
@@ -167,6 +167,93 @@ describe('Posts', () => {
 
       expect(statusCode).toBe(200);
       expect(body._id).toBe(response.body._id);
+    });
+
+    afterAll(async () => {
+      await mongoose.connection.collection('posts').drop();
+    });
+  });
+
+  describe('Like post route', () => {
+    let postId: string;
+
+    beforeAll(async () => {
+      const { body } = await superTest
+        .post(path)
+        .send(validPostPayload)
+        .set('Authorization', `Bearer ${token}`);
+
+      postId = body._id;
+    });
+
+    it('Should specify JSON in the Content-Type header', async () => {
+      const { headers } = await superTest.patch(`${path}/${postId}/like`);
+
+      expect(headers['content-type']).toEqual(expect.stringContaining('json'));
+    });
+
+    it('Should return 200 status and user should be in likes array', async () => {
+      const { body, statusCode } = await superTest
+        .patch(`${path}/${postId}/like`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(200);
+      expect(body.likes).toContain(userId.toString());
+    });
+
+    it('Should return 400 status and have message property', async () => {
+      const { body, statusCode } = await superTest
+        .patch(`${path}/${postId}/like`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty('message');
+    });
+
+    afterAll(async () => {
+      await mongoose.connection.collection('posts').drop();
+    });
+  });
+
+  describe('Unlike post route', () => {
+    let postId: string;
+
+    beforeAll(async () => {
+      // Creating the post
+      const { body } = await superTest
+        .post(path)
+        .send(validPostPayload)
+        .set('Authorization', `Bearer ${token}`);
+      postId = body._id;
+
+      // Liking the post
+      await superTest
+        .patch(`${path}/${postId}/like`)
+        .set('Authorization', `Bearer ${token}`);
+    });
+
+    it('Should specify JSON in the Content-Type header', async () => {
+      const { headers } = await superTest.patch(`${path}/${postId}/unlike`);
+
+      expect(headers['content-type']).toEqual(expect.stringContaining('json'));
+    });
+
+    it('Should return 200 status and correct post', async () => {
+      const { body, statusCode } = await superTest
+        .patch(`${path}/${postId}/unlike`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(200);
+      expect(body._id).toBe(postId);
+    });
+
+    it('Should return 400 status and have property message', async () => {
+      const { body, statusCode } = await superTest
+        .patch(`${path}/${postId}/unlike`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty('message');
     });
 
     afterAll(async () => {
