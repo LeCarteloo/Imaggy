@@ -31,6 +31,15 @@ const invalidPostPayload = {
   description: 'TestDescription',
 };
 
+const updatedPostPayload = {
+  title: 'TestTitle1',
+  location: 'TestLocation1',
+  tags: ['TestTag1'],
+  device: 'TestDevice1',
+  description: 'TestDescription1',
+};
+
+// TODO: Add non authenticated test and authenticated
 describe('Posts', () => {
   let token: string;
 
@@ -97,7 +106,8 @@ describe('Posts', () => {
       it('Should return 400 code and correct message', async () => {
         const { body, statusCode } = await superTest
           .post(path)
-          .send(invalidPostPayload);
+          .send(invalidPostPayload)
+          .set('Authorization', `Bearer ${token}`);
 
         expect(statusCode).toBe(400);
         expect(body).toEqual({
@@ -174,7 +184,7 @@ describe('Posts', () => {
     });
   });
 
-  describe('Like post route', () => {
+  describe('Like route', () => {
     let postId: string;
 
     beforeAll(async () => {
@@ -215,7 +225,7 @@ describe('Posts', () => {
     });
   });
 
-  describe('Unlike post route', () => {
+  describe('Unlike route', () => {
     let postId: string;
 
     beforeAll(async () => {
@@ -250,6 +260,100 @@ describe('Posts', () => {
     it('Should return 400 status and have property message', async () => {
       const { body, statusCode } = await superTest
         .patch(`${path}/${postId}/unlike`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty('message');
+    });
+
+    afterAll(async () => {
+      await mongoose.connection.collection('posts').drop();
+    });
+  });
+
+  describe('Update route', () => {
+    let postId: string;
+
+    beforeAll(async () => {
+      // Creating the post
+      const { body } = await superTest
+        .post(path)
+        .send(validPostPayload)
+        .set('Authorization', `Bearer ${token}`);
+      postId = body._id;
+    });
+
+    it('Should return 200 status and updated post', async () => {
+      const { body, statusCode } = await superTest
+        .post(`${path}/${postId}`)
+        .send(updatedPostPayload)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(200);
+      expect(body).toEqual({
+        ...updatedPostPayload,
+        _id: postId,
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+        likes: expect.any(Array),
+        image: expect.any(String),
+        downloads: 0,
+        views: 1,
+        __v: expect.any(Number),
+        author: expect.any(Object),
+      });
+    });
+
+    it('Should return 400 status and have message property', async () => {
+      const { body, statusCode } = await superTest
+        .post(`${path}/${userId}`)
+        .send(updatedPostPayload)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty('message');
+    });
+
+    afterAll(async () => {
+      await mongoose.connection.collection('posts').drop();
+    });
+  });
+
+  describe('Delete route', () => {
+    let postId: string;
+
+    beforeAll(async () => {
+      // Creating the post
+      const { body } = await superTest
+        .post(path)
+        .send(validPostPayload)
+        .set('Authorization', `Bearer ${token}`);
+      postId = body._id;
+    });
+
+    it('Should return 200 status and deleted post', async () => {
+      const { body, statusCode } = await superTest
+        .delete(`${path}/${postId}`)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(200);
+      expect(body).toEqual({
+        ...validPostPayload,
+        _id: postId,
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+        likes: expect.any(Array),
+        image: expect.any(String),
+        downloads: 0,
+        views: 0,
+        __v: expect.any(Number),
+        author: userId.toString(),
+      });
+    });
+
+    it('Should return 400 status and have message property', async () => {
+      const { body, statusCode } = await superTest
+        .delete(`${path}/${postId}`)
         .set('Authorization', `Bearer ${token}`);
 
       expect(statusCode).toBe(400);

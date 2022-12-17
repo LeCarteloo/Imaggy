@@ -18,8 +18,8 @@ class PostController implements Controller {
   private initRotues() {
     this.router.post(
       this.path,
-      validationMiddleware(postValidation.create),
       authMiddleware,
+      validationMiddleware(postValidation.create),
       this.createPost,
     );
     this.router.get(this.path, this.getPosts);
@@ -30,6 +30,13 @@ class PostController implements Controller {
       authMiddleware,
       this.unlikePost,
     );
+    this.router.post(
+      `${this.path}/:id`,
+      authMiddleware,
+      validationMiddleware(postValidation.update),
+      this.updatePost,
+    );
+    this.router.delete(`${this.path}/:id`, authMiddleware, this.deletePost);
   }
 
   //* @desc Create post
@@ -134,6 +141,50 @@ class PostController implements Controller {
       const postId = req.params.id;
       const userId = req.user._id;
       const post = await this.PostService.unlikePost(postId, userId);
+
+      res.status(200).json(post);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  //* @desc Update post by id
+  //* @route POST /:id
+  //* @access Private
+  private updatePost = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const userId = req.user._id;
+      const postId = req.params.id;
+
+      const post = await this.PostService.updatePost(postId, userId, req.body);
+
+      res.status(200).json(post);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  //* @desc Delete post by id
+  //* @route DELETE /:id
+  //* @access Private
+  private deletePost = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const userId = req.user._id;
+      const postId = req.params.id;
+
+      const post = await this.PostService.deletePost(postId, userId);
 
       res.status(200).json(post);
     } catch (error) {

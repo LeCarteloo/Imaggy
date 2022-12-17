@@ -137,6 +137,61 @@ class PostService {
       throw new Error('Unable to unlike post');
     }
   }
+
+  /*
+   * Update the post by id
+   */
+  public async updatePost(
+    postId: string,
+    userId: string,
+    body: Post,
+  ): Promise<Post | Error> {
+    try {
+      // TODO: add not authorized information (when a user
+      // TODO: tries to update a post that is not theirs)
+      const updatedPost = await PostModel.findOneAndUpdate(
+        { _id: postId, author: userId },
+        { ...body, $inc: { views: 1 } },
+        { new: true },
+      ).populate('author', '_id username avatar');
+
+      if (!updatedPost) {
+        throw new Error('Post doesnt exist');
+      }
+
+      return updatedPost;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unable to update post');
+    }
+  }
+
+  /*
+   * Delete the post by id
+   */
+  public async deletePost(postId: string, userId: string) {
+    try {
+      // TODO: add not authorized information (when a user
+      // TODO: tries to update a post that is not theirs)
+      const deletedPost = await PostModel.findOneAndDelete({
+        _id: postId,
+        author: userId,
+      });
+
+      if (!deletedPost) {
+        throw new Error('Post doesnt exist');
+      }
+
+      return deletedPost;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+      throw new Error('Unable to delete post');
+    }
+  }
 }
 
 export default PostService;
