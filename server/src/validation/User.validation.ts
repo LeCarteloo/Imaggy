@@ -32,4 +32,22 @@ const login = Joi.object({
   password: Joi.string().required(),
 });
 
-export default { register, login };
+const update = Joi.object({
+  email: Joi.string().email(),
+  username: Joi.string().min(5).max(14),
+  avatar: Joi.string().allow(''),
+  name: Joi.string().min(5).max(14),
+  surname: Joi.string().min(5).max(14),
+  bio: Joi.string().max(250).allow(''),
+  profileBg: Joi.string().allow(''),
+  skills: Joi.array().max(7).items(Joi.string()),
+  interest: Joi.array().max(7).items(Joi.string()),
+  links: {
+    facebook: Joi.string().allow(''),
+    instagram: Joi.string().allow(''),
+    website: Joi.string().allow(''),
+  },
+  location: Joi.string().max(24).allow(''),
+});
+
+export default { register, login, update };

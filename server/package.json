@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node build/index.js",
     "test": "jest --runInBand",
-    "test:watch": "jest --watch",
+    "test-watch": "jest --watch --runInBand",
     "dev": "tsc-watch --onSuccess \"node ./build/src/index.js\"",
     "build": "tsc",
     "postinstall": "npm run build"

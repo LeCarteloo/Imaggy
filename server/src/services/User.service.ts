@@ -4,9 +4,9 @@ import bcrypt from 'bcryptjs';
 import { createToken } from '@/utilis/Token';
 
 class UserService {
-  // @desc Register user
-  // @route POST /register
-  // @access Public
+  /*
+   * Register user with provided data
+   */
   public async register(body: User): Promise<User | Error> {
     try {
       // Checking if user exist with given username and email
@@ -38,9 +38,9 @@ class UserService {
     }
   }
 
-  // @desc Login user
-  // @route POST /login
-  // @access Public
+  /*
+   * Login user with given email and password
+   */
   public async login(email: string, password: string): Promise<User | Error> {
     try {
       const user = await UserModel.findOne({ email });
@@ -76,9 +76,9 @@ class UserService {
     }
   }
 
-  // @desc Get user
-  // @route GET /:username
-  // @access Public
+  /*
+   * Getting user by username
+   */
   public async getUser(username: string): Promise<User | Error> {
     try {
       const user = await UserModel.findOne({ username }).populate(
@@ -100,9 +100,36 @@ class UserService {
     }
   }
 
-  // @desc Follow user
-  // @route PATCH /:id/follow
-  // @access Private
+  /*
+   * Update the user by id and with provided data
+   */
+  public async updateUser(userId: string, body: User): Promise<User | Error> {
+    try {
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        userId,
+        {
+          ...body,
+        },
+        { new: true },
+      ).populate('followers following', '-password');
+
+      if (!updatedUser) {
+        throw new Error('User doesnt exist');
+      }
+
+      return updatedUser;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+
+      throw new Error('Unable to update user');
+    }
+  }
+
+  /*
+   * Following user by logged user id and following user id
+   */
   public async followUser(
     userId: string,
     followingId: string,
@@ -147,9 +174,9 @@ class UserService {
     }
   }
 
-  // @desc Unfollow user
-  // @route PATCH /:id/unfollow
-  // @access Private
+  /*
+   * Unfollowing user by logged user id and unfollowing user id
+   */
   public async unfollowUser(userId: string, unfollowingId: string) {
     try {
       const updatedUser = await UserModel.findOneAndUpdate(

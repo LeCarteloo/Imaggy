@@ -26,6 +26,12 @@ class UserController implements Controller {
       validationMiddleware(valdiate.login),
       this.login,
     );
+    this.router.put(
+      this.path,
+      authMiddleware,
+      validationMiddleware(valdiate.update),
+      this.updateUser,
+    );
     this.router.get(`${this.path}/:username`, this.getUser);
     this.router.patch(
       `${this.path}/:id/follow`,
@@ -39,6 +45,9 @@ class UserController implements Controller {
     );
   }
 
+  //* @desc Register user
+  //* @route POST /register
+  //* @access Public
   private register = async (
     req: Request,
     res: Response,
@@ -54,6 +63,9 @@ class UserController implements Controller {
     }
   };
 
+  //* @desc Login user
+  //* @route POST /login
+  //* @access Public
   private login = async (
     req: Request,
     res: Response,
@@ -75,6 +87,9 @@ class UserController implements Controller {
     }
   };
 
+  //* @desc Get user
+  //* @route GET /:username
+  //* @access Public
   private getUser = async (
     req: Request,
     res: Response,
@@ -92,6 +107,29 @@ class UserController implements Controller {
     }
   };
 
+  //* @desc Update user
+  //* @route PUT /
+  //* @access Private
+  private updateUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const userId = req.user._id;
+      const user = await this.UserService.updateUser(userId, req.body);
+
+      res.status(200).json(user);
+    } catch (error) {
+      if (error instanceof Error) {
+        next(new HttpException(400, error.message));
+      }
+    }
+  };
+
+  //* @desc Follow user
+  //* @route PATCH /:id/follow
+  //* @access Private
   private followUser = async (
     req: Request,
     res: Response,
@@ -115,6 +153,9 @@ class UserController implements Controller {
     }
   };
 
+  //* @desc Unfollow user
+  //* @route PATCH /:id/unfollow
+  //* @access Private
   private unfollowUser = async (
     req: Request,
     res: Response,

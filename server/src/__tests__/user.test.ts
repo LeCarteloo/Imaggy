@@ -137,10 +137,107 @@ describe('Users', () => {
     });
   });
 
-  describe('Follow route', () => {
+  describe('Update user route', () => {
     let user: User;
 
-    // Registering users before login tests
+    // Registering users before follow tests
+    beforeAll(async () => {
+      const { body } = await supertest(app.express)
+        .post(`${path}/register`)
+        .send(userPayload);
+      user = body;
+      await supertest(app.express).post(`${path}/register`).send(userPayload2);
+    });
+
+    it('Should return 400 status and validation error', async () => {
+      const postPayload = {
+        email: '',
+        username: '',
+        avatar: '',
+        name: '',
+        surname: '',
+        bio: '',
+        profileBg: '',
+        skills: [],
+        interest: [],
+        links: {
+          facebook: '',
+          instagram: '',
+          website: '',
+        },
+        location: '',
+      };
+
+      const token = createToken(
+        user,
+        process.env.JWT_SECRET as string,
+        process.env.JWT_LIFE as string,
+      );
+      const { body, statusCode } = await supertest(app.express)
+        .put(path)
+        .send(postPayload)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(400);
+      expect(body).toHaveProperty('message', 'Validation error');
+
+      // Checking if validation error is provided for required values
+      ['email', 'name', 'surname', 'username'].forEach((property) => {
+        expect(body.errors).toHaveProperty(property);
+      });
+    });
+
+    it('Should return 200 status, update user and return correct data', async () => {
+      const postPayload = {
+        email: 'testdata@testdata.com',
+        username: 'testdata',
+        avatar: 'testdata',
+        name: 'testdata',
+        surname: 'testdata',
+        bio: 'testdata',
+        profileBg: 'testdata',
+        skills: ['testdata'],
+        interest: ['testdata'],
+        links: {
+          facebook: 'testdata',
+          instagram: 'testdata',
+          website: 'testdata',
+        },
+        location: 'testdata',
+      };
+
+      const token = createToken(
+        user,
+        process.env.JWT_SECRET as string,
+        process.env.JWT_LIFE as string,
+      );
+      const { body, statusCode } = await supertest(app.express)
+        .put(path)
+        .send(postPayload)
+        .set('Authorization', `Bearer ${token}`);
+
+      expect(statusCode).toBe(200);
+      expect(body).toEqual({
+        __v: expect.any(Number),
+        _id: expect.any(String),
+        createdAt: expect.any(String),
+        updatedAt: expect.any(String),
+        password: expect.any(String),
+        followers: [],
+        following: [],
+        isPro: false,
+        ...postPayload,
+      });
+    });
+
+    afterAll(async () => {
+      await app.dropDb();
+    });
+  });
+
+  describe('Follow route', () => {
+    let user: User;
+    // Registering users before follow tests
     beforeAll(async () => {
       const { body } = await supertest(app.express)
         .post(`${path}/register`)
@@ -172,7 +269,7 @@ describe('Users', () => {
   describe('Unfollow route', () => {
     let user: User;
 
-    // Registering users before login tests
+    // Registering users before unfollow tests
     beforeAll(async () => {
       const { body } = await supertest(app.express)
         .post(`${path}/register`)
