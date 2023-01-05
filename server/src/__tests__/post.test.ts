@@ -298,7 +298,7 @@ describe('Posts', () => {
         likes: expect.any(Array),
         image: expect.any(String),
         downloads: 0,
-        views: 1,
+        views: 0,
         __v: expect.any(Number),
         author: expect.any(Object),
       });

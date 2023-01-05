@@ -18,9 +18,9 @@ export const generalSettingsSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
   username: yup
     .string()
-    .min(5, 'Surname must be at least 5 characters')
-    .max(14, 'Surname must be at most 14 characters')
-    .required('Surname is required'),
+    .min(5, 'Username must be at least 5 characters')
+    .max(14, 'Username must be at most 14 characters')
+    .required('Username is required'),
   location: yup.string().max(24, 'Location must be at most 24 characters'),
   interest: yup.array().max(7).of(yup.string()),
   skills: yup.array().max(7).of(yup.string()),

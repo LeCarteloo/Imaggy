@@ -46,7 +46,7 @@ interface Post extends Document {
   likes: User[];
   // TODO: Implement comment interface and model
   // comments: Comment[]
-  author: User;
+  author: Omit<User, 'password'>;
 }
 
 export { Post, User, Token, Controller };

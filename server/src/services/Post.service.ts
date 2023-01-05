@@ -59,7 +59,13 @@ class PostService {
    */
   public async getPost(postId: string): Promise<Post | Error> {
     try {
-      const post = await PostModel.findById(postId).populate('author likes');
+      const post = await PostModel.findByIdAndUpdate(
+        postId,
+        {
+          $inc: { views: 1 },
+        },
+        { new: true },
+      ).populate('author likes');
 
       if (!post) {
         throw new Error('Post doesnt exist');
@@ -139,7 +145,7 @@ class PostService {
   }
 
   /*
-   * Update the post by id
+   * Update the post by id and with provided data
    */
   public async updatePost(
     postId: string,
@@ -151,7 +157,7 @@ class PostService {
       // TODO: tries to update a post that is not theirs)
       const updatedPost = await PostModel.findOneAndUpdate(
         { _id: postId, author: userId },
-        { ...body, $inc: { views: 1 } },
+        { ...body },
         { new: true },
       ).populate('author', '_id username avatar');
 
